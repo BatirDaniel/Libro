@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "SWbsRyYiF5fQJWY8QmO931IAlqdBiiqJqMSbHB4WJqGRXH8NY5J1dVUFnD71+5EHs1no+63GC4DjYuCX6x4i7Q==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\crme031\\Desktop\\Libro\\Libro.Presentation\\Libro.Presentation.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\crme031\\.nuget\\packages\\autofac\\7.0.0\\autofac.7.0.0.nupkg.sha512",
+    "C:\\Users\\crme031\\.nuget\\packages\\mediatr\\12.1.1\\mediatr.12.1.1.nupkg.sha512",
+    "C:\\Users\\crme031\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
+    "C:\\Users\\crme031\\.nuget\\packages\\mediatr.extensions.autofac.dependencyinjection\\11.0.0\\mediatr.extensions.autofac.dependencyinjection.11.0.0.nupkg.sha512",
+    "C:\\Users\\crme031\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\crme031\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.18.1\\microsoft.visualstudio.azure.containers.tools.targets.1.18.1.nupkg.sha512",
+    "C:\\Users\\crme031\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.7.1\\system.diagnostics.diagnosticsource.4.7.1.nupkg.sha512"
+  ],
+  "logs": []
+}

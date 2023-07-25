@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "D0tvHM6QuR0SLgrHmeQZZ7p9eB4pzmejKLF8kDWRDXZualhsaN0/rJKMwrG7G+DIyaHUkU4Oj9aE7Hj0BRgt7A==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\crme031\\Desktop\\Libro\\Libro.DataAccess\\Libro.DataAccess.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\crme031\\.nuget\\packages\\autofac\\7.0.0\\autofac.7.0.0.nupkg.sha512",
+    "C:\\Users\\crme031\\.nuget\\packages\\mediatr\\12.1.1\\mediatr.12.1.1.nupkg.sha512",
+    "C:\\Users\\crme031\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
+    "C:\\Users\\crme031\\.nuget\\packages\\mediatr.extensions.autofac.dependencyinjection\\11.0.0\\mediatr.extensions.autofac.dependencyinjection.11.0.0.nupkg.sha512",
+    "C:\\Users\\crme031\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\crme031\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.7.1\\system.diagnostics.diagnosticsource.4.7.1.nupkg.sha512"
+  ],
+  "logs": []
+}
