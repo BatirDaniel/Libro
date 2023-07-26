@@ -9,10 +9,16 @@
   <ItemGroup>
     <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="MediatR.Extensions.Autofac.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Libro.DataAccess\Libro.DataAccess.csproj" />
+    <ProjectReference Include="..\Libro.Infrastructure\Libro.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

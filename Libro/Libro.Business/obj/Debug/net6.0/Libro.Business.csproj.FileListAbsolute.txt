@@ -1,0 +1,17 @@
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Business\bin\Debug\net6.0\Libro.Business.deps.json
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Business\bin\Debug\net6.0\Libro.Business.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Business\bin\Debug\net6.0\Libro.Business.pdb
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Business\bin\Debug\net6.0\Libro.DataAccess.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Business\bin\Debug\net6.0\Libro.Infrastructure.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Business\bin\Debug\net6.0\Libro.DataAccess.pdb
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Business\bin\Debug\net6.0\Libro.Infrastructure.pdb
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Business\obj\Debug\net6.0\Libro.Business.csproj.AssemblyReference.cache
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Business\obj\Debug\net6.0\Libro.Business.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Business\obj\Debug\net6.0\Libro.Business.AssemblyInfoInputs.cache
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Business\obj\Debug\net6.0\Libro.Business.AssemblyInfo.cs
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Business\obj\Debug\net6.0\Libro.Business.csproj.CoreCompileInputs.cache
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Business\obj\Debug\net6.0\Libro.Business.csproj.CopyComplete
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Business\obj\Debug\net6.0\Libro.Business.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Business\obj\Debug\net6.0\refint\Libro.Business.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Business\obj\Debug\net6.0\Libro.Business.pdb
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Business\obj\Debug\net6.0\ref\Libro.Business.dll
