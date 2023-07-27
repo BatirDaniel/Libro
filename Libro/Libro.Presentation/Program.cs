@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+//builder.Services.Configure(builder.Configuration.GetSection("AppSettings"));
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -12,6 +12,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {
     option.UseSqlServer(connection);
 });
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+//builder.Services.AddMediatR(typeof(Program));
 
 builder.Services.AddControllersWithViews();
 

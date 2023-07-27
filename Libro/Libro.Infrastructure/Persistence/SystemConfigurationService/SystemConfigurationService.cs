@@ -10,16 +10,23 @@ namespace Libro.Infrastructure.SystemConfiguration
     public class SystemConfigurationService
     {
         public AppSettings? settings { get; private set; }
+        private IWritableOptions<AppSettings> _appSettingsOptions;
 
         public SystemConfigurationService(
-            AppSettings _settings)
+            IWritableOptions<AppSettings> appSettingsOptions)
         {
-            settings = _settings;
+            settings = _appSettingsOptions.Value;
+            _appSettingsOptions = appSettingsOptions;
         }
 
-        public void SetJWTSecret (string secret)
+        public void SetJWTSecret (string newJwtSecret)
         {
-            settings.JWT_Secret = secret;
+            settings.JWT_Secret = newJwtSecret;
+
+            this._appSettingsOptions.Update(op =>
+            {
+                op.JWT_Secret = newJwtSecret;
+            });
         }
     }
 }
