@@ -1,11 +1,6 @@
 ﻿using Libro.DataAccess.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Libro.Business.Contracts
+namespace Libro.DataAccess.Contracts
 {
     public interface IUnitOfWork : IDisposable
     {
@@ -16,7 +11,7 @@ namespace Libro.Business.Contracts
         IGenericRepository<Log> Logs { get; }
         IGenericRepository<IssueTypes> IssueTypes { get; }
         IGenericRepository<Issue> Issues { get; }
-        IGenericRepository<Issue> ConnectionTypes { get; }
-        IGenericRepository<Issue> City { get; }
+        IGenericRepository<ConnectionTypes> ConnectionTypes { get; }
+        IGenericRepository<City> City { get; }
     }
 }

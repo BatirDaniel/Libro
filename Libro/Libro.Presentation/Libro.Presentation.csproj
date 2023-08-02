@@ -9,8 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="Resources\pngs\bank.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="MediatR.Extensions.Autofac.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,10 +26,31 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.15" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Libro.Business\Libro.Business.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="StaticFiles\" />
+    <Folder Include="Resources\svgs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\pngs\bank.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckBuilt Include="wwwroot/css/site.css" Set="Css" />
+    <UpToDateCheckBuilt Include="tailwind.config.js" Set="Css" />
+  </ItemGroup>
+
+  <Target Name="Tailwind" BeforeTargets="Build">
+    <Exec Command="npm run css:build" />
+  </Target>
 
 </Project>

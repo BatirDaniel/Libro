@@ -1,4 +1,15 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿$('#createAccountButton').on('click', () => {
+    Swal.fire({
+        icon: 'error',
+        title: "Don't have an account ?",
+        text: 'Please notify the administrator',
+        confirmButtonText: `Okey`
+    })
+})
 
-// Write your JavaScript code.
+$('#getStartedButton').on('click', () => {
+    location.href='auth/login'
+})
+
+$('#signInButton').on('click', () => {
+})

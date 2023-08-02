@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
 
 namespace Libro.Presentation.Controllers.Issue
 {
-    public class IssueController : Controller
+    public class IssueController : LibroController
     {
-        public IActionResult Index()
+        private readonly IMediator _mediator;
+
+        public IssueController(IMediator mediator) : base(mediator)
         {
-            return View();
+            _mediator = mediator;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Libro.DataAccess.Entities;
-using Libro.Infrastructure.SystemConfiguration;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 
 namespace Libro.DataAccess.Data
 {
@@ -10,18 +10,18 @@ namespace Libro.DataAccess.Data
             UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager,
             ApplicationDbContext context,
-            SystemConfigurationService configurationService)
+            IConfiguration configuration)
         {
             SeedRoles(roleManager);
-            SeedUsers(userManager, configurationService);
+            SeedUsers(userManager, configuration);
         }
 
-        private static void SeedUsers(UserManager<User> userManager, SystemConfigurationService configurationService)
+        private static void SeedUsers(UserManager<User> userManager, IConfiguration configuration)
         {
-            if(userManager.FindByEmailAsync("admin@libro.com").Result == null)
+            if (userManager.FindByEmailAsync("admin@libro.com").Result == null)
             {
                 var user = new User { Email = "admin@libro.com" };
-                var userPassword = configurationService.settings.AdminPassword;
+                var userPassword = configuration["AppSettings:AdminPassword"]?.ToString();
 
                 var result = userManager.CreateAsync(user, userPassword).Result;
 
@@ -32,7 +32,7 @@ namespace Libro.DataAccess.Data
 
         private static void SeedRoles(RoleManager<IdentityRole> roleManager)
         {
-            var roles = new List<string> { "Admin", "Technician","User" };
+            var roles = new List<string> { "Admin", "Technician", "User" };
 
             foreach (var r in roles)
             {

@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Libro.DataAccess", "Libro.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Libro.Business", "Libro.Business\Libro.Business.csproj", "{FA070F8E-9058-40CE-B5F0-1C4569D7D27C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libro.Infrastructure", "Libro.Infrastructure\Libro.Infrastructure.csproj", "{5C9CA70E-1318-4516-B995-645DB6C0877B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Libro.Infrastructure", "Libro.Infrastructure\Libro.Infrastructure.csproj", "{5C9CA70E-1318-4516-B995-645DB6C0877B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

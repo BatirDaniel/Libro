@@ -1,0 +1,14 @@
+﻿using MediatR;
+
+namespace Libro.Business.Commands.IdentityCommands
+{
+    public class CreateUserCommand : IRequest<string>
+    {
+        public string? Name { get; set; }
+        public string? Username { get; set; }
+        public string? Email { get; set; }
+        public string? Password { get; set; }
+        public string? Telephone { get; set; }
+        public string? IdUserType { get; set; }
+    }
+}

@@ -1,10 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Libro.DataAccess.Entities
 {
@@ -28,7 +22,7 @@ namespace Libro.DataAccess.Entities
         public TimeSpan? MorningOpening { get; set; }
         public TimeSpan? MorningClosing { get; set; }
         public TimeSpan? AfternoonOpening { get; set; }
-        public TimeSpan? AfternoonClosing{ get; set; }
+        public TimeSpan? AfternoonClosing { get; set; }
 
         [NotMapped]
         public List<int>? _daysClosed => DaysClosed.Split().Select(x => int.Parse(x.ToString())).ToList();

@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Libro.Presentation.Controllers.Pos
 {
     public class PosController : Controller
     {
-        public IActionResult Index()
+        private readonly IMediator _mediator;
+        public PosController(IMediator mediator)
         {
-            return View();
+            _mediator = mediator;
         }
     }
 }

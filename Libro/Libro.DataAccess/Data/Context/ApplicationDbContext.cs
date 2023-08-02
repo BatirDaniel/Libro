@@ -1,11 +1,10 @@
 ﻿using Libro.DataAccess.Entities;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
 namespace Libro.DataAccess.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<User>
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
