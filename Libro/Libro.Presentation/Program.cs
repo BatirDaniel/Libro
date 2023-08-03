@@ -34,6 +34,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(option =>
     {
+        option.LoginPath = "/auth/login";
+        option.LogoutPath = "";
         option.Cookie.Name = builder.Configuration["AppSettings:Cookie_Name"];
         option.ExpireTimeSpan = TimeSpan.FromDays(int.Parse(builder.Configuration["AppSettings:ExpireTimeSpan"]));
         option.SlidingExpiration = bool.Parse(builder.Configuration["AppSettings:SlidingExpiration"]);

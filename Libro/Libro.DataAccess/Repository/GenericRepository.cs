@@ -18,8 +18,8 @@ namespace Libro.DataAccess.Repository
         }
 
         public async Task<int> Count(
-            Expression<Func<T, bool>> where = null,
-            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
+            Expression<Func<T, bool>>? where = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null)
         {
             IQueryable<T> query = _db;
 
@@ -52,9 +52,9 @@ namespace Libro.DataAccess.Repository
         }
 
         public async Task<IList<TType>> Find<TType>(
-            Expression<Func<T, bool>> where = null,
-            Expression<Func<T, TType>> select = null,
-            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
+            Expression<Func<T, bool>>? where = null,
+            Expression<Func<T, TType>>? select = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null)
         {
             IQueryable<T> query = _db;
 
@@ -75,11 +75,11 @@ namespace Libro.DataAccess.Repository
         }
 
         public async Task<IList<TType>> FindAll<TType>(
-            Expression<Func<T, bool>> where = null,
-            Expression<Func<T, TType>> select = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
-            List<string> includes = null,
+            Expression<Func<T, bool>>? where = null,
+            Expression<Func<T, TType>>? select = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+            List<string>? includes = null,
             int? skip = null,
             int? take = null)
         {

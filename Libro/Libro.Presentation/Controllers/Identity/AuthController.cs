@@ -1,6 +1,10 @@
 ﻿using Libro.Business.Commands.IdentityCommands;
+using Libro.DataAccess.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Libro.Presentation.Controllers.Identity
 {
@@ -14,28 +18,33 @@ namespace Libro.Presentation.Controllers.Identity
         }
 
         [HttpPost("auth/signIn")]
-        public async Task<IActionResult> SignIn([FromBody] SignInUserCommand command)
+        public async Task<IActionResult> SignIn([FromBody] SignInUserCommand command, string? ReturnUrl)
         {
             var result = await _mediator.Send(command);
-            return result != null ? Ok(result) : BadRequest();
+
+            if(result.Item1 != null)
+            {
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, result.Item1.Name),
+                    new Claim(ClaimTypes.NameIdentifier, result.Item1.Id),
+                };
+                var claimIdentity = new ClaimsIdentity(claims, "Login");
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimIdentity));
+                return Redirect(ReturnUrl == null ? "/Dashboard" : ReturnUrl);
+            }
+            else return View(result.Item2);
         }
 
         [HttpPost("auth/signOut")]
-        public async Task<IActionResult> SignOut([FromBody] string coockie)
+        public async Task<IActionResult> SignOut()
         {
-            var result = await _mediator.Send(coockie);
-
-            return result != null ? Ok(result) : NotFound();
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("");
         }
 
         [Route("auth/login")]
         public IActionResult Login()
-        {
-            return View();
-        }
-
-        [Route("auth/register")]
-        public IActionResult Register()
         {
             return View();
         }
