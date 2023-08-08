@@ -1,47 +1,99 @@
+using Autofac.Core;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Libro.Business.Commands.IdentityCommands;
+using Libro.Business.Commands.IssueCommands;
+using Libro.Business.Commands.PosCommands;
+using Libro.Business.Managers;
+using Libro.Business.Services;
+using Libro.Business.Validators;
+using Libro.DataAccess.Contracts;
 using Libro.DataAccess.Data;
 using Libro.DataAccess.Entities;
+using Libro.DataAccess.Repository;
+using Libro.Infrastructure.Mappers;
 using Libro.Infrastructure.Persistence.SystemConfiguration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using System;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+// Caching
+builder.Services.AddMemoryCache();
+builder.Services.AddDistributedMemoryCache();
 
-builder.Services.AddDbContext<ApplicationDbContext>(option =>
+// Mvc
+builder.Services.AddRouting();
+builder.Services.AddMvc();
+
+//Database
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ?? "");
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ?? "");
 });
 
-builder.Services.AddIdentityCore<User>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddIdentityCore<User>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+}).AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+
+//Coockie
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/auth/login";
+        options.LogoutPath = "";
+        options.Cookie.Name = builder.Configuration["AppSettings:Cookie_Name"];
+        options.ExpireTimeSpan = TimeSpan.FromDays(int.Parse(builder.Configuration["AppSettings:ExpireTimeSpan"]));
+        options.SlidingExpiration = bool.Parse(builder.Configuration["AppSettings:SlidingExpiration"]);
+    });
 
 builder.Services.AddControllers();
-
 builder.Services.AddRazorPages();
-
 builder.Services.AddSwaggerGen();
+
+//Services
+
+builder.Services.AddTransient<IDBDesigner, DBDesigner>();
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddTransient<ClaimsPrincipal>(s =>
+    s.GetService<IHttpContextAccessor>().HttpContext?.User ?? null);
+
+//builder.Services.AddSingleton<SystemConfigurationService>();
+
+builder.Services.AddScoped<IValidator<AddUserCommand>, AddUserCommandValidator>();
+builder.Services.AddScoped<IValidator<CreatePosCommand>, AddPosCommandValidator>();
+builder.Services.AddScoped<IValidator<CreateIssueCommand>, AddIssueCommandValidator>();
+
+builder.Services.AddScoped<IdentityService>();
+
+builder.Services.ConfigureWritable<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+
+builder.Services.AddScoped<IdentityManager>();
+builder.Services.AddScoped<PosManager>();
+builder.Services.AddScoped<IssueManager>();
 
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
 });
 
-builder.Services.AddControllersWithViews();
-
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(option =>
-    {
-        option.LoginPath = "/auth/login";
-        option.LogoutPath = "";
-        option.Cookie.Name = builder.Configuration["AppSettings:Cookie_Name"];
-        option.ExpireTimeSpan = TimeSpan.FromDays(int.Parse(builder.Configuration["AppSettings:ExpireTimeSpan"]));
-        option.SlidingExpiration = bool.Parse(builder.Configuration["AppSettings:SlidingExpiration"]);
-    });
-
 var app = builder.Build();
+
+using (var scope = app.Services.CreateAsyncScope())
+{
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    var systemConfigurationService = scope.ServiceProvider.GetRequiredService<SystemConfigurationService>();
+
+    SeedData.Seed(userManager, roleManager, dbContext, systemConfigurationService);
+}
 
 app.UseRouting();
 
@@ -61,6 +113,12 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseStaticFiles(new StaticFileOptions()
+{
+    FileProvider = new PhysicalFileProvider(
+           Path.Combine(builder.Environment.ContentRootPath, "Resources")),
+    RequestPath = "/Resources"
+});
 
 app.UseEndpoints(endpoints =>
 {
@@ -68,18 +126,10 @@ app.UseEndpoints(endpoints =>
         name: "default",
         pattern: "{controller=Libro}/{action=Index}/{id?}");
 
+
+
     endpoints.MapRazorPages();
     endpoints.MapControllers();
 });
-
-//app.MapControllerRoute(
-//        name: "auth-login",
-//        pattern: "auth/login",
-//        defaults: new { controller = "Auth", action = "Login" });
-
-//app.MapControllerRoute(
-//    name: "auth-register",
-//    pattern: "auth/register",
-//    defaults: new { controller = "Auth", action = "Register" });
 
 app.Run();

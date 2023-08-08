@@ -1,4 +1,7 @@
-﻿namespace Libro.DataAccess.Entities
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Libro.DataAccess.Entities
 {
     public class Issue
     {
@@ -16,7 +19,7 @@
         public Status? Status { get; set; }
         public string? IdStatus { get; set; }
 
-        public string? Memo { get; set; }
+        public byte[]? Memo { get; set; }
 
         public User? User { get; set; }
         public string? IdUserCreated { get; set; }

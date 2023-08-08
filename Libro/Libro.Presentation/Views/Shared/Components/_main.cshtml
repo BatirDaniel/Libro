@@ -1,5 +1,5 @@
 ﻿<div class="flex flex-wrap items-center justify-center w-full transition-all duration-200">
-    <div class="mt-[5%] relative border-gray-800 dark:border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[600px] w-[300px]">
+    <div class="mt-[5%] relative border-gray-800 dark:border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[600px] w-[300px] mb-5">
         <div class="h-[32px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -left-[17px] top-[72px] rounded-l-lg"></div>
         <div class="h-[46px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -left-[17px] top-[124px] rounded-l-lg"></div>
         <div class="h-[46px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -left-[17px] top-[178px] rounded-l-lg"></div>
@@ -15,11 +15,10 @@
             the complete solution for managing employees bank details and managing their problems
         </h5>
         <div class="flex flex-wrap justify-center mt-10">
-            <a asp-controller="Identity" asp-action="Users">
                 <button type="button" id="signInButton" class="relative inline-flex items-center justify-center h-14 w-60 p-0.5 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-blue-700 to-blue-700 group-hover:from-blue-700 group-hover:to-blue-700 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-700 dark:focus:ring-cyan-800">
                 
                     <span class="relative w-full h-full px-5 py-[1rem] transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                        Sign In
+                        @Html.ActionLink("Sign In","Register","Identity")
                     </span>
                 </button>
             </a>

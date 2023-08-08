@@ -1,4 +1,5 @@
 ﻿using Libro.DataAccess.Entities;
+using Libro.Infrastructure.Persistence.SystemConfiguration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 
@@ -9,19 +10,19 @@ namespace Libro.DataAccess.Data
         public static void Seed(
             UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager,
-            ApplicationDbContext context,
-            IConfiguration configuration)
+            ApplicationDbContext dbContext,
+            SystemConfigurationService systemConfigurationService)
         {
             SeedRoles(roleManager);
-            SeedUsers(userManager, configuration);
+            SeedUsers(userManager, systemConfigurationService);
         }
 
-        private static void SeedUsers(UserManager<User> userManager, IConfiguration configuration)
+        private static void SeedUsers(UserManager<User> userManager, SystemConfigurationService configuration)
         {
-            if (userManager.FindByEmailAsync("admin@libro.com").Result == null)
+            if (userManager.FindByNameAsync("admin@libro").Result == null)
             {
-                var user = new User { Email = "admin@libro.com" };
-                var userPassword = configuration["AppSettings:AdminPassword"]?.ToString();
+                var user = new User { UserName = "admin@libro.com" };
+                var userPassword = configuration.AppSettings.AdminPassword;
 
                 var result = userManager.CreateAsync(user, userPassword).Result;
 

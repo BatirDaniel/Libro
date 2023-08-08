@@ -1,18 +1,25 @@
 ﻿using Libro.Business.Commands.IdentityCommands;
+using Libro.Business.Managers;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Libro.Business.Handlers.CommandHandlers.IdentityCommandsHandlers
 {
-    public class RemoveUserHandler : IRequestHandler<RemoveUserCommand, string>
+    public class RemoveUserHandler : IRequestHandler<RemoveUserCommand, string?>
     {
-        public Task<string> Handle(RemoveUserCommand request, CancellationToken cancellationToken)
+        public IdentityManager _manager;
+        public ILogger<RemoveUserHandler> _logger;
+
+        public RemoveUserHandler(IdentityManager manager, ILogger<RemoveUserHandler> logger)
         {
-            throw new NotImplementedException(); //Need to be implemented :)
+            _manager = manager;
+            _logger = logger;
+        }
+
+        public async Task<string?> Handle(RemoveUserCommand request, CancellationToken cancellationToken)
+        {
+            var result = await _manager.Remove(request);
+            return result != null ? result : null;
         }
     }
 }

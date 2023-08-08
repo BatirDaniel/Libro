@@ -7,9 +7,26 @@
     })
 })
 
-$('#getStartedButton').on('click', () => {
-    location.href='auth/login'
-})
+document.addEventListener("DOMContentLoaded", function () {
+    var getSBtn = document.getElementById("getStartedButton");
 
-$('#signInButton').on('click', () => {
+    var currentUrl = window.location.pathname;
+
+    if (currentUrl === "/") {
+        getSBtn.disabled = false;
+    } else {
+        getSBtn.disabled = true;
+    }
+});
+
+$("#menu-button").on("click", () => {
+    const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+
+    if (isExpanded) {
+        menuButton.setAttribute('aria-expanded', 'false');
+        $(".absolute").classList.add('hidden');
+    } else {
+        menuButton.setAttribute('aria-expanded', 'true');
+        $(".absolute").classList.remove('hidden');
+    }
 })

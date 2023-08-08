@@ -17,7 +17,6 @@ namespace Libro.Presentation.Controllers.User
         public async Task<IActionResult> Create([FromBody] AddUserCommand command)
         {
             var result = await _mediator.Send(command);
-
             return result == null ? Ok("Success") : BadRequest(result);
         }
 
@@ -25,7 +24,6 @@ namespace Libro.Presentation.Controllers.User
         public async Task<IActionResult> Update([FromBody] AddUserCommand command)
         {
             var result = await _mediator.Send(command);
-
             return result == null ? Ok("Success") : BadRequest(result);
         }
 
@@ -38,17 +36,17 @@ namespace Libro.Presentation.Controllers.User
             return result == null ? Ok("Succes") : BadRequest(result);
         }
 
-        [HttpGet("user/GetAllCompleteUser")]
-        public async Task<IActionResult> GetUsers()
+        [HttpGet("user/GeAutocompleteUsers/{filter?}")]
+        public async Task<IActionResult> GetUsers(string filter)
         {
-            var query = new GetAllUsersQuery();
+            var query = new GeAutocompleteUsersQuery(filter);
             var result = await _mediator.Send(query);
 
             return result != null ? Ok(result) : BadRequest(result);
         }
 
-        [Route("administration/users")]
-        public IActionResult Users()
+        [Route("auth/register")]
+        public IActionResult Register()
         {
             return View();
         }

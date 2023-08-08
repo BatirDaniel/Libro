@@ -1,7 +1,7 @@
-﻿using Libro.DataAccess.Entities;
+﻿using Libro.Business.Responses.IdentityResponses;
 using MediatR;
 
 namespace Libro.Business.Queries.IdentityQueries
 {
-    public class GetAllRolesQuery : IRequest<List<UserTypes>> { }
+    public class GetAllRolesQuery : IRequest<List<RoleResponse>> { }
 }

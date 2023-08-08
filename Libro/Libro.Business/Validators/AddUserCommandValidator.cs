@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Libro.Business.Validators
 {
-    internal sealed class AddUserCommandValidator : AbstractValidator<AddUserCommand>
+    public sealed class AddUserCommandValidator : AbstractValidator<AddUserCommand>
     {
         public AddUserCommandValidator()
         {

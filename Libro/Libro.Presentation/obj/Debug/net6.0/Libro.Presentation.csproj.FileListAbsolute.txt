@@ -279,3 +279,12 @@ C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\System.
 C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\System.Text.Json.dll
 C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\Riok.Mapperly.Abstractions.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\Antlr3.Runtime.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\FluentNHibernate.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\Iesi.Collections.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\NHibernate.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\Remotion.Linq.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\Remotion.Linq.EagerFetching.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll

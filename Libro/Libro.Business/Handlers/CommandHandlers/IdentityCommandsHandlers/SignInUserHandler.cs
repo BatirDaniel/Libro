@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Libro.Business.Handlers.CommandHandlers.IdentityCommands
 {
-    public class SignInUserHandler : IRequestHandler<SignInUserCommand, Tuple<User?,string>>
+    public class SignInUserHandler : IRequestHandler<SignInUserCommand, Tuple<User?, string>>
     {
         public UserManager<User> _userManager;
         public IdentityService _identityService;
@@ -25,8 +25,7 @@ namespace Libro.Business.Handlers.CommandHandlers.IdentityCommands
             _identityService = identityService;
         }
 
-
-        async Task<Tuple<User?, string>> IRequestHandler<SignInUserCommand, Tuple<User?, string>>.Handle(SignInUserCommand request, CancellationToken cancellationToken)
+        public async Task<Tuple<User?, string>> Handle(SignInUserCommand request, CancellationToken cancellationToken)
         {
             var user = await _identityService.GetUserByUsername(request.Username);
 

@@ -1,5 +1,7 @@
-﻿using Libro.DataAccess.Entities;
+﻿using Libro.DataAccess.Contracts;
+using Libro.DataAccess.Entities;
 using Libro.DataAccess.Repository;
+using Libro.Infrastructure.Persistence.SystemConfiguration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
@@ -12,13 +14,25 @@ namespace Libro.Business.Services
 {
     public class IdentityService
     {
-        public UserManager<User> _userManager;
-        public UnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
+        private UserManager<User> _userManager;
+        private RoleManager<IdentityRole> _roleManager;
+        private AppSettings _appSettings;
+        private ClaimsPrincipal _user;
+        public ClaimsPrincipal User => _user;
 
-        public IdentityService(UserManager<User> userManager, UnitOfWork unitOfWork)
+        public IdentityService(
+            UserManager<User> userManager,
+            IUnitOfWork unitOfWork, 
+            RoleManager<IdentityRole> roleManager,
+            AppSettings appSettings,
+            ClaimsPrincipal user)
         {
             _userManager = userManager;
             _unitOfWork = unitOfWork;
+            _roleManager = roleManager;
+            _appSettings = appSettings;
+            _user = user;
         }
 
         public async Task<User> GetUserByUsername(string? username)
