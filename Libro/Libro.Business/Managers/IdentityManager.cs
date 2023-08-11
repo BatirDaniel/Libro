@@ -6,12 +6,11 @@ using Libro.DataAccess.Contracts;
 using Libro.DataAccess.Entities;
 using Libro.Infrastructure.Helpers.ExpressionSuport;
 using Libro.Infrastructure.Mappers;
-using Libro.Infrastructure.Persistence.SystemConfiguration;
+using Libro.Infrastructure.Persistence.SystemConfiguration.AppSettings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using NHibernate.Linq;
-using NHibernate.Util;
+using Microsoft.Extensions.Options;
 using System.Linq.Expressions;
 using System.Security.Claims;
 
@@ -36,7 +35,7 @@ namespace Libro.Business.Managers
             IUnitOfWork unitOfWork,
             ClaimsPrincipal user,
             RoleManager<IdentityRole> roleManager,
-            AppSettings appSettings)
+            IOptions<AppSettings> appSettings)
         {
             _logger = logger;
             _userManager = userManager;
@@ -45,7 +44,7 @@ namespace Libro.Business.Managers
             _unitOfWork = unitOfWork;
             _user = user;
             _roleManager = roleManager;
-            _appSettings = appSettings;
+            _appSettings = appSettings.Value;
         }
 
         public async Task<string?> Create(AddUserCommand command)
@@ -53,13 +52,16 @@ namespace Libro.Business.Managers
             command.Username = command.Username?.Trim();
 
             var _validation = new AddUserCommandValidator();
-            var result = _validation.Validate(command);
+            var validate = _validation.Validate(command);
 
-            if (result != null)
-                return result.ToString();
+            if (!validate.IsValid)
+                return validate.ToString();
 
             User user = _mapperly.Map(command);
+
             user.Id = Guid.NewGuid().ToString();
+            user.DateRegistered = DateTime.Now;
+            user.UserName = command.Username;
 
             if (user.UserName != null)
                 if (await _userManager.FindByNameAsync(user.UserName) != null)
@@ -69,8 +71,13 @@ namespace Libro.Business.Managers
                 if (await _userManager.FindByEmailAsync(user.Email) != null)
                     return "The provided email is already in use";
 
-            await _unitOfWork.Users.Create(user);
-            await _unitOfWork.Save();
+            string result = await _identityService.CreateUser(user, user.Password);
+            if (result != null)
+                return result;
+
+            result = await _identityService.AssignRoles(user, command.IdUserType);
+            if (result != null)
+                return result;
 
             return null;
         }
@@ -102,13 +109,6 @@ namespace Libro.Business.Managers
 
             return null;
         }
-
-        public async Task<List<RoleResponse>> GetAllRoles()
-        {
-            return (await _unitOfWork.UserTypes.FindAll<RoleResponse>(
-                where : x => x.UserType != null)).ToList();
-        }
-
         private async Task<User?> GetFullUser(string? id)
         {
             var user = (await _unitOfWork.Users.Find<User>

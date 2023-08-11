@@ -14,6 +14,6 @@ namespace Libro.Infrastructure.Mappers
         public partial User Map(AddUserCommand command); //Mapping from AddUserCommand => User
         public partial UserResponse Map(User user);
         public partial AddUserCommand Map(UpdateUserCommand command);
-        public partial List<RoleResponse> Map(List<IdentityRole> role);
+        public partial UserTypes Map(IdentityRole role);
     }
 }

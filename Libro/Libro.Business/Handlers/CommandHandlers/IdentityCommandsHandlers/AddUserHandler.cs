@@ -7,8 +7,8 @@ namespace Libro.Business.Handlers.CommandHandlers.IdentityCommands
 {
     public class AddUserHandler : IRequestHandler<AddUserCommand, string?>
     {
-        IdentityManager _manager;
-        ILogger<AddUserHandler> _logger;
+        public IdentityManager _manager;
+        public ILogger<AddUserHandler> _logger;
 
         public AddUserHandler(IdentityManager manager, ILogger<AddUserHandler> logger)
         {

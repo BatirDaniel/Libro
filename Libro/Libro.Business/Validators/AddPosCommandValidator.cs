@@ -9,19 +9,23 @@ namespace Libro.Business.Validators
     {
         public ValidateDaysClosed? _validator = new ValidateDaysClosed();
 
+        [Obsolete]
         public AddPosCommandValidator()
         {
             RuleFor(x => x.Name)
+                .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty().WithMessage("Name cannot be empty.")
                 .Length(5, 80).WithMessage("Name cannot contain less than 8 letters and more than 50");
 
             RuleFor(x => x.Telephone)
+                .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty().WithMessage("Telephone cannot be empty.")
                 .Length(10,20).WithMessage("Telephone cannot contain less than 10 digit and more than 20")
                 .Matches(new Regex(@"^\+39\s\d{2,3}\s\d{6,7}$")).WithMessage("Phone Number not valid")
                 .Matches(new Regex(@"^\+373\s\d{2}\s\d{3}\s\d{3}$")).WithMessage("Phone Number not valid");
 
             RuleFor(x => x.Cellphone)
+                .Cascade(CascadeMode.StopOnFirstFailure)
                 .Length(10, 20).WithMessage("Cellphone cannot contain less than 10 digit and more than 20")
                 .Matches(new Regex(@"^\+39\s\d{2,3}\s\d{6,7}$")).WithMessage("Phone Number not valid")
                 .Matches(new Regex(@"^\+373\s\d{2}\s\d{3}\s\d{3}$")).WithMessage("Phone Number not valid");

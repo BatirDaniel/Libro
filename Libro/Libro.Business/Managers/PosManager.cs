@@ -10,7 +10,9 @@ namespace Libro.Business.Managers
 {
     public class PosManager : EntityManager
     {
-        public PosManager(UnitOfWork unitOfWork, ClaimsPrincipal user) : base(unitOfWork, user)
+        public PosManager(
+            UnitOfWork unitOfWork,
+            ClaimsPrincipal user) : base(unitOfWork, user)
         {
         }
     }

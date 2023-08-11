@@ -7,33 +7,29 @@ namespace Libro.Business.Validators
     {
         public AddIssueCommandValidator()
         {
-            RuleFor(x => x.IdPos);
+            RuleFor(x => x.IdPos)
+                .NotEmpty().WithMessage("POS is required");
 
-            RuleFor(x => x.IdType);
+            RuleFor(x => x.IdType)
+                .NotEmpty().WithMessage("Issue type is required");
 
-            RuleFor(x => x.IdSubType);
+            RuleFor(x => x.Priority)
+                .NotEmpty().WithMessage("Priority is required");
 
-            RuleFor(x => x.Priority);
+            RuleFor(x => x.IdStatus)
+                .NotEmpty().WithMessage("Status is required");
 
-            RuleFor(x => x.IdStatus);
+            RuleFor(x => x.IdUserCreated)
+                .NotEmpty().WithMessage("User is required");
 
-            RuleFor(x => x.Memo);
+            RuleFor(x => x.IdAssigned)
+                .NotEmpty().WithMessage("User is required");
 
-            RuleFor(x => x.IdUserCreated);
+            RuleFor(x => x.Description)
+                .Length(0, 150).WithMessage("Description cannot have more than 150 characters");
 
-            RuleFor(x => x.IdAssigned);
-
-            RuleFor(x => x.Description);
-
-            RuleFor(x => x.AssignedDate);
-
-            RuleFor(x => x.CreationDate);
-
-            RuleFor(x => x.ModifDate);
-
-            RuleFor(x => x.Solution);
-
-            //Need to implement validation for all properties
+            RuleFor(x => x.AssignedDate)
+                .LessThan(DateTime.UtcNow).WithMessage("Invalid assigned date");
         }
     }
 }

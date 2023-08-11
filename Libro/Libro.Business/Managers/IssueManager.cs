@@ -10,7 +10,9 @@ namespace Libro.Business.Managers
 {
     public class IssueManager : EntityManager
     {
-        public IssueManager(UnitOfWork unitOfWork, ClaimsPrincipal user) : base(unitOfWork, user)
+        public IssueManager(
+            UnitOfWork unitOfWork,
+            ClaimsPrincipal user) : base(unitOfWork, user)
         {
         }
     }
