@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -9,16 +12,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.css" rel="stylesheet" />
 </head>
-<body class="min-h-screen flex flex-col">
+<body >
+    <div class="flex flex-col h-screen">
+        <nav class="sticky top-0 z-50 bg-white border-gray-200 dark:bg-gray-900">
+            <!-- Navigation content here -->
+            @await Html.PartialAsync("~/Views/Shared/Components/_navbar.cshtml")
+        </nav>
 
-    @await Html.PartialAsync("~/Views/Shared/Components/_navbar.cshtml")
+        <div class="flex flex-grow">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="fixed flex flex-col top-0 left-0 w-64 bg-white h-full border-r">
+                    <!-- Sidebar content for authenticated user -->
+                    @await Html.PartialAsync("~/Views/Shared/Components/_sidebar.cshtml")
+                </div>
+            }
+            <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 dark:bg-gray-900 @(User.Identity.IsAuthenticated ? "lg:ml-64" : "")">
+                <main role="main" class="animate-fadeInDown">
+                    <!-- Main content here -->
+                    @RenderBody()
+                    @if (currentController == "Libro")
+                        @await Html.PartialAsync("~/Views/Shared/Components/_main.cshtml")
+                </main>
+            </div>
+        </div>
 
-    <main role="main" class="animate-fadeInDown">
-        @RenderBody()
-    </main>
-
-    @await Html.PartialAsync("~/Views/Shared/Components/_footer.cshtml")
+        <footer class="relative bg-gray-50 @(User.Identity.IsAuthenticated ? "lg:ml-64" : "") dark:bg-gray-900 bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-4 dark:bg-gray-800 dark:border-gray-600">
+            <!-- Footer content here -->
+            @await Html.PartialAsync("~/Views/Shared/Components/_footer.cshtml")
+        </footer>
+    </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>

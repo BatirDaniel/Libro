@@ -288,3 +288,4 @@ C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\Remotio
 C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
 C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\MediatR.Extensions.Microsoft.DependencyInjection.dll

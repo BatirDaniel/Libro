@@ -1,5 +1,6 @@
 ﻿using Libro.Presentation.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "9L3ehYSCEegmNFyM7HRmXz3/t/jRuxyZiyuc+9o4sWA=",
+  "Hash": "1DlNrxxNV0GhsqHq0qTes6jVUucJiiwiTpZH7v9RX64=",
   "Source": "Libro.Presentation",
   "BasePath": "_content/Libro.Presentation",
   "Mode": "Default",
@@ -814,6 +814,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\bootstrap-js\\bootstrap.min.js.map"
+    },
+    {
+      "Identity": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\identity.js",
+      "SourceId": "Libro.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\",
+      "BasePath": "_content/Libro.Presentation",
+      "RelativePath": "js/identity.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\identity.js"
+    },
+    {
+      "Identity": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\login.js",
+      "SourceId": "Libro.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\",
+      "BasePath": "_content/Libro.Presentation",
+      "RelativePath": "js/login.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\login.js"
     },
     {
       "Identity": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\site.js",

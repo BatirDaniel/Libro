@@ -189,6 +189,14 @@
       "PackagePath": "staticwebassets\\js\\bootstrap-js\\bootstrap.min.js.map"
     },
     {
+      "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\identity.js",
+      "PackagePath": "staticwebassets\\js\\identity.js"
+    },
+    {
+      "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\login.js",
+      "PackagePath": "staticwebassets\\js\\login.js"
+    },
+    {
       "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

@@ -1,6 +1,6 @@
-using Autofac.Core;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Libro.Business.AssemblyHelper;
 using Libro.Business.Commands.IdentityCommands;
 using Libro.Business.Commands.IssueCommands;
 using Libro.Business.Commands.PosCommands;
@@ -13,58 +13,72 @@ using Libro.DataAccess.Entities;
 using Libro.DataAccess.Repository;
 using Libro.Infrastructure.Mappers;
 using Libro.Infrastructure.Persistence.SystemConfiguration;
+using Libro.Infrastructure.Persistence.SystemConfiguration.AppSettings;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
-using System;
+using System.Reflection;
 using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Caching
+var configuration = builder.Configuration;
+
 builder.Services.AddMemoryCache();
 builder.Services.AddDistributedMemoryCache();
 
-// Mvc
 builder.Services.AddRouting();
 builder.Services.AddMvc();
 
-//Database
+builder.Services.AddOptions();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ?? "");
+    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection") ?? "");
 });
 
+builder.Services.RegisterHandlers();
+
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+builder.Services.AddFluentValidationClientsideAdapters();
+
+builder.Services.Configure<IdentityOptions>(q =>
+{
+    q.Password.RequireDigit = false;
+    q.Password.RequiredLength = 5;
+    q.Password.RequireNonAlphanumeric = false;
+    q.Password.RequireLowercase = false;
+    q.Password.RequireUppercase = false;
+});
 
 builder.Services.AddIdentityCore<User>(options =>
 {
     options.SignIn.RequireConfirmedAccount = true;
 }).AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
-//Coockie
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/auth/login";
+        options.LoginPath = new PathString("/Auth/Login");
         options.LogoutPath = "";
-        options.Cookie.Name = builder.Configuration["AppSettings:Cookie_Name"];
-        options.ExpireTimeSpan = TimeSpan.FromDays(int.Parse(builder.Configuration["AppSettings:ExpireTimeSpan"]));
-        options.SlidingExpiration = bool.Parse(builder.Configuration["AppSettings:SlidingExpiration"]);
+        options.Cookie.Name = configuration["AppSettings:Cookie_Name"];
+        options.ExpireTimeSpan = TimeSpan.FromDays(int.Parse(configuration["AppSettings:ExpireTimeSpan"]));
+        options.SlidingExpiration = bool.Parse(configuration["AppSettings:SlidingExpiration"]);
     });
 
 builder.Services.AddControllers();
 builder.Services.AddRazorPages();
 builder.Services.AddSwaggerGen();
 
-//Services
-
 builder.Services.AddTransient<IDBDesigner, DBDesigner>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<ClaimsPrincipal>(s =>
     s.GetService<IHttpContextAccessor>().HttpContext?.User ?? null);
 
-//builder.Services.AddSingleton<SystemConfigurationService>();
+builder.Services.AddSingleton<SystemConfigurationService>();
+builder.Services.AddSingleton<Mapperly>();
 
 builder.Services.AddScoped<IValidator<AddUserCommand>, AddUserCommandValidator>();
 builder.Services.AddScoped<IValidator<CreatePosCommand>, AddPosCommandValidator>();
@@ -72,16 +86,11 @@ builder.Services.AddScoped<IValidator<CreateIssueCommand>, AddIssueCommandValida
 
 builder.Services.AddScoped<IdentityService>();
 
-builder.Services.ConfigureWritable<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+builder.Services.ConfigureWritable<AppSettings>(configuration.GetSection("AppSettings"));
 
 builder.Services.AddScoped<IdentityManager>();
-builder.Services.AddScoped<PosManager>();
-builder.Services.AddScoped<IssueManager>();
-
-builder.Services.AddMediatR(cfg =>
-{
-    cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
-});
+//builder.Services.AddScoped<PosManager>();
+//builder.Services.AddScoped<IssueManager>();
 
 var app = builder.Build();
 
@@ -92,7 +101,7 @@ using (var scope = app.Services.CreateAsyncScope())
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     var systemConfigurationService = scope.ServiceProvider.GetRequiredService<SystemConfigurationService>();
 
-    SeedData.Seed(userManager, roleManager, dbContext, systemConfigurationService);
+    SeedData.Seed(userManager, roleManager, dbContext, systemConfigurationService).Wait();
 }
 
 app.UseRouting();
@@ -125,8 +134,6 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Libro}/{action=Index}/{id?}");
-
-
 
     endpoints.MapRazorPages();
     endpoints.MapControllers();
