@@ -7,18 +7,6 @@
     })
 })
 
-document.addEventListener("DOMContentLoaded", function () {
-    var getSBtn = document.getElementById("getStartedButton");
-
-    var currentUrl = window.location.pathname;
-
-    if (currentUrl === "/") {
-        getSBtn.disabled = false;
-    } else {
-        getSBtn.disabled = true;
-    }
-});
-
 $("#menu-button").on("click", () => {
     const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
 
