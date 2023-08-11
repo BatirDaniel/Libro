@@ -17,7 +17,7 @@ namespace Libro.DataAccess.Data
         public DbSet<User> Users { get; set; }
         public DbSet<UserTypes> UserTypes { get; set; }
         public DbSet<Pos> Pos { get; set; }
-        public DbSet<Status> Statuss { get; set; }
+        public DbSet<Status> Statuses { get; set; }
         public DbSet<Log> Logs { get; set; }
         public DbSet<Issue> Issues { get; set; }
         public DbSet<IssueTypes> IssueTypes { get; set; }

@@ -65,7 +65,7 @@ namespace Libro.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Statuss",
+                name: "Statuses",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -73,7 +73,7 @@ namespace Libro.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Statuss", x => x.Id);
+                    table.PrimaryKey("PK_Statuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,6 +106,7 @@ namespace Libro.DataAccess.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Telephone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateRegistered = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserTypesId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -325,14 +326,14 @@ namespace Libro.DataAccess.Migrations
                         principalTable: "Pos",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Issues_Statuss_IdStatus",
+                        name: "FK_Issues_Statuses_IdStatus",
                         column: x => x.IdStatus,
-                        principalTable: "Statuss",
+                        principalTable: "Statuses",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Issues_Statuss_StatusId",
+                        name: "FK_Issues_Statuses_StatusId",
                         column: x => x.StatusId,
-                        principalTable: "Statuss",
+                        principalTable: "Statuses",
                         principalColumn: "Id");
                 });
 
@@ -539,7 +540,7 @@ namespace Libro.DataAccess.Migrations
                 name: "Pos");
 
             migrationBuilder.DropTable(
-                name: "Statuss");
+                name: "Statuses");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

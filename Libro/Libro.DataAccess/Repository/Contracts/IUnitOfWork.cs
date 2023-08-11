@@ -6,7 +6,7 @@ namespace Libro.DataAccess.Contracts
     {
         IGenericRepository<User> Users { get; }
         IGenericRepository<UserTypes> UserTypes { get; }
-        IGenericRepository<Status> Status { get; }
+        IGenericRepository<Status> Statuses { get; }
         IGenericRepository<Pos> Pos { get; }
         IGenericRepository<Log> Logs { get; }
         IGenericRepository<IssueTypes> IssueTypes { get; }
