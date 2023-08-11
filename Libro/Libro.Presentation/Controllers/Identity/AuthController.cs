@@ -20,38 +20,32 @@ namespace Libro.Presentation.Controllers.Identity
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SignIn([FromBody] SignInUserCommand command, string? ReturnUrl)
+        public async Task<IActionResult> SignIn(SignInUserCommand command, string? ReturnUrl)
         {
             if (!ModelState.IsValid)
             {
-                return View(command);
+                return View();
             }
+
             var result = await _mediator.Send(command);
 
-            if (result.Item1 != null)
+            if (string.IsNullOrEmpty(result.Item2))
             {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.NameIdentifier, result.Item1.Id),
-                    new Claim(ClaimTypes.Name, result.Item1.Name)
-                };
-                var claimIdentity = new ClaimsIdentity(claims, "Login");
+                var claimIdentity = new ClaimsIdentity(result.Item1, CookieAuthenticationDefaults.AuthenticationScheme);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimIdentity));
                 return Redirect(ReturnUrl == null ? "/auth/register" : ReturnUrl);
             }
             else
             {
                 ModelState.AddModelError("", "Invalid login attempt.");
-                return View(result.Item2);
+                return View();
             }
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SignOut()
+        public new async Task<IActionResult> SignOut()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Auth");
         }
 
         [Route("auth/login")]
