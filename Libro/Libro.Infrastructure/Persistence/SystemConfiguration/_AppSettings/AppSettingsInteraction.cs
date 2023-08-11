@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-using Microsoft.Extensions.Configuration;
 
-namespace Libro.Infrastructure.Persistence.SystemConfiguration
+namespace Libro.Infrastructure.Persistence.SystemConfiguration.AppSettings
 {
     public interface IWritableOptions<out T> : IOptionsSnapshot<T> where T : class, new()
     {
@@ -42,7 +42,7 @@ namespace Libro.Infrastructure.Persistence.SystemConfiguration
 
             var jObject = JsonConvert.DeserializeObject<JObject>(File.ReadAllText(physicalPath));
             var sectionObject = jObject.TryGetValue(_section, out JToken section) ?
-                JsonConvert.DeserializeObject<T>(section.ToString()) : (Value ?? new T());
+                JsonConvert.DeserializeObject<T>(section.ToString()) : Value ?? new T();
 
             applyChanges(sectionObject);
 
@@ -58,7 +58,7 @@ namespace Libro.Infrastructure.Persistence.SystemConfiguration
             IConfigurationSection section,
             string file = "appsettings.json") where T : class, new()
         {
-            services.Configure<T>(s => s.Equals(section));
+            services.Configure<T>(section);
             services.AddTransient<IWritableOptions<T>>(provider =>
             {
                 var environment = provider.GetService<IHostEnvironment>();

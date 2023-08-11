@@ -1,21 +1,23 @@
-﻿using System.Text;
+﻿using Libro.Infrastructure.Persistence.SystemConfiguration.AppSettings;
+using Microsoft.Extensions.Options;
+using System.Text;
 
 namespace Libro.Infrastructure.Persistence.SystemConfiguration
 {
     public class SystemConfigurationService
     {
-        public AppSettings AppSettings { get; private set; }
-        private IWritableOptions<AppSettings> _appSettingsOptions;
+        public AppSettings.AppSettings AppSettings { get; private set; }
+        private IWritableOptions<AppSettings.AppSettings> _appSettingsOptions;
 
-        public SystemConfigurationService(IWritableOptions<AppSettings> appSettingsOptions, AppSettings appSettings)
+        public SystemConfigurationService(IOptions<AppSettings.AppSettings> appSettings, IWritableOptions<AppSettings.AppSettings> appSettingsOptions)
         {
+            AppSettings = appSettings.Value;
             _appSettingsOptions = appSettingsOptions;
-            AppSettings = appSettings;
         }
 
         public string GetLibraryPasswordMd5()
         {
-            return CreateMD5(AppSettings.AdminPassword);
+            return CreateMD5(AppSettings.AdminPassword ?? "");
         }
 
         public static string CreateMD5(string input)
