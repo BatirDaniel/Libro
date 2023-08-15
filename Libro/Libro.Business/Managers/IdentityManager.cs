@@ -58,8 +58,6 @@ namespace Libro.Business.Managers
                 return validate.ToString();
 
             User user = _mapperly.Map(command);
-
-            user.Id = Guid.NewGuid().ToString();
             user.DateRegistered = DateTime.Now;
             user.UserName = command.Username;
 
