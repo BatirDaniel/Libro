@@ -17,6 +17,6 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function () {
-    $("#registerForm").validate()
+$(document).ready(() => {
+    $("#registerForm").validate();
 });
