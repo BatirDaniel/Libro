@@ -2,9 +2,7 @@
 using Libro.DataAccess.Entities;
 using Libro.Infrastructure.Persistence.SystemConfiguration.AppSettings;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using NHibernate.Util;
 using System.Security.Claims;
 using System.Text;
 
@@ -51,13 +49,11 @@ namespace Libro.Business.Services
             if (result.Errors.Count() > 0)
                 return CheckResultForErrors(result);
 
-            result = await _userManager.AddToRoleAsync(user, "User");
-
             if (idUserType != null)
             {
-                List<string> actualRole = _roleManager
+                var actualRole = _roleManager
                     .Roles
-                    .Where(q => idUserType.Contains(q.Name) && q.Name != "User")
+                    .Where(q => idUserType.Contains(q.Name))
                     .Select(q => q.Name)
                     .ToList();
 
@@ -66,9 +62,6 @@ namespace Libro.Business.Services
 
             if (result.Errors.Count() > 0)
                 return CheckResultForErrors(result);
-
-            await _unitOfWork.Users.Create(user);
-            await _unitOfWork.Save();
 
             return null;
         }
@@ -96,14 +89,16 @@ namespace Libro.Business.Services
         {
             var userClaims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
-                new Claim(ClaimTypes.UserData, user.UserName)
+                new Claim("ID", user.Id.ToString()),
+                new Claim("FullName", user.Name.ToString()),
+                new Claim("Username", user.UserName.ToString()),
+                new Claim("Email", user.Email.ToString())
             };
 
             List<string> userRoles = (await _userManager.GetRolesAsync(user)).ToList();
             foreach (string role in userRoles)
             {
-                userClaims.Add(new (ClaimTypes.Role, role));
+                userClaims.Add(new ("Role", role));
             }
 
             return userClaims;

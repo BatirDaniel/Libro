@@ -14,6 +14,7 @@ using Libro.DataAccess.Repository;
 using Libro.Infrastructure.Mappers;
 using Libro.Infrastructure.Persistence.SystemConfiguration;
 using Libro.Infrastructure.Persistence.SystemConfiguration.AppSettings;
+using Libro.Infrastructure.Services.ToastService;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -85,6 +86,7 @@ builder.Services.AddScoped<IValidator<CreatePosCommand>, AddPosCommandValidator>
 builder.Services.AddScoped<IValidator<CreateIssueCommand>, AddIssueCommandValidator>();
 
 builder.Services.AddScoped<IdentityService>();
+builder.Services.AddScoped<ToastService>();
 
 builder.Services.ConfigureWritable<AppSettings>(configuration.GetSection("AppSettings"));
 

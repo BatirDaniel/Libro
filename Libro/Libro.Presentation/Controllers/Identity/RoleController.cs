@@ -2,23 +2,20 @@
 using Libro.Business.Responses.IdentityResponses;
 using Libro.DataAccess.Entities;
 using Libro.Infrastructure.Mappers;
+using Libro.Infrastructure.Services.ToastService;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Libro.Presentation.Controllers.Identity
 {
-    public class RoleController : LibroController
+    public class RoleController : Controller
     {
-        public readonly IMediator _mediator;
         public readonly RoleManager<IdentityRole> _roleManager;
         public readonly Mapperly _mapperly;
-        public RoleController(
-            IMediator mediator, 
-            Mapperly mapperly, 
-            RoleManager<IdentityRole> roleManager) : base(mediator)
+
+        public RoleController(Mapperly mapperly, RoleManager<IdentityRole> roleManager) 
         {
-            _mediator = mediator;
             _mapperly = mapperly;
             _roleManager = roleManager;
         }

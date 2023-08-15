@@ -16,8 +16,16 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Analytics/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQW5hbHl0aWNzXERhc2hib2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Auth/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Error-Pages/404.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3ItUGFnZXNcNDA0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Home/Error.cshtml]
@@ -44,6 +52,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1wb3J0c1xfVmFsaWRhdGlvblNjcmlwdHNQYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Issue/Issue.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSXNzdWVcSXNzdWUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Pos/Pos.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zXFBvcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Shared/Components/_footer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcX2Zvb3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -62,6 +78,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Shared/_LandingPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYW5kaW5nUGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Toast/_PartialToast.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9hc3RcX1BhcnRpYWxUb2FzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/_ViewImports.cshtml]
