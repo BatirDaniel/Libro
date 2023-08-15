@@ -8,11 +8,10 @@ using System.Security.Claims;
 
 namespace Libro.Presentation.Controllers.Identity
 {
-    public class AuthController : LibroController
+    public class AuthController : Controller
     {
         private readonly IMediator _mediator;
-
-        public AuthController(IMediator mediator) : base(mediator)
+        public AuthController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -33,7 +32,7 @@ namespace Libro.Presentation.Controllers.Identity
             {
                 var claimIdentity = new ClaimsIdentity(result.Item1, CookieAuthenticationDefaults.AuthenticationScheme);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimIdentity));
-                return Redirect(ReturnUrl == null ? "/auth/register" : ReturnUrl);
+                return Redirect(ReturnUrl == null ? "/administration/users" : ReturnUrl);
             }
             else
             {
