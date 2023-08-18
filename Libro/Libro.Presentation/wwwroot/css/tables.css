@@ -1,0 +1,16 @@
+﻿table.dataTable.no-footer {
+    border-radius: .5rem !important;
+}
+.dataTables_wrapper .dataTables_length select {
+    padding-right: 2rem !important;
+}
+
+table.dataTable thead > tr > th.sorting {
+    background-color: rgb(26 86 219/var(--tw-bg-opacity));
+    color: white;
+}
+
+table.dataTable > thead > tr > th {
+    background-color: rgb(26 86 219/var(--tw-bg-opacity));
+    color: white;
+}
