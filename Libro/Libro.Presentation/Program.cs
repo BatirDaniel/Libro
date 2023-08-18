@@ -1,3 +1,4 @@
+using Autofac.Core;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Libro.Business.AssemblyHelper;
@@ -11,12 +12,14 @@ using Libro.DataAccess.Contracts;
 using Libro.DataAccess.Data;
 using Libro.DataAccess.Entities;
 using Libro.DataAccess.Repository;
+using Libro.Infrastructure.Helpers.AuthorizationHelper;
 using Libro.Infrastructure.Mappers;
 using Libro.Infrastructure.Persistence.SystemConfiguration;
 using Libro.Infrastructure.Persistence.SystemConfiguration.AppSettings;
 using Libro.Infrastructure.Services.ToastService;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using System.Reflection;
@@ -30,9 +33,15 @@ builder.Services.AddMemoryCache();
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddRouting();
-builder.Services.AddMvc();
+builder.Services.AddMvc(options =>
+{
+    options.Filters.Add(typeof(AuthorizeFilter));
+});
 
 builder.Services.AddOptions();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -62,10 +71,11 @@ builder.Services.AddIdentityCore<User>(options =>
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = new PathString("/Auth/Login");
+        options.LoginPath = new PathString("/auth/Login");
+        options.AccessDeniedPath = new PathString("/Errors/403");
         options.LogoutPath = "";
         options.Cookie.Name = configuration["AppSettings:Cookie_Name"];
-        options.ExpireTimeSpan = TimeSpan.FromDays(int.Parse(configuration["AppSettings:ExpireTimeSpan"]));
+        options.ExpireTimeSpan = TimeSpan.FromSeconds(int.Parse(configuration["AppSettings:ExpireTimeSpan"]));
         options.SlidingExpiration = bool.Parse(configuration["AppSettings:SlidingExpiration"]);
     });
 
@@ -75,6 +85,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<IDBDesigner, DBDesigner>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddTransient<IToastService, ToastService>();
 builder.Services.AddTransient<ClaimsPrincipal>(s =>
     s.GetService<IHttpContextAccessor>().HttpContext?.User ?? null);
 
@@ -86,7 +97,6 @@ builder.Services.AddScoped<IValidator<CreatePosCommand>, AddPosCommandValidator>
 builder.Services.AddScoped<IValidator<CreateIssueCommand>, AddIssueCommandValidator>();
 
 builder.Services.AddScoped<IdentityService>();
-builder.Services.AddScoped<ToastService>();
 
 builder.Services.ConfigureWritable<AppSettings>(configuration.GetSection("AppSettings"));
 
@@ -106,13 +116,11 @@ using (var scope = app.Services.CreateAsyncScope())
     SeedData.Seed(userManager, roleManager, dbContext, systemConfigurationService).Wait();
 }
 
-app.UseRouting();
+app.UseSession();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Pages/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseExceptionHandler("/Errors/404");
     app.UseHsts();
 }
 

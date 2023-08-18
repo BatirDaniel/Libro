@@ -79,7 +79,6 @@ C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\obj\Debug\net6.0\refint\
 C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\obj\Debug\net6.0\Libro.Presentation.pdb
 C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\obj\Debug\net6.0\Libro.Presentation.genruntimeconfig.cache
 C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\obj\Debug\net6.0\ref\Libro.Presentation.dll
-C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\obj\Debug\net6.0\Libro.Presentation.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\Microsoft.OpenApi.dll
 C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
@@ -289,3 +288,11 @@ C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\Microso
 C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
 C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
 C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\System.Web.Mvc.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\System.Web.Razor.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\System.Web.Helpers.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\System.Web.WebPages.Deployment.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\System.Web.WebPages.Razor.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\System.Web.WebPages.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\bin\Debug\net6.0\Microsoft.Web.Infrastructure.dll
+C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\obj\Debug\net6.0\Libro.Presentation.MvcApplicationPartsAssemblyInfo.cs

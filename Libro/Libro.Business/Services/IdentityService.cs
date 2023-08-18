@@ -53,7 +53,7 @@ namespace Libro.Business.Services
             {
                 var actualRole = _roleManager
                     .Roles
-                    .Where(q => idUserType.Contains(q.Name))
+                    .Where(q => role.ToString().Contains(q.Name))
                     .Select(q => q.Name)
                     .ToList();
 

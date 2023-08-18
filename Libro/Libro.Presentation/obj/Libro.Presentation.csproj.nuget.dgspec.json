@@ -34,9 +34,6 @@
             "projectReferences": {
               "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.DataAccess\\Libro.DataAccess.csproj": {
                 "projectPath": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.DataAccess\\Libro.DataAccess.csproj"
-              },
-              "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Infrastructure\\Libro.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Infrastructure\\Libro.Infrastructure.csproj"
               }
             }
           }
@@ -277,6 +274,10 @@
               "target": "Package",
               "version": "[11.1.0, )"
             },
+            "Microsoft.AspNet.Mvc": {
+              "target": "Package",
+              "version": "[5.2.9, )"
+            },
             "Microsoft.AspNetCore.CookiePolicy": {
               "target": "Package",
               "version": "[2.2.8, )"
@@ -365,6 +366,9 @@
             "projectReferences": {
               "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Business\\Libro.Business.csproj": {
                 "projectPath": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Business\\Libro.Business.csproj"
+              },
+              "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Infrastructure\\Libro.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Infrastructure\\Libro.Infrastructure.csproj"
               }
             }
           }

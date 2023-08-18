@@ -1,4 +1,5 @@
 ﻿using Libro.Business.Commands.IdentityCommands;
+using Libro.Business.DTOs;
 using Libro.Business.Responses.IdentityResponses;
 using Libro.Business.Services;
 using Libro.Business.Validators;
@@ -7,10 +8,12 @@ using Libro.DataAccess.Entities;
 using Libro.Infrastructure.Helpers.ExpressionSuport;
 using Libro.Infrastructure.Mappers;
 using Libro.Infrastructure.Persistence.SystemConfiguration.AppSettings;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using NHibernate.Util;
 using System.Linq.Expressions;
 using System.Security.Claims;
 
@@ -118,23 +121,22 @@ namespace Libro.Business.Managers
             return user;
         }
 
-        public async Task<List<UserResponse>?> GetAutoCompleteUsers(string filter)
+        public async Task<List<UserResponse>?> GetUsers(JqueryDatatableParam param)
         {
-            Expression<Func<User, bool>> expression = q => q.UserName != "admin@libro.com";
-
-            if(filter != null)
-            {
-                Expression<Func<User, bool>> expression1 = 
-                    q => q.UserName.Contains(filter) || q.Name.Contains(filter);
-
-                expression = ExpressionCombiner.And(expression, expression1);
-            }
+            Expression<Func<User, bool>> expression = q => q.UserName != "admin@libro";
 
             var users = (await _unitOfWork.Users.FindAll<UserResponse>(
                 where: expression,
                 skip: 0,
                 take: int.MaxValue,
-                select: x => _mapperly.Map(x))).ToList();
+                select: x => new UserResponse
+                {
+                    Username = x.UserName,
+                    Telephone = x.Telephone,
+                    Email = x.Email,
+                    Name = x.Name,
+                    Role = _userManager.GetRolesAsync(x).Result.LastOrDefault(),
+                })).ToList();
 
             return users;
         }

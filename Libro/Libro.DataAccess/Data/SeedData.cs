@@ -36,7 +36,7 @@ namespace Libro.DataAccess.Data
         {
             if (await userManager.FindByNameAsync("admin@libro") == null)
             {
-                var user = new User { UserName = "admin@libro" };
+                var user = new User { UserName = "admin@libro", Name = "Administrator", Email = "admin@libro.com" };
                 var userPassword = configuration.AppSettings.AdminPassword;
 
                 var result = await userManager.CreateAsync(user, userPassword);

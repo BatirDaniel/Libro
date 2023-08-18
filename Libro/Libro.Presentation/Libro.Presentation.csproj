@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Libro.Business\Libro.Business.csproj" />
+    <ProjectReference Include="..\Libro.Infrastructure\Libro.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,14 +1,16 @@
 ﻿using Libro.Infrastructure.Services.ToastHelper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Http;
 namespace Libro.Infrastructure.Services.ToastService
 {
-    public class ToastService
+    public class ToastService : IToastService
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public ToastService(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+        }
+
         public Dictionary<string, string> GetToastData(ToastStatus status, string message)
         {
             string svg = GetSvg(status);

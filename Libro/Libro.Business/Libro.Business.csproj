@@ -21,11 +21,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Libro.DataAccess\Libro.DataAccess.csproj" />
-    <ProjectReference Include="..\Libro.Infrastructure\Libro.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
     <Folder Include="Queries\IssueQueries\" />
     <Folder Include="Queries\PosQueries\" />
   </ItemGroup>
