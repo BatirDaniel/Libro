@@ -1,8 +1,10 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Libro.Presentation.Controllers.Analytics
 {
+    [Authorize]
     public class Analytics : Controller
     {
         private readonly IMediator _mediator;

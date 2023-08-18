@@ -4,11 +4,13 @@ using Libro.DataAccess.Entities;
 using Libro.Infrastructure.Mappers;
 using Libro.Infrastructure.Services.ToastService;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Libro.Presentation.Controllers.Identity
 {
+    [Authorize]
     public class RoleController : Controller
     {
         public readonly RoleManager<IdentityRole> _roleManager;
@@ -20,7 +22,8 @@ namespace Libro.Presentation.Controllers.Identity
             _roleManager = roleManager;
         }
 
-        [HttpGet("roles/GetAllRoles")]
+        //GET : /Role/GetAllRoles
+        [HttpGet("/roles/GetAllRoles")]
         public IActionResult GetAllRoles()
         {
             List<UserTypes> roles = _roleManager.Roles

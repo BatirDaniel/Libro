@@ -32,7 +32,7 @@ namespace Libro.Presentation.Controllers.Identity
             {
                 var claimIdentity = new ClaimsIdentity(result.Item1, CookieAuthenticationDefaults.AuthenticationScheme);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimIdentity));
-                return Redirect(ReturnUrl == null ? "/administration/users" : ReturnUrl);
+                return Redirect(ReturnUrl == null ? "/dashboard" : ReturnUrl);
             }
             else
             {

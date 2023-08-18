@@ -1,10 +1,12 @@
 ﻿using Libro.Infrastructure.Services.ToastHelper;
 using Libro.Infrastructure.Services.ToastService;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Libro.Presentation.Controllers.Pos
 {
+    [Authorize]
     public class PosController : Controller
     {
         private readonly IMediator _mediator;
@@ -18,11 +20,6 @@ namespace Libro.Presentation.Controllers.Pos
         [Route("pos")]
         public IActionResult Pos()
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                ViewData["ToastData"] = _toastService.GetToastData(ToastStatus.Warning, "Please login first");
-                return View("~/Views/Error-Pages/404.cshtml");
-            }
             return View();
         }
     }
