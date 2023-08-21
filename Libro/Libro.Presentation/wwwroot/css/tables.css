@@ -14,3 +14,7 @@ table.dataTable > thead > tr > th {
     background-color: rgb(26 86 219/var(--tw-bg-opacity));
     color: white;
 }
+
+table.dataTable{
+    padding-top: 0;
+}

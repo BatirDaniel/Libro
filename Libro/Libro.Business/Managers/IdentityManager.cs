@@ -4,6 +4,7 @@ using Libro.Business.Responses.IdentityResponses;
 using Libro.Business.Services;
 using Libro.Business.Validators;
 using Libro.DataAccess.Contracts;
+using Libro.DataAccess.Data;
 using Libro.DataAccess.Entities;
 using Libro.Infrastructure.Helpers.ExpressionSuport;
 using Libro.Infrastructure.Mappers;
@@ -28,6 +29,7 @@ namespace Libro.Business.Managers
         private Mapperly _mapperly;
         private RoleManager<IdentityRole> _roleManager;
         private IUnitOfWork _unitOfWork;
+        private ApplicationDbContext _context;
         private ClaimsPrincipal _user;
 
         public IdentityManager(
@@ -38,7 +40,8 @@ namespace Libro.Business.Managers
             IUnitOfWork unitOfWork,
             ClaimsPrincipal user,
             RoleManager<IdentityRole> roleManager,
-            IOptions<AppSettings> appSettings)
+            IOptions<AppSettings> appSettings,
+            ApplicationDbContext context = null)
         {
             _logger = logger;
             _userManager = userManager;
@@ -48,6 +51,7 @@ namespace Libro.Business.Managers
             _user = user;
             _roleManager = roleManager;
             _appSettings = appSettings.Value;
+            _context = context;
         }
 
         public async Task<string?> Create(AddUserCommand command)
@@ -141,13 +145,21 @@ namespace Libro.Business.Managers
             return users;
         }
 
-        public async Task<UserResponse?> GetUserById(string? id)
+        public async Task<UpdateUserCommand?> GetUserById(string? id)
         {
-            if (!string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id))
                 return null;
-
-            var user = (await _unitOfWork.Users.Find<UserResponse>(
-                where: x => x.Id == id)).FirstOrDefault();
+            
+            var user = _context.Users
+                .Where(x => x.Id == id)
+                .Select(x => new UpdateUserCommand
+                {
+                    Name = x.Name,
+                    Telephone = x.Telephone,
+                    Email = x.Email,
+                    Password = x.Password,
+                    Username = x.UserName
+                }).FirstOrDefault();
 
             return user;
         }

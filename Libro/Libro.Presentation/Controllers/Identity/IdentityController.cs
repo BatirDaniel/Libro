@@ -44,14 +44,11 @@ namespace Libro.Presentation.Controllers.User
         }
 
         //POST: /Identity/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost("/Identity/Create")]
         public async Task<IActionResult> Create(AddUserCommand command)
         {
             if (!ModelState.IsValid)
             {
-                //var tData = _toastService.GetToastData(ToastStatus.Error, "Invalid data");
-                //ViewData["ToastData"] = tData;
                 return View("Users", command);
             }
 
@@ -60,28 +57,19 @@ namespace Libro.Presentation.Controllers.User
 
             if (!result.IsValid)
             {
-                //var tData = _toastService.GetToastData(ToastStatus.Error, "There was a problem creating the user");
-                //ViewData["ToastData"] = tData;
                 return View("Users", command);
             }
 
             var result1 = await _mediator.Send(command);
-            if (result1 is null)
-            {
-                //var tData = _toastService.GetToastData(ToastStatus.Success, "User created successfully");
-                //ViewData["ToastData"] = tData;
-            }
-            else
-            {
-                //var tData = _toastService.GetToastData(ToastStatus.Error, $"{result1}");
-                //ViewData["ToastData"] = tData;
-            }
+
+            if (result1 != null)
+                return BadRequest();
 
             return View("Users");
         }
 
         //POST: /Identity/Update
-        [HttpPost]
+        [HttpPost("/Identity/Update")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(AddUserCommand command)
         {
@@ -89,17 +77,17 @@ namespace Libro.Presentation.Controllers.User
             return result == null ? Ok("Success") : BadRequest(result);
         }
 
-        //DELETE: /Identity/Remove
-        [HttpDelete]
-        public async Task<IActionResult> Remove(string userid)
+        //DELETE: /Identity/Delete
+        [HttpDelete("/Identity/Delete")]
+        public async Task<IActionResult> Delete(string userId)
         {
-            var command = new RemoveUserCommand(userid);
+            var command = new RemoveUserCommand(userId);
             var result = await _mediator.Send(command);
 
-            return result == null ? Ok("Succes") : BadRequest(result);
+            return result == null ? Ok() : BadRequest();
         }
 
-        //POST: /Identity/GetAutocompleteUsers
+        //POST: /Identity/GetUsers
         [HttpPost("/Identity/GetUsers")]
         public async Task<IActionResult> GetUsers(DataTablesParameters param = null)
         {
@@ -143,6 +131,15 @@ namespace Libro.Presentation.Controllers.User
             };
 
             return Ok(jsonData);
+        }
+
+        //GET: /Identity/GetUserById
+        [HttpGet("/Identity/GetUserById")]
+        public async Task<IActionResult> GetUserById(string? userId)
+        {
+            var result = await _mediator.Send(new GetUserByIdQuery(userId));
+
+            return result != null ? Ok(result) : Ok(result);
         }
 
         [Route("administration/users")]

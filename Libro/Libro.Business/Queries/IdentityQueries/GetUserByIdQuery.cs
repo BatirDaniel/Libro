@@ -1,10 +1,11 @@
-﻿using Libro.Business.Responses.IdentityResponses;
+﻿using Libro.Business.Commands.IdentityCommands;
+using Libro.Business.Responses.IdentityResponses;
 using Libro.DataAccess.Entities;
 using MediatR;
 
 namespace Libro.Business.Queries.IdentityQueries
 {
-    public class GetUserByIdQuery : IRequest<UserResponse>
+    public class GetUserByIdQuery : IRequest<User>
     {
         public string? Id { get; set; }
 

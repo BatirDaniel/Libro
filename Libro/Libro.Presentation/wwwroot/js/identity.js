@@ -18,11 +18,42 @@
         }
     });
 
-    //VALIDATION: register form validation 
-    $("#registerForm").validate();
+    //VALIDATION: register form validation
+    $("#registerForm").validate({
+        submitHandler: function (event) {
+            event.preventDefault();
+
+            var formData = $(this).serialize();
+            var actionUrl = form.attr('action');
+
+            $.ajax({
+                url: actionUrl,
+                type: "POST",
+                data: formData,
+                success: function (response) {
+                    $("#staticModal").modal("hide");
+
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'User has been saved',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                },
+                error: function (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    })
+                }
+            });
+        }
+    });
 
     //GET: users list
-    $('#usersTable').DataTable({
+    var table = $('#usersTable').DataTable({
         "processing": true,
         "serverSide": true,
         "filter": true,
@@ -31,7 +62,7 @@
             "url": "/Identity/GetUsers",
             "type": "POST",
             "datatype": "json",
-            "async": false
+            "async": false,
         },
         "columnDefs": [{
             "targets": [0],
@@ -110,14 +141,109 @@
             }
         ]
     });
-
+    
+    //CONTEXT MENU: options (edit, delete) for all users
     $(document).contextMenu({
         selector: '.dropdown-button',
         trigger: 'left',
         callback: function (key, options) {
-            var userId = $(this).data("user-id");
-            var m = "clicked: " + key + " for user with ID: " + userId;
-            window.console && console.log(m) || alert(m);
+
+            let row = table.row(options.$trigger.closest("tr"));
+            let userId = row.data().id;
+
+            if (key === "edit") {
+                $("#registerForm").validate({
+                    submitHandler: function (event) {
+                        var actionUrl = form.attr('action');
+
+                        $.ajax({
+                            url: actionUrl,
+                            type: "GET",
+                            data: { userId: userId },
+                            dataType: "json",
+                            success: function (user) {
+
+                                $("#firstname").val(user.firstname);
+                                $("#lastname").val(user.lastname);
+                                $("#email").val(user.email);
+                                $("#password").val(user.password);
+                                $("#telephone").val(user.telephone);
+
+                                $("#staticModalUpdate").removeClass("hidden");
+
+                                $("#updateForm").validate({
+                                    submitHandler: function (event) {
+                                        event.preventDefault();
+
+                                        var formData = $(this).serialize();
+
+                                        $.ajax({
+                                            url: "/Identity/Update",
+                                            type: "POST",
+                                            data: formData,
+                                            success: function (user) {
+
+                                                Swal.fire({
+                                                    position: 'top-end',
+                                                    icon: 'success',
+                                                    title: 'User has been updated',
+                                                    showConfirmButton: false,
+                                                    timer: 1500
+                                                })
+
+                                                table.ajax.reload(); //TABLE will reload data
+                                            },
+                                            error: function (error) {
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Oops...',
+                                                    text: 'Something went wrong!',
+                                                })
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+                
+            } else if (key === "delete") {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Confirm'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: `/Identity/Delete`,
+                            type: "DELETE",
+                            data: { userId: userId },
+                            success: function (response) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'User has been deleted.',
+                                    'success'
+                                )
+                                table.ajax.reload();  //TABLE will reload data
+                            },
+                            error: function () {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Something went wrong!',
+                                })
+                            }
+                        });
+
+                        
+                    }
+                })
+            }
         },
         items: {
             "edit": { name: "Edit", icon: "edit" },
