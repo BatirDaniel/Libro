@@ -1,13 +1,11 @@
 ﻿using Libro.Business.Commands.IdentityCommands;
-using Libro.Business.DTOs;
+using Libro.Business.Libra.DTOs.Validators;
 using Libro.Business.Queries.IdentityQueries;
 using Libro.Business.Responses.IdentityResponses;
 using Libro.Business.TableParameters;
 using Libro.Business.Validators;
 using Libro.DataAccess.Contracts;
 using Libro.DataAccess.Data;
-using Libro.DataAccess.Entities;
-using Libro.Infrastructure.Services.ToastHelper;
 using Libro.Infrastructure.Services.ToastService;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -71,8 +69,14 @@ namespace Libro.Presentation.Controllers.User
         //POST: /Identity/Update
         [HttpPost("/Identity/Update")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(AddUserCommand command)
+        public async Task<IActionResult> Update(UpdateUserCommand command)
         {
+            var _validator = new UpdateUserCommandValidator();
+            var resultValidation = _validator.Validate(command);
+
+            if (!resultValidation.IsValid)
+                return View("Users", command);
+
             var result = await _mediator.Send(command);
             return result == null ? Ok("Success") : BadRequest(result);
         }

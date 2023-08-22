@@ -24,8 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Queries\IssueQueries\" />
-    <Folder Include="Queries\PosQueries\" />
+    <Folder Include="Libra\Queries\IssueQueries\" />
+    <Folder Include="Libra\Queries\PosQueries\" />
   </ItemGroup>
 
 </Project>

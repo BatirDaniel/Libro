@@ -129,6 +129,10 @@
       "PackagePath": "staticwebassets\\css\\bootstrap-css\\bootstrap.rtl.min.css.map"
     },
     {
+      "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\css\\modal.css",
+      "PackagePath": "staticwebassets\\css\\modal.css"
+    },
+    {
       "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

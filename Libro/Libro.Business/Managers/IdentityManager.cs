@@ -1,20 +1,16 @@
 ﻿using Libro.Business.Commands.IdentityCommands;
-using Libro.Business.DTOs;
 using Libro.Business.Responses.IdentityResponses;
 using Libro.Business.Services;
 using Libro.Business.Validators;
 using Libro.DataAccess.Contracts;
 using Libro.DataAccess.Data;
 using Libro.DataAccess.Entities;
-using Libro.Infrastructure.Helpers.ExpressionSuport;
 using Libro.Infrastructure.Mappers;
 using Libro.Infrastructure.Persistence.SystemConfiguration.AppSettings;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NHibernate.Util;
 using System.Linq.Expressions;
 using System.Security.Claims;
 
@@ -125,7 +121,7 @@ namespace Libro.Business.Managers
             return user;
         }
 
-        public async Task<List<UserResponse>?> GetUsers(JqueryDatatableParam param)
+        public async Task<List<UserResponse>?> GetUsers()
         {
             Expression<Func<User, bool>> expression = q => q.UserName != "admin@libro";
 
