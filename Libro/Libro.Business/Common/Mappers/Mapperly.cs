@@ -13,7 +13,7 @@ namespace Libro.Infrastructure.Mappers
         //Create a mapper declaration as a partial class and apply the Riok.Mapperly.Abstractions.MapperAttribute attribute.
         public partial User Map(AddUserCommand command); //Mapping from AddUserCommand => User
         public partial UserResponse Map(User user);
-        public partial AddUserCommand Map(UpdateUserCommand command);
+        public partial User MapUpdateUserToUser(UpdateUserCommand command);
         public partial UserTypes Map(IdentityRole role);
     }
 }

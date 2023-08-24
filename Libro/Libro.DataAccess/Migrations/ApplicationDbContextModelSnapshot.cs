@@ -485,13 +485,16 @@ namespace Libro.DataAccess.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<DateTime?>("DateArchieved")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime?>("DateRegistered")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("IsArchieved")
+                        .HasColumnType("bit");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Telephone")

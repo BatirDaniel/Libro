@@ -6,7 +6,9 @@
     <title>@ViewBag.Title - Libra</title>
     <link rel="preconnect" ref="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.css" rel="stylesheet" />
     <link href="~/lib/bootstrap-icons-1.10.5/font/bootstrap-icons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -27,7 +29,7 @@
         </nav>
 
         <div class="flex flex-grow">
-                @if (isAuth)
+            @if (isAuth)
             {
                 <aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
                     <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
@@ -39,12 +41,6 @@
                 <div id="main-content" class="relative w-full h-full bg-gray-50 dark:bg-gray-900 @(isAuth ? "p-4 sm:ml-64" : "")">
                 <main role="main" class="animate-fadeInDown">
                     <!-- Main content here -->
-                    @if (currentController.Equals("Libro")
-                    && !User.Identity.IsAuthenticated)
-                    {
-                        @RenderBody()
-                    }
-
                     @RenderBody()
                     @await Html.PartialAsync("~/Views/Toast/_PartialToast.cshtml")
                 </main>

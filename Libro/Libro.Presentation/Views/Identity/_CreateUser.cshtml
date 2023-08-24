@@ -20,47 +20,46 @@
 
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
                         <div>
-                            @Html.LabelFor(m => m.Firstname, "First name", new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
-                            @Html.TextBoxFor(m => m.Firstname, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="John"})
-                            @Html.ValidationMessageFor(m => m.Firstname, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"})
+                            @Html.LabelFor(m => m.Firstname, "First name", new { @id = "addFirstnameL", @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                            @Html.TextBoxFor(m => m.Firstname, new { @id = "addFirstname", @class = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder = "John" })
+                            @Html.ValidationMessageFor(m => m.Firstname, null, new { @id = "addFirstnameV", @class = "flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1" })
                         </div>
                         <div>
-                            @Html.LabelFor(m => m.Lastname, "Last name", new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
-                            @Html.TextBoxFor(m => m.Lastname, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="Doe"})
-                            @Html.ValidationMessageFor(m => m.Lastname, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"})
+                            @Html.LabelFor(m => m.Lastname, "Last name", new { @id = "addLastnameL", @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                            @Html.TextBoxFor(m => m.Lastname, new { @id = "addLastname", @class = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder = "Doe" })
+                            @Html.ValidationMessageFor(m => m.Lastname, null, new { @id = "addLastnameV", @class = "flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1" })
                         </div>
                     </div>
                     <div class="mb-6">
-                        @Html.LabelFor(m => m.Username, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
-                        @Html.TextBoxFor(m => m.Username, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="JohnDoe001"})
-                        @Html.ValidationMessageFor(m => m.Username, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"})
+                        @Html.LabelFor(m => m.Username, new { @id = "addUsernameL", @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                        @Html.TextBoxFor(m => m.Username, new { @id = "addUsername", @class = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder = "JohnDoe001" })
+                        @Html.ValidationMessageFor(m => m.Username, null, new { @id = "addUsernameV", @class = "flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1" })
                     </div>
                     <div class="mb-6">
-                        @Html.LabelFor(m => m.Email, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
-                        @Html.TextBoxFor(m => m.Email, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="john.doe@gmail.com"})
-                        @Html.ValidationMessageFor(m => m.Email, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"})
+                        @Html.LabelFor(m => m.Email, new { @id = "addEmailL", @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                        @Html.TextBoxFor(m => m.Email, new { @id = "addEmail", @class = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder = "john.doe@gmail.com" })
+                        @Html.ValidationMessageFor(m => m.Email, null, new { @id = "addEmailV", @class = "flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1" })
                     </div>
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
                         <div>
-                            @Html.LabelFor(m => m.Password, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
-                            @Html.PasswordFor(m => m.Password, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="•••••••••"})
-                            @Html.ValidationMessageFor(m => m.Password, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"})
+                            @Html.LabelFor(m => m.Password, new { @id = "addPasswordL", @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                            @Html.PasswordFor(m => m.Password, new { @id = "addPassword", @class = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder = "•••••••••" })
+                            @Html.ValidationMessageFor(m => m.Password, null, new { @id = "addPasswordV", @class = "flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1" })
                         </div>
                         <div>
-                            @Html.LabelFor(m => m.ConfirmPassword, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
-                            @Html.PasswordFor(m => m.ConfirmPassword, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="•••••••••"})
-                            @Html.ValidationMessageFor(m => m.ConfirmPassword, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"})
+                            @Html.LabelFor(m => m.ConfirmPassword, new { @id = "addConfirmPasswordL", @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @id = "addConfirmPassword", @class = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder = "•••••••••" })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword, null, new { @id = "addConfirmPasswordV", @class = "flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1" })
                         </div>
                     </div>
                     <div class="mb-6">
-                        @Html.LabelFor(m => m.Telephone, "Number phone", new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
-                        @Html.TextBoxFor(m => m.Telephone, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="78-099-291"})
-                        @Html.ValidationMessageFor(m => m.Telephone, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"})
-
+                        @Html.LabelFor(m => m.Telephone, "Number phone", new { @id = "addTelephoneL", @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                        @Html.TextBoxFor(m => m.Telephone, new { @id = "addTelephone", @class = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder = "78-099-291" })
+                        @Html.ValidationMessageFor(m => m.Telephone, null, new { @id = "addTelephoneV", @class = "flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1" })
                     </div>
                     <div class="mb-6">
-                        @Html.LabelFor(m => m.IdUserType, "Role", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
-                        <select id="roleAdd" name="IdUserType" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
+                        @Html.LabelFor(m => m.IdUserType, "Role", new { @id="addRoleL", @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                        <select id="addRole" name="IdUserType" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
                     </div>
                     <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                         <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create</button>

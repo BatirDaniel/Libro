@@ -5,6 +5,7 @@ using Libro.Business.AssemblyHelper;
 using Libro.Business.Commands.IdentityCommands;
 using Libro.Business.Commands.IssueCommands;
 using Libro.Business.Commands.PosCommands;
+using Libro.Business.Libra.DTOs.Validators;
 using Libro.Business.Managers;
 using Libro.Business.Services;
 using Libro.Business.Validators;
@@ -19,7 +20,6 @@ using Libro.Infrastructure.Persistence.SystemConfiguration.AppSettings;
 using Libro.Infrastructure.Services.ToastService;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using System.Reflection;
@@ -79,7 +79,12 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.SlidingExpiration = bool.Parse(configuration["AppSettings:SlidingExpiration"]);
     });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = null; //OR other desired strategy
+    options.JsonSerializerOptions.WriteIndented = true; //FOR better formatting
+});
+
 builder.Services.AddRazorPages();
 builder.Services.AddSwaggerGen();
 
@@ -93,6 +98,7 @@ builder.Services.AddSingleton<SystemConfigurationService>();
 builder.Services.AddSingleton<Mapperly>();
 
 builder.Services.AddScoped<IValidator<AddUserCommand>, AddUserCommandValidator>();
+builder.Services.AddScoped<IValidator<UpdateUserCommand>, UpdateUserCommandValidator>();
 builder.Services.AddScoped<IValidator<CreatePosCommand>, AddPosCommandValidator>();
 builder.Services.AddScoped<IValidator<CreateIssueCommand>, AddIssueCommandValidator>();
 

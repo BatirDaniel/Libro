@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Libro.Business.TableParameters
+namespace Libro.Business.Libra.DTOs.TableParameters
 {
     [Serializable]
     [DataContract]

@@ -103,5 +103,19 @@ namespace Libro.Business.Services
 
             return userClaims;
         }
+
+        public async Task<string?> ResetPassword(User model, string password)
+        {
+            var token = await _userManager.GeneratePasswordResetTokenAsync(model);
+            var result = await _userManager.ResetPasswordAsync(model, token, password);
+
+            return CheckResultForErrors(result);
+        }
+
+        public async Task<string?> UpdateUserData(User model)
+        {
+            var result = await _userManager.UpdateAsync(model);
+            return CheckResultForErrors(result);
+        }
     }
 }

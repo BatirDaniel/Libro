@@ -2,17 +2,25 @@
 
     //GET: roles list
     $.ajax({
-        type: "GET",
-        url: "/roles/GetAllRoles",
-        dataType: "json",
+        type: 'GET',
+        url: '/roles/GetAllRoles',
+        dataType: 'json',
         success: function (data) {
             if (data && data.length > 0) {
-                var dropdown = $("#IdUserType");
+                var dropdown = $('#addRole');
                 dropdown.empty();
+
+                var dropdownU = $('#addRole');
+                dropdownU.empty();
+
                 $.each(data, function (index, item) {
-                    dropdown.append($("<option></option>")
-                        .attr("value", item.id)
-                        .text(item.userType));
+                    dropdown.append($('<option></option>')
+                        .attr('value', item.Id)
+                        .text(item.UserType));
+
+                    dropdownU.append($('<option></option>')
+                        .attr('value', item.Id)
+                        .text(item.UserType));
                 });
             }
         }
@@ -31,22 +39,21 @@
                 type: "POST",
                 data: formData,
                 success: function (response) {
-                    $("#staticModal").modal("hide");
+                    if (response.toast) {
+                        var svg = response.toast.svg;
+                        var message = response.toast.message;
 
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'User has been saved',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
+                        showToast(svg, message)
+                    }
+                    table.reload();
                 },
-                error: function (error) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                    })
+                error: function (xhr) {
+                    if (xhr.responseJSON && xhr.responseJSON.toast) {
+                        var svg = xhr.responseJSON.toast.svg;
+                        var message = xhr.responseJSON.toast.message;
+
+                        showToast(svg, message)
+                    }
                 }
             });
         }
@@ -75,49 +82,69 @@
         },
         "columns": [
             {
-                "data": "id",
+                "data": "Id",
                 title: "Id",
-                name: "id",
+                name: "Id",
                 visible: false,
                 searchable: false
             },
             {
-                "data": "name",
+                "data": "Name",
                 title: "Name",
-                name: "name",
+                name: "Name",
                 autoWidth: true,
                 visible: true,
                 orderable: false,
                 filter: false
             },
             {
-                "data": "email",
+                "data": "Email",
                 title: "Email",
-                name: "email",
+                name: "Email",
                 autoWidth: true,
                 visible: true,
                 searchable: true
             },
             {
-                "data": "username",
+                "data": "Username",
                 title: "Username",
-                name: "username",
+                name: "Username",
                 autoWidth: true,
                 visible: true,
                 searchable: true
             },
             {
-                "data": "telephone",
+                "data": "Telephone",
                 title: "Telephone",
-                name: "telephone",
+                name: "Telephone",
                 autoWidth: true,
                 "visible": true,
                 "searchable": true
             },
             {
-                "data": "role",
+                "data": "isArchieved",
+                title: "Status",
+                name: "isArchieved",
+                autoWidth: true,
+                visible: true,
+                orderable: false,
+                filter: false,
+                "render": function (data, type, row) {
+                    if (data) {
+                        return `<span class="px-4 py-1 ml-auto text-sm font-medium tracking-wide text-yellow-500 bg-yellow-100 rounded-full">
+                                  Disabled
+                                </span>`;
+                    } else{
+                        return `<span class="px-4 py-1 ml-auto text-sm font-medium tracking-wide text-green-600 bg-green-200 rounded-full">
+                                  Enabled
+                                </span>`;
+                    }
+                }
+            },
+            {
+                "data": "Role",
                 title: "Role",
-                name: "role",
+                name: "Role",
                 autoWidth: true,
                 visible: true,
                 orderable: false,
@@ -139,126 +166,165 @@
                 }
             }
         ]
-    });
-    
+    });    
     //CONTEXT MENU: options (edit, delete) for all users
     $(document).contextMenu({
         selector: '.dropdown-button',
         trigger: 'left',
-        items: {
-            "edit": {
-                name: 'Edit',
-                icon: 'edit',
-                callback: function (key, options) {
+        className: 'bg-white w-60 border border-gray-300 rounded-lg flex flex-col text-sm w-auto text-gray-500 shadow-lg',
+        build: function ($triggerElement, e) {
+            let row = table.row($triggerElement.closest("tr"));
+            if (row) {
+                let isArchived = row.data().IsArchieved;
+                let archiveName = isArchived ? "Enable" : "Disable";
 
-                    let row = table.row(options.$trigger.closest("tr"));
-                    let userId = row.data().id;
+                return {
+                    items: {
+                        "edit": {
+                            name: 'Edit',
+                            className: 'text-sm',
+                            icon: 'bi bi-pencil-square',
+                            callback: function (key, options) {
 
-                    $.ajax({
-                        url: "/Identity/GetUserById",
-                        type: "GET",
-                        data: { userId: userId },
-                        dataType: "json",
-                        success: function (data) {
+                                let row = table.row(options.$trigger.closest("tr"));
+                                let userId = row.data().Id;
 
-                            var modal = document.getElementById("staticModalUpdate");
-                            var backdrop = document.getElementById("backdrop");
-                            modal.classList.remove("hidden")
-                            backdrop.classList.remove("hidden")
+                                //GET: /Identity/GetUserById/userId
+                                $.ajax({
+                                    url: "/Identity/GetUserById/" + userId,
+                                    type: "GET",
+                                    dataType: "json",
+                                    success: function (data) {
 
-                            $("#firstname").val(data.name.split(' ').at(0));
-                            $("#lastname").val(data.name.split(' ').at(1));
-                            $("#username").val(data.userName);
-                            $("#email").val(data.email);
-                            $("#password").val("");
-                            $("#telephone").val(data.telephone);
+                                        var modal = document.getElementById("staticModalUpdate");
+                                        var backdrop = document.getElementById("backdrop");
+                                        modal.classList.remove("hidden")
+                                        backdrop.classList.remove("hidden")
 
-                            //ROLE: Need to implement role from get response => Role manager
+                                        $.each(data, function (key, value) {
+                                            var inputField = $("#" + key);
+                                            if (inputField.length > 0) {
+                                                inputField.val(value);
+                                            }
 
-                            $('#cancelModal, #closeModal').on('click', function () { //Closing tailwind modal
-                                modal.classList.add("hidden")
-                                backdrop.classList.add("hidden")
-                            })
+                                            $('#Firstname').val(data.Name.split(' ')[0])
+                                            $('#Lastname').val(data.Name.split(' ')[1])
+                                        });
 
-                            $("#updateForm").validate({
-                                submitHandler: function (event) {
-                                    event.preventDefault();
+                                        $('#cancelModal, #closeModal').on('click', function () {
+                                            modal.classList.add("hidden")
+                                            backdrop.classList.add("hidden")
+                                        })
 
-                                    var formData = $(this).serialize();
+                                        $("#updateForm").validate({
+                                            submitHandler: function (event) {
+                                                event.preventDefault();
 
-                                    $.ajax({
-                                        url: "/Identity/Update",
-                                        type: "POST",
-                                        data: formData,
-                                        success: function (response) {
+                                                var formData = $(this).serialize();
 
-                                            Swal.fire({
-                                                position: 'top-end',
-                                                icon: 'success',
-                                                title: 'User has been updated',
-                                                showConfirmButton: false,
-                                                timer: 1500
-                                            })
+                                                $.ajax({
+                                                    url: "/Identity/Update",
+                                                    type: "POST",
+                                                    data: formData,
+                                                    success: function (response) {
+                                                        if (response.toast) {
+                                                            var svg = response.toast.svg;
+                                                            var message = response.toast.message;
 
-                                            table.ajax.reload(); //TABLE will reload data
-                                        },
-                                        error: function (error) {
+                                                            showToast(svg, message)
+                                                        }
+                                                    },
+                                                    error: function (xhr) {
+                                                        if (xhr.responseJSON && xhr.responseJSON.toast) {
+                                                            var svg = xhr.responseJSON.toast.svg;
+                                                            var message = xhr.responseJSON.toast.message;
 
-                                            Swal.fire({
-                                                icon: 'error',
-                                                title: 'Oops...',
-                                                text: 'Something went wrong!',
-                                            })
+                                                            showToast(svg, message)
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        },
+                        "delete": {
+                            name: 'Delete',
+                            className: 'text-sm',
+                            icon: 'bi bi-person-dash',
+                            callback: function (key, options) {
+
+                                let row = table.row(options.$trigger.closest("tr"));
+                                let userId = row.data().Id;
+
+                                Swal.fire({
+                                    title: 'Are you sure?',
+                                    text: "You won't be able to revert this!",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#16a34a',
+                                    cancelButtonColor: ' #ffc266',
+                                    confirmButtonText: 'Confirm'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        $.ajax({
+                                            url: `/Identity/Delete/` + userId,
+                                            type: "DELETE",
+                                            success: function (response) {
+                                                if (response.toast) {
+                                                    var svg = response.toast.svg;
+                                                    var message = response.toast.message;
+
+                                                    showToast(svg, message)
+                                                }
+                                            },
+                                            error: function (xhr) {
+                                                if (xhr.responseJSON && xhr.responseJSON.toast) {
+                                                    var svg = xhr.responseJSON.toast.svg;
+                                                    var message = xhr.responseJSON.toast.message;
+
+                                                    showToast(svg, message)
+                                                }
+                                            }
+                                        });
+                                    }
+                                })
+                            }
+                        },
+                        "archive": {
+                            name: archiveName,
+                            className: 'text-sm',
+                            icon: 'bi bi-archive-fill',
+                            callback: function (key, options) {
+                                let row = table.row(options.$trigger.closest("tr"));
+                                let userId = row.data().Id;
+
+                                $.ajax({
+                                    url: "/Identity/UpdateStatusUser/" + userId,
+                                    type: "POST",
+                                    success: function (response) {
+                                        if (response.toast) {
+                                            var svg = response.toast.svg;
+                                            var message = response.toast.message;
+
+                                            showToast(svg, message)
                                         }
-                                    });
-                                }
-                            });
-                        }
-                    });
-                }
-            },
-            "delete": {
-                name: 'Delete',
-                icon: 'delete',
-                callback: function (key, options) {
+                                    },
+                                    error: function (xhr) {
+                                        if (xhr.responseJSON && xhr.responseJSON.toast) {
+                                            var svg = xhr.responseJSON.toast.svg;
+                                            var message = xhr.responseJSON.toast.message;
 
-                    let row = table.row(options.$trigger.closest("tr"));
-                    let userId = row.data().id;
-
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Confirm'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            $.ajax({
-                                url: `/Identity/Delete`,
-                                type: "DELETE",
-                                data: { userId: userId },
-                                success: function (response) {
-                                    Swal.fire(
-                                        'Deleted!',
-                                        'User has been deleted.',
-                                        'success'
-                                    )
-                                    table.ajax.reload();  //TABLE will reload data
-                                },
-                                error: function () {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Oops...',
-                                        text: 'Something went wrong!',
-                                    })
-                                }
-                            });
+                                            showToast(svg, message)
+                                        }
+                                    }
+                                });
+                            }
                         }
-                    })
+                    }
                 }
-            },
+            }
         }
     });
 });

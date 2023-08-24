@@ -1,19 +1,25 @@
-﻿using Libro.Infrastructure.Services.ToastService;
-using Libro.Presentation.Models;
-using MediatR;
+﻿using Libro.DataAccess.Contracts;
+using Libro.DataAccess.Data;
+using Libro.Infrastructure.Services.ToastHelper;
+using Libro.Infrastructure.Services.ToastService;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using System.Security.Claims;
 
 namespace Libro.Presentation.Controllers
 {
     public class LibroController : Controller
     {
-        private readonly IMediator _mediator;
+        protected readonly IToastService _toastService;
+        protected readonly IUnitOfWork _unitOfWork;
+        protected readonly ApplicationDbContext _context;
 
-        public LibroController(IMediator mediator)
+        public LibroController(
+            IToastService toastService,
+            IUnitOfWork unitOfWork,
+            ApplicationDbContext context)
         {
-            _mediator = mediator;
+            _toastService = toastService;
+            _unitOfWork = unitOfWork;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -24,6 +30,21 @@ namespace Libro.Presentation.Controllers
                 ViewBag.ToastSvg = TempData["ToastSvg"];
             }
             return View("~/Views/Home/Index.cshtml");
+        }
+
+        public  IActionResult ResponseResult(string? message, ToastStatus? status, string? additional = null)
+        {
+            if ((status == ToastStatus.Success || status == ToastStatus.Info))
+                return Ok(new
+                {
+                    redirectUrl = additional,
+                    toast = _toastService.GetToastData(status.Value, message)
+                });
+
+            return BadRequest(new
+            {
+                toast = _toastService.GetToastData(status.Value, message)
+            });
         }
 
         [Route("Errors/403")]

@@ -1,16 +1,21 @@
 ﻿using Libro.Business.Commands.IdentityCommands;
+using Libro.Business.Common.Helpers.OrderHelper;
+using Libro.Business.Libra.DTOs.TableParameters;
 using Libro.Business.Responses.IdentityResponses;
 using Libro.Business.Services;
 using Libro.Business.Validators;
 using Libro.DataAccess.Contracts;
 using Libro.DataAccess.Data;
 using Libro.DataAccess.Entities;
+using Libro.Infrastructure.Helpers.ExpressionSuport;
 using Libro.Infrastructure.Mappers;
 using Libro.Infrastructure.Persistence.SystemConfiguration.AppSettings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using NHibernate.Util;
 using System.Linq.Expressions;
 using System.Security.Claims;
 
@@ -54,12 +59,6 @@ namespace Libro.Business.Managers
         {
             command.Username = command.Username?.Trim();
 
-            var _validation = new AddUserCommandValidator();
-            var validate = _validation.Validate(command);
-
-            if (!validate.IsValid)
-                return validate.ToString();
-
             User user = _mapperly.Map(command);
             user.DateRegistered = DateTime.Now;
             user.UserName = command.Username;
@@ -72,7 +71,7 @@ namespace Libro.Business.Managers
                 if (await _userManager.FindByEmailAsync(user.Email) != null)
                     return "The provided email is already in use";
 
-            string result = await _identityService.CreateUser(user, user.Password);
+            string result = await _identityService.CreateUser(user, command.Password);
             if (result != null)
                 return result;
 
@@ -83,9 +82,12 @@ namespace Libro.Business.Managers
             return null;
         }
 
-        public async Task<string?> Remove(RemoveUserCommand request)
+        public async Task<string?> Remove(RemoveUserCommand model)
         {
-            var user = await GetFullUser(request.Id);
+            if (!await _unitOfWork.Users.isExists(x => x.Id == model.Id))
+                return "Invalid id provided";
+
+            var user = await GetFullUser(model.Id);
 
             _unitOfWork.Users.Delete(user);
             await _unitOfWork.Save();
@@ -93,20 +95,34 @@ namespace Libro.Business.Managers
             return null;
         }
 
-        public async Task<string?> Update(UpdateUserCommand request)
+        public async Task<string?> Update(UpdateUserCommand user)
         {
-            var _user = _mapperly.Map(request);
+            string result = null;
 
-            var _validator = new AddUserCommandValidator();
-            var result = _validator.Validate(_user);
+            if (!await _unitOfWork.Users.isExists(x => x.Id == user.Id))
+                return "Invalid id provided";
 
-            if(!result.IsValid)
-                return result.ToString();
+            var model = await _userManager.FindByIdAsync(user.Id);
 
-            User user = _mapperly.Map(_user);
+            if (user.Password != null)
+            {
+                result = await _identityService.ResetPassword(model, user.Password);
+                if (result != null)
+                    return result;
+            }
 
-            _unitOfWork.Users.Update(user);
-            await _unitOfWork.Save();
+            model.UserName = user.Username;
+            model.Name = user.Name;
+            model.Telephone = user.Telephone;
+            model.Email = user.Email;
+
+            result = await _identityService.UpdateUserData(model);
+            if (result != null)
+                return result;
+
+            result = await _identityService.AssignRoles(model, user.IdUserType);
+            if (result != null)
+                return result;
 
             return null;
         }
@@ -121,43 +137,75 @@ namespace Libro.Business.Managers
             return user;
         }
 
-        public async Task<List<UserResponse>?> GetUsers()
+        public async Task<List<UserResponse>?> GetUsers(DataTablesParameters? param)
         {
+            string searchValue = param.Search.Value ?? "";
+
             Expression<Func<User, bool>> expression = q => q.UserName != "admin@libro";
 
-            var users = (await _unitOfWork.Users.FindAll<UserResponse>(
-                where: expression,
-                skip: 0,
-                take: int.MaxValue,
-                select: x => new UserResponse
-                {
-                    Username = x.UserName,
-                    Telephone = x.Telephone,
-                    Email = x.Email,
-                    Name = x.Name,
-                    Role = _userManager.GetRolesAsync(x).Result.LastOrDefault(),
-                })).ToList();
+            if(searchValue != "")
+            {
+                Expression<Func<User, bool>> expression1 = q => (q.Name.Contains(searchValue)
+                || q.Name.Contains(searchValue)
+                || q.UserName.Contains(searchValue)
+                || q.Email.Contains(searchValue)
+                || q.Telephone.Contains(searchValue)
+                || _userManager.GetRolesAsync(q).Result.First().Contains(searchValue)
+                || (q.IsArchieved ? "Archieved" : "Unarchieved").Contains(searchValue));
 
-            return users;
+                expression = ExpressionCombiner.And(expression, expression1);
+            }
+
+            var users = await _context.Users
+               .Where(expression)
+               .OrderByExtension(param.Columns[param.Order[0].Column].Name, param.Order[0].Dir)
+               .Skip(param.Start)
+               .Take(param.Length)
+               .Select(x => new UserResponse
+               {
+                   Id = x.Id,
+                   Name = x.Name,
+                   Email = x.Email,
+                   Username = x.UserName,
+                   Telephone = x.Telephone,
+                   Role = _userManager.GetRolesAsync(x).Result.LastOrDefault(),
+               }).ToListAsync();
+
+            return users ?? new List<UserResponse>();
         }
 
         public async Task<UpdateUserCommand?> GetUserById(string? id)
         {
-            if (string.IsNullOrEmpty(id))
-                return null;
-            
-            var user = _context.Users
-                .Where(x => x.Id == id)
-                .Select(x => new UpdateUserCommand
+            var user = (await _unitOfWork.Users.Find<UpdateUserCommand>(
+                where: x => x.Id == id,
+                select: x => new UpdateUserCommand
                 {
+                    Id = x.Id,
                     Name = x.Name,
                     Telephone = x.Telephone,
                     Email = x.Email,
-                    Password = x.Password,
                     Username = x.UserName
-                }).FirstOrDefault();
+                })).FirstOrDefault();
+
+            var origUser = _mapperly.MapUpdateUserToUser(user);
+            user.Role.Name = _userManager.GetRolesAsync(origUser).Result.First();
+            user.Role.Id = await _roleManager.GetRoleIdAsync(user.Role);
 
             return user;
+        }
+
+        public async Task<string> UpdateUserStatus(string id)
+        {
+            if (!await _unitOfWork.Users.isExists(x => x.Id == id))
+                return "Invalid id provided";
+
+            var model = await _userManager.FindByIdAsync(id);
+            model.IsArchieved = !model.IsArchieved;
+
+            _unitOfWork.Users.Update(model);
+            await _unitOfWork.Save();
+
+            return null;
         }
     }
 }

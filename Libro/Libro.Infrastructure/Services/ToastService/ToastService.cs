@@ -4,13 +4,6 @@ namespace Libro.Infrastructure.Services.ToastService
 {
     public class ToastService : IToastService
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public ToastService(IHttpContextAccessor httpContextAccessor)
-        {
-            _httpContextAccessor = httpContextAccessor;
-        }
-
         public Dictionary<string, string> GetToastData(ToastStatus status, string message)
         {
             string svg = GetSvg(status);

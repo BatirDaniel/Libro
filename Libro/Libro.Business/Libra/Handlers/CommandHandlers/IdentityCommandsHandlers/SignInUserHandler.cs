@@ -30,11 +30,14 @@ namespace Libro.Business.Handlers.CommandHandlers.IdentityCommands
             var user = await _identityService.GetUserByUsername(request.Username);
 
             if (user == null || !await _userManager.CheckPasswordAsync(user, request.Password))
-                return new Tuple<List<Claim>?, string>(null, "Invalid Username or Password");
+                return new Tuple<List<Claim>?, string>(null, "Invalid username or password");
+
+            if(user.IsArchieved)
+                return new Tuple<List<Claim>?, string>(null, "This account is disabled");
 
             var claims = await _identityService.GenerateClaims(user);
 
-            return new Tuple<List<Claim>?, string>(claims, "");
+            return new Tuple<List<Claim>?, string>(claims, null);
         }
     }
 }

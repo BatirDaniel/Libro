@@ -28,9 +28,7 @@ namespace Libro.Business.Handlers.QueryHandlers.IdentityHandlers
 
         public async Task<List<UserResponse>?> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
-            var result = await _manager.GetUsers();
-
-            return result ?? new List<UserResponse>();
+            return await _manager.GetUsers(request.param);
         }
     }
 }

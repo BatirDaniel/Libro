@@ -18,8 +18,7 @@ namespace Libro.Business.Handlers.CommandHandlers.IdentityCommands
 
         public async Task<string?> Handle(AddUserCommand request, CancellationToken cancellationToken)
         {
-            var result = await _manager.Create(request);
-            return result != null ? result : null;
+            return await _manager.Create(request);
         }
     }
 }

@@ -1,12 +1,6 @@
 ﻿using FluentValidation;
 using Libro.Business.Commands.IdentityCommands;
-using Libro.Business.Responses.IdentityResponses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Libro.Business.Libra.DTOs.Validators
 {
@@ -47,7 +41,7 @@ namespace Libro.Business.Libra.DTOs.Validators
             //.Matches(new Regex(@"^\+39\s\d{2,3}\s\d{6,7}$")).WithMessage("Phone Number not valid") //Validation for Italy
             //.Matches(new Regex(@"^\+373\s\d{2}\s\d{3}\s\d{3}$")).WithMessage("Phone Number not valid"); //Validation for Republic of Moldova
 
-            RuleFor(x => x.IdUserType)
+            RuleFor(x => x.Role.Name)
                 .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty().WithMessage("Role cannot be empty")
                 .NotNull().WithMessage("Role is required");

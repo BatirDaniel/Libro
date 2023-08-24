@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,62 +12,14 @@ namespace Libro.Business.Commands.IdentityCommands
 {
     public class UpdateUserCommand : IRequest<string>
     {
-        public string? Firstname
-        {
-            get { return Name?.Split(' ')[0]; }
-            set
-            {
-                if (Name != null)
-                {
-                    var parts = Name.Split(' ');
-                    if (parts.Length > 1)
-                    {
-                        parts[0] = value ?? "";
-                        Name = string.Join(" ", parts);
-                    }
-                    else
-                    {
-                        Name = value ?? "";
-                    }
-                }
-            }
-        }
-
-        public string? Lastname
-        {
-            get { return Name?.Split(' ')[1]; }
-            set
-            {
-                if (Name != null)
-                {
-                    var parts = Name.Split(' ');
-                    if (parts.Length > 1)
-                    {
-                        parts[1] = value ?? "";
-                        Name = string.Join(" ", parts);
-                    }
-                    else
-                    {
-                        Name = value ?? "";
-                    }
-                }
-            }
-        }
-
-        public string? Name
-        {
-            get { return string.Join(" ", Firstname, Lastname); }
-            set
-            {
-                var parts = (value ?? "").Split(' ');
-                Firstname = parts.Length > 0 ? parts[0] : null;
-                Lastname = parts.Length > 1 ? parts[1] : null;
-            }
-        }
+        public string Id { get; set; }
+        public string? Name { get; set; }
+        public string? Firstname { get; set; }
+        public string? Lastname { get; set; }
         public string? Username { get; set; }
         public string? Email { get; set; }
         public string? Password { get; set; }
         public string? Telephone { get; set; }
-        public string? IdUserType { get; set; }
+        public IdentityRole Role { get; set; }
     }
 }

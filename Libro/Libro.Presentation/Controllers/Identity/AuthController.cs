@@ -1,4 +1,8 @@
 ﻿using Libro.Business.Commands.IdentityCommands;
+using Libro.DataAccess.Contracts;
+using Libro.DataAccess.Data;
+using Libro.Infrastructure.Services.ToastHelper;
+using Libro.Infrastructure.Services.ToastService;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -8,22 +12,29 @@ using System.Security.Claims;
 
 namespace Libro.Presentation.Controllers.Identity
 {
-    public class AuthController : Controller
+    public class AuthController : LibroController
     {
-        private readonly IMediator _mediator;
-        public AuthController(IMediator mediator)
+        readonly IMediator _mediator;
+        private new readonly IToastService _toastService;
+        public AuthController(
+            ApplicationDbContext context,
+            IUnitOfWork unitOfWork,
+            IToastService toastService = null,
+            IMediator mediator = null) : base(toastService, unitOfWork, context)
         {
+            _mediator = mediator;
+            _toastService = toastService;
             _mediator = mediator;
         }
 
-        [HttpPost]
+        [HttpPost("/Auth/SignIn")]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SignIn(SignInUserCommand command, string? ReturnUrl)
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return ResponseResult("Invalid login attempt", ToastStatus.Error);
             }
 
             var result = await _mediator.Send(command);
@@ -32,12 +43,11 @@ namespace Libro.Presentation.Controllers.Identity
             {
                 var claimIdentity = new ClaimsIdentity(result.Item1, CookieAuthenticationDefaults.AuthenticationScheme);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimIdentity));
-                return Redirect(ReturnUrl == null ? "/dashboard" : ReturnUrl);
+                return ResponseResult("Logged successfully", ToastStatus.Success, ReturnUrl ?? "/dashboard");
             }
             else
             {
-                ModelState.AddModelError("", "Invalid login attempt.");
-                return View();
+                return ResponseResult(result.Item2, ToastStatus.Error);
             }
         }
 

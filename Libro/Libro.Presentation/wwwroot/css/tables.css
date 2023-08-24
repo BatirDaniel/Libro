@@ -18,3 +18,7 @@ table.dataTable > thead > tr > th {
 table.dataTable{
     padding-top: 0;
 }
+
+#usersTable{
+    padding-top: 0!important;
+}

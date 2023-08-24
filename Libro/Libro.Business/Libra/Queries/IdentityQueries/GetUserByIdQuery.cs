@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Libro.Business.Queries.IdentityQueries
 {
-    public class GetUserByIdQuery : IRequest<User>
+    public class GetUserByIdQuery : IRequest<UpdateUserCommand>
     {
         public string? Id { get; set; }
 
