@@ -1,13 +1,7 @@
-﻿using Libro.Business.Handlers.CommandHandlers.IdentityCommands;
-using Libro.Business.Libra.Commands.IdentityCommands;
+﻿using Libro.Business.Libra.Commands.IdentityCommands;
 using Libro.Business.Managers;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Libro.Business.Libra.Handlers.CommandHandlers.IdentityCommandsHandlers
 {
