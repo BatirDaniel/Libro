@@ -10,11 +10,11 @@ namespace Libro.DataAccess.Repository
 
         private IGenericRepository<User>? _users;
 
-        private IGenericRepository<UserTypes>? _userTypes;
+        private IGenericRepository<Role>? _userTypes;
 
         private IGenericRepository<Status>? _statuses;
 
-        private IGenericRepository<Pos>? _pos;
+        private IGenericRepository<Pos>? _poss;
 
         private IGenericRepository<Log>? _logs;
 
@@ -28,9 +28,9 @@ namespace Libro.DataAccess.Repository
 
 
         public IGenericRepository<User> Users => _users ??= new GenericRepository<User>(_context);
-        public IGenericRepository<UserTypes> UserTypes => _userTypes ??= new GenericRepository<UserTypes>(_context);
+        public IGenericRepository<Role> UserTypes => _userTypes ??= new GenericRepository<Role>(_context);
         public IGenericRepository<Status> Statuses => _statuses ??= new GenericRepository<Status>(_context);
-        public IGenericRepository<Pos> Pos => _pos ??= new GenericRepository<Pos>(_context);
+        public IGenericRepository<Pos> POSs => _poss ??= new GenericRepository<Pos>(_context);
         public IGenericRepository<Log> Logs => _logs ??= new GenericRepository<Log>(_context);
         public IGenericRepository<IssueTypes> IssueTypes => _issueTypes ??= new GenericRepository<IssueTypes>(_context);
         public IGenericRepository<Issue> Issues => _issues ??= new GenericRepository<Issue>(_context);

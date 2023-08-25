@@ -36,10 +36,10 @@ namespace Libro.Business.Services
             return await _userManager.FindByNameAsync(username);
         }
 
-        public async Task<string> AssignRoles(User user, string? idUserType)
+        public async Task<string> AssignRoles(User user, string? roleId)
         {
             var currentRole = await _userManager.GetRolesAsync(user);
-            var role = await _roleManager.FindByIdAsync(idUserType);
+            var role = await _roleManager.FindByIdAsync(roleId);
             if (currentRole == role)
                 return null;
 
@@ -49,7 +49,7 @@ namespace Libro.Business.Services
             if (result.Errors.Count() > 0)
                 return CheckResultForErrors(result);
 
-            if (idUserType != null)
+            if (roleId != null)
             {
                 var actualRole = _roleManager
                     .Roles

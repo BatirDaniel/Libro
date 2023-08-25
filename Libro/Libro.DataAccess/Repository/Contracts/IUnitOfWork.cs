@@ -5,9 +5,9 @@ namespace Libro.DataAccess.Contracts
     public interface IUnitOfWork : IDisposable
     {
         IGenericRepository<User> Users { get; }
-        IGenericRepository<UserTypes> UserTypes { get; }
+        IGenericRepository<Role> UserTypes { get; }
         IGenericRepository<Status> Statuses { get; }
-        IGenericRepository<Pos> Pos { get; }
+        IGenericRepository<Pos> POSs { get; }
         IGenericRepository<Log> Logs { get; }
         IGenericRepository<IssueTypes> IssueTypes { get; }
         IGenericRepository<Issue> Issues { get; }

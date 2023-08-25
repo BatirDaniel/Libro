@@ -23,9 +23,4 @@
     <ProjectReference Include="..\Libro.DataAccess\Libro.DataAccess.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Libra\Queries\IssueQueries\" />
-    <Folder Include="Libra\Queries\PosQueries\" />
-  </ItemGroup>
-
 </Project>

@@ -224,7 +224,7 @@
 
                                                 $.ajax({
                                                     url: "/Identity/Update",
-                                                    type: "POST",
+                                                    type: "PUT",
                                                     data: formData,
                                                     success: function (response) {
                                                         if (response.toast) {

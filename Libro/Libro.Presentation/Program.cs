@@ -2,13 +2,14 @@ using Autofac.Core;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Libro.Business.AssemblyHelper;
-using Libro.Business.Commands.IdentityCommands;
-using Libro.Business.Commands.IssueCommands;
-using Libro.Business.Commands.PosCommands;
-using Libro.Business.Libra.DTOs.Validators;
+using Libro.Business.Libra.DTOs.IdentityDTOs;
+using Libro.Business.Libra.DTOs.IssueDTOs;
+using Libro.Business.Libra.DTOs.POSDTOs;
+using Libro.Business.Libra.DTOs.Validators.IdentityValidators;
+using Libro.Business.Libra.DTOs.Validators.IssuesValidators;
+using Libro.Business.Libra.DTOs.Validators.POSsValidators;
 using Libro.Business.Managers;
 using Libro.Business.Services;
-using Libro.Business.Validators;
 using Libro.DataAccess.Contracts;
 using Libro.DataAccess.Data;
 using Libro.DataAccess.Entities;
@@ -19,6 +20,7 @@ using Libro.Infrastructure.Persistence.SystemConfiguration;
 using Libro.Infrastructure.Persistence.SystemConfiguration.AppSettings;
 using Libro.Infrastructure.Services.ToastService;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -42,6 +44,14 @@ builder.Services.AddOptions();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession();
+
+builder.Services.Configure<FormOptions>(x =>
+{
+    x.ValueLengthLimit = int.MaxValue;
+    x.MultipartBodyLengthLimit = int.MaxValue;
+});
+
+builder.Services.AddCors();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -97,18 +107,20 @@ builder.Services.AddTransient<ClaimsPrincipal>(s =>
 builder.Services.AddSingleton<SystemConfigurationService>();
 builder.Services.AddSingleton<Mapperly>();
 
-builder.Services.AddScoped<IValidator<AddUserCommand>, AddUserCommandValidator>();
-builder.Services.AddScoped<IValidator<UpdateUserCommand>, UpdateUserCommandValidator>();
-builder.Services.AddScoped<IValidator<CreatePosCommand>, AddPosCommandValidator>();
-builder.Services.AddScoped<IValidator<CreateIssueCommand>, AddIssueCommandValidator>();
+builder.Services.AddScoped<IValidator<AddUserDTO>, AddUserDTOValidator>();
+builder.Services.AddScoped<IValidator<UpdateUserDTO>, UpdateUserDTOValidator>();
+builder.Services.AddScoped<IValidator<CreateIssueDTO>, CreateIssueDTOValidator>();
+builder.Services.AddScoped<IValidator<UpdateIssueDTO>, UpdateIssueDTOValidator>();
+builder.Services.AddScoped<IValidator<CreatePOSDTO>, CreatePOSDTOValidator>();
+builder.Services.AddScoped<IValidator<UpdatePOSDTO>, UpdatePOSDTOValidator>();
 
 builder.Services.AddScoped<IdentityService>();
 
 builder.Services.ConfigureWritable<AppSettings>(configuration.GetSection("AppSettings"));
 
 builder.Services.AddScoped<IdentityManager>();
-//builder.Services.AddScoped<PosManager>();
-//builder.Services.AddScoped<IssueManager>();
+builder.Services.AddScoped<PosManager>();
+builder.Services.AddScoped<IssueManager>();
 
 var app = builder.Build();
 
