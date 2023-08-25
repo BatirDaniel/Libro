@@ -1,17 +1,15 @@
-﻿using Libro.Business.Managers;
+﻿using Libro.Business.Libra.DTOs.IdentityDTOs;
+using Libro.Business.Managers;
 using Libro.Business.Queries.IdentityQueries;
-using Libro.Business.Responses.IdentityResponses;
 using Libro.DataAccess.Contracts;
 using Libro.DataAccess.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using System.Linq.Expressions;
-using System.Reflection;
 
 namespace Libro.Business.Handlers.QueryHandlers.IdentityHandlers
 {
-    public class GetUsersHandler : IRequestHandler<GetUsersQuery, List<UserResponse>?>
+    public class GetUsersHandler : IRequestHandler<GetUsersQuery, List<UserDTO>?>
     {
         public IdentityManager _manager;
         public ILogger<GetUsersHandler> _logger;
@@ -26,9 +24,9 @@ namespace Libro.Business.Handlers.QueryHandlers.IdentityHandlers
             _userManager = userManager;
         }
 
-        public async Task<List<UserResponse>?> Handle(GetUsersQuery request, CancellationToken cancellationToken)
+        public async Task<List<UserDTO>?> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
-            return await _manager.GetUsers(request.param);
+            return await _manager.GetUsers(request.Param);
         }
     }
 }
