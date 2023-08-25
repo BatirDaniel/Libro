@@ -1,17 +1,17 @@
-﻿using Libro.Business.Libra.DTOs.TableParameters;
-using Libro.Business.Responses.IdentityResponses;
+﻿using Libro.Business.Libra.DTOs.IdentityDTOs;
+using Libro.Business.Libra.DTOs.TableParameters;
     
 using MediatR;
 
 namespace Libro.Business.Queries.IdentityQueries
 {
-    public class GetUsersQuery : IRequest<List<UserResponse>>
+    public class GetUsersQuery : IRequest<List<UserDTO>>
     {
-        public DataTablesParameters? param { get; set; }
+        public DataTablesParameters? Param { get; set; }
 
         public GetUsersQuery(DataTablesParameters? param)
         {
-            this.param = param;
+            Param = param;
         }
     }
 }
