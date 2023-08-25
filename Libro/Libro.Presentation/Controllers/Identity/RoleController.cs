@@ -20,7 +20,7 @@ namespace Libro.Presentation.Controllers.Identity
             RoleManager<IdentityRole> roleManager,
             IUnitOfWork unitOfWork,
             IToastService toastService,
-            ApplicationDbContext _context) : base (toastService, unitOfWork, _context)
+            ApplicationDbContext _context) : base (toastService, unitOfWork)
         {
             _mapperly = mapperly;
             _roleManager = roleManager;
@@ -30,7 +30,7 @@ namespace Libro.Presentation.Controllers.Identity
         [HttpGet("/roles/GetAllRoles")]
         public IActionResult GetAllRoles()
         {
-            List<UserTypes> roles = _roleManager.Roles
+            List<Role> roles = _roleManager.Roles
                 .Select(q => _mapperly.Map(q))
                 .ToList();
 

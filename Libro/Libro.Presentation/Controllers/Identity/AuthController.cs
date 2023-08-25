@@ -20,7 +20,7 @@ namespace Libro.Presentation.Controllers.Identity
             ApplicationDbContext context,
             IUnitOfWork unitOfWork,
             IToastService toastService = null,
-            IMediator mediator = null) : base(toastService, unitOfWork, context)
+            IMediator mediator = null) : base(toastService, unitOfWork)
         {
             _mediator = mediator;
             _toastService = toastService;

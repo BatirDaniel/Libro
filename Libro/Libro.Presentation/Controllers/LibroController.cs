@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Libro.Presentation.Controllers
 {
-    public class LibroController : Controller
+    public abstract class LibroController : Controller
     {
         protected readonly IToastService _toastService;
         protected readonly IUnitOfWork _unitOfWork;
@@ -14,12 +14,10 @@ namespace Libro.Presentation.Controllers
 
         public LibroController(
             IToastService toastService,
-            IUnitOfWork unitOfWork,
-            ApplicationDbContext context)
+            IUnitOfWork unitOfWork)
         {
             _toastService = toastService;
             _unitOfWork = unitOfWork;
-            _context = context;
         }
 
         public IActionResult Index()

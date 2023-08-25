@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Libro.Business.Commands.IdentityCommands;
 using Libro.Business.Libra.Commands.IdentityCommands;
+using Libro.Business.Libra.DTOs.IdentityDTOs;
 using Libro.Business.Libra.DTOs.TableParameters;
 using Libro.Business.Queries.IdentityQueries;
 using Libro.DataAccess.Contracts;
@@ -11,7 +12,6 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using NHibernate.Id.Insert;
 
 namespace Libro.Presentation.Controllers.User
 {
@@ -19,17 +19,16 @@ namespace Libro.Presentation.Controllers.User
     public class IdentityController : LibroController
     {
         private readonly IMediator _mediator;
-        private readonly IValidator<AddUserCommand> _validatorCreate;
-        private readonly IValidator<UpdateUserCommand> _validatorUpdate;
-        public new readonly IToastService _toastService;
+        private readonly IValidator<AddUserDTO> _validatorCreate;
+        private readonly IValidator<UpdateUserDTO> _validatorUpdate;
+        public readonly IToastService _toastService;
         public IdentityController(
             IMediator mediator,
             IToastService toastService,
             IUnitOfWork unitOfWork,
             UserManager<DataAccess.Entities.User> userManager,
-            ApplicationDbContext context,
-            IValidator<AddUserCommand> validator,
-            IValidator<UpdateUserCommand> validatorUpdate) : base(toastService, unitOfWork, context)
+            IValidator<AddUserDTO> validator,
+            IValidator<UpdateUserDTO> validatorUpdate) : base(toastService, unitOfWork)
         {
             _mediator = mediator;
             _toastService = toastService;
@@ -41,13 +40,13 @@ namespace Libro.Presentation.Controllers.User
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [HttpPost("/Identity/Create")]
-        public async Task<IActionResult> Create(AddUserCommand command)
+        public async Task<IActionResult> Create(AddUserDTO model)
         {
-            var validation = await _validatorCreate.ValidateAsync(command);
+            var validation = await _validatorCreate.ValidateAsync(model);
             if (!validation.IsValid)
-                return View("Users", command);
+                return View("Users", model);
 
-            var result = await _mediator.Send(command);
+            var result = await _mediator.Send(new AddUserCommand(model));
             if(result != null)
                 return ResponseResult(result, ToastStatus.Error);
 
@@ -57,14 +56,14 @@ namespace Libro.Presentation.Controllers.User
         //POST: /Identity/Update
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        [HttpPost("/Identity/Update")]
-        public async Task<IActionResult> Update(UpdateUserCommand command)
+        [HttpPut("/Identity/Update")]
+        public async Task<IActionResult> Update(UpdateUserDTO model)
         {
-            var validator = await _validatorUpdate.ValidateAsync(command);
+            var validator = await _validatorUpdate.ValidateAsync(model);
             if (!validator.IsValid)
-                return View("Users", command);
+                return View("Users", model);
 
-            var result = await _mediator.Send(command);
+            var result = await _mediator.Send(new UpdateUserCommand(model));
             if (result != null)
                 ResponseResult(result, ToastStatus.Error);
 
@@ -76,7 +75,7 @@ namespace Libro.Presentation.Controllers.User
         [HttpDelete("/Identity/Delete/{userId}")]
         public async Task<IActionResult> Delete(string userId)
         {
-            var result = await _mediator.Send(new RemoveUserCommand(userId));
+            var result = await _mediator.Send(new DeleteUserCommand(userId));
             if (result != null)
                 return ResponseResult(result, ToastStatus.Error);
 

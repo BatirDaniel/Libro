@@ -1,21 +1,104 @@
-﻿using Libro.Infrastructure.Services.ToastHelper;
+﻿using FluentValidation;
+using Libro.Business.Commands.IssueCommands;
+using Libro.Business.Libra.Commands.IssueCommands;
+using Libro.Business.Libra.DTOs.IssueDTOs;
+using Libro.Business.Libra.DTOs.TableParameters;
+using Libro.Business.Libra.Queries.IssueQueries;
+using Libro.DataAccess.Contracts;
+using Libro.Infrastructure.Services.ToastHelper;
 using Libro.Infrastructure.Services.ToastService;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Libro.Presentation.Controllers.Issue
 {
     [Authorize]
-    public class IssueController : Controller
+    public class IssueController : LibroController
     {
         private readonly IMediator _mediator;
-        private readonly ToastService _toastService;
+        private readonly IValidator<CreateIssueDTO> _createValidator;
+        private readonly IValidator<UpdateIssueDTO> _updateValidator;
 
-        public IssueController(IMediator mediator, ToastService toastService = null)
+        public IssueController(IMediator mediator,
+            IToastService toastService,
+            IUnitOfWork unitOfWork,
+            UserManager<DataAccess.Entities.User> userManager,
+            IValidator<CreateIssueDTO> createValidator,
+            IValidator<UpdateIssueDTO> updateValidator)
+            : base(toastService, unitOfWork)
         {
             _mediator = mediator;
-            _toastService = toastService;
+            _createValidator = createValidator;
+            _updateValidator = updateValidator;
+        }
+
+        //POST: /Issue/Create
+        [ValidateAntiForgeryToken]
+        [HttpPost("/Issue/Create")]
+        public async Task<IActionResult> Create(CreateIssueDTO model)
+        {
+            var validation = await _createValidator.ValidateAsync(model);
+            if (!validation.IsValid)
+                return View("Issue", model);
+
+            var result = await _mediator.Send(new CreateIssueCommand(model));
+            if (result != null)
+                return ResponseResult(result, ToastStatus.Error);
+
+            return ResponseResult("Succes", ToastStatus.Success);
+        }
+
+        //PUT: /Issue/Update
+        [HttpPut("/Issue/Update")]
+        public async Task<IActionResult> Update(UpdateIssueDTO model)
+        {
+            var validation = await _updateValidator.ValidateAsync(model);
+            if (!validation.IsValid)
+                return View("Issue", model);
+
+            var result = await _mediator.Send(new UpdateIssueCommand(model));
+            if (result != null)
+                return ResponseResult(result, ToastStatus.Error);
+
+            return ResponseResult("Succes", ToastStatus.Success);
+        }
+
+        //PUT: /Issue/Delete
+        [HttpPut("/Issue/Delete/{issueId}")]
+        public async Task<IActionResult> Delete(string? issueId)
+        {
+            var result = await _mediator.Send(new DeleteIssueCommand(issueId));
+            if (result != null)
+                return ResponseResult(result, ToastStatus.Error);
+
+            return ResponseResult("Succes", ToastStatus.Success);
+        }
+
+        //POST: /Issue/GetIssues
+        [HttpPost("/Issue/GetIssues")]
+        public async Task<IActionResult> GetIssues(DataTablesParameters param = null)
+        {
+            var result = await _mediator.Send(new GetIssuesQuery(param));
+
+            var jsonData = new
+            {
+                draw = param.Draw,
+                recordsFiltered = result.Count(),
+                recordsTotal = result.Count(),
+                data = result
+            };
+
+            return Ok(jsonData);
+        }
+
+        //GET: /Issue/GetIssueById/{issueId}
+        [HttpGet("/Issue/GetIssueById/{issueId}")]
+        public async Task<IActionResult> GetIssueById(string? issueId)
+        {
+            var result = await _mediator.Send(new GetIssueByIdQuery(issueId));
+            return Ok(result);
         }
 
         [Route("issue")]
