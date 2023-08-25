@@ -23,12 +23,7 @@ namespace Libro.DataAccess.Entities
         public TimeSpan? MorningClosing { get; set; }
         public TimeSpan? AfternoonOpening { get; set; }
         public TimeSpan? AfternoonClosing { get; set; }
-
-        [NotMapped]
-        public List<int>? _daysClosed => DaysClosed.Split().Select(x => int.Parse(x.ToString())).ToList();
-
         public string? DaysClosed { get; set; }
-
         public DateTime InserDate { get; set; }
 
         public virtual ICollection<Issue> Issues { get; set; } = new List<Issue>();

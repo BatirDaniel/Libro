@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Libro.DataAccess.Entities
+﻿namespace Libro.DataAccess.Entities
 {
     public class Issue
     {
