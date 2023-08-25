@@ -4,12 +4,12 @@ using System.Security.Claims;
 
 namespace Libro.Business.Managers
 {
-    public class EntityManager
+    public abstract class EntityManager
     {
         protected IUnitOfWork _unitOfWork;
         protected ClaimsPrincipal _user;
 
-        public EntityManager(UnitOfWork unitOfWork, ClaimsPrincipal user)
+        public EntityManager(IUnitOfWork unitOfWork, ClaimsPrincipal user)
         {
             _unitOfWork = unitOfWork;
             _user = user;
