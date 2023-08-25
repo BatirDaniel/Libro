@@ -26,7 +26,7 @@ namespace Libro.DataAccess.Data
             {
                 if (!await roleManager.RoleExistsAsync(roleName))
                 {
-                    var role = new UserTypes { Name = roleName };
+                    var role = new Role { Name = roleName };
                     await roleManager.CreateAsync(role);
                 }
             }
