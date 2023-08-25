@@ -15,7 +15,6 @@ namespace Libro.DataAccess.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -108,7 +107,7 @@ namespace Libro.DataAccess.Migrations
                     IsArchieved = table.Column<bool>(type: "bit", nullable: true),
                     Telephone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateRegistered = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UserTypesId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -128,8 +127,8 @@ namespace Libro.DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_AspNetRoles_UserTypesId",
-                        column: x => x.UserTypesId,
+                        name: "FK_AspNetUsers_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id");
                 });
@@ -416,9 +415,9 @@ namespace Libro.DataAccess.Migrations
                 filter: "[Email] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_UserTypesId",
+                name: "IX_AspNetUsers_RoleId",
                 table: "AspNetUsers",
-                column: "UserTypesId");
+                column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",

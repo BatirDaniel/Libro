@@ -481,6 +481,13 @@ namespace Libro.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Libro.DataAccess.Entities.Role", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
+
+                    b.HasDiscriminator().HasValue("Role");
+                });
+
             modelBuilder.Entity("Libro.DataAccess.Entities.User", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -497,29 +504,19 @@ namespace Libro.DataAccess.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Telephone")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserTypesId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.HasIndex("Email")
                         .IsUnique()
                         .HasFilter("[Email] IS NOT NULL");
 
-                    b.HasIndex("UserTypesId");
+                    b.HasIndex("RoleId");
 
                     b.HasDiscriminator().HasValue("User");
-                });
-
-            modelBuilder.Entity("Libro.DataAccess.Entities.UserTypes", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
-
-                    b.Property<string>("UserType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("UserTypes");
                 });
 
             modelBuilder.Entity("Libro.DataAccess.Entities.Issue", b =>
@@ -674,9 +671,9 @@ namespace Libro.DataAccess.Migrations
 
             modelBuilder.Entity("Libro.DataAccess.Entities.User", b =>
                 {
-                    b.HasOne("Libro.DataAccess.Entities.UserTypes", null)
+                    b.HasOne("Libro.DataAccess.Entities.Role", null)
                         .WithMany("Users")
-                        .HasForeignKey("UserTypesId");
+                        .HasForeignKey("RoleId");
                 });
 
             modelBuilder.Entity("Libro.DataAccess.Entities.City", b =>
@@ -709,16 +706,16 @@ namespace Libro.DataAccess.Migrations
                     b.Navigation("Issues");
                 });
 
+            modelBuilder.Entity("Libro.DataAccess.Entities.Role", b =>
+                {
+                    b.Navigation("Users");
+                });
+
             modelBuilder.Entity("Libro.DataAccess.Entities.User", b =>
                 {
                     b.Navigation("Issues");
 
                     b.Navigation("Logs");
-                });
-
-            modelBuilder.Entity("Libro.DataAccess.Entities.UserTypes", b =>
-                {
-                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }
