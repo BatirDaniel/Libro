@@ -1,4 +1,4 @@
-﻿@model Libro.Business.Commands.IssueCommands.CreateIssueCommand
+﻿@model Libro.Business.Libra.DTOs.IssueDTOs.CreateIssueDTO
 @{
     ViewBag.Title = "Issues";
 }
@@ -31,7 +31,7 @@
                     {
                         <div class="grid gap-6 mb-6 md:grid-cols-2">
                             <div>
-                                @Html.LabelFor(m => m.IdType, "Issue Type", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                                @Html.LabelFor(m => m.IssueTypes.Id, "Issue Type", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
                                 <select id="IdType" name="IdType" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
                             </div>
                             <div>
@@ -40,7 +40,7 @@
                             </div>
                         </div>
                         <div class="mb-6">
-                            @Html.LabelFor(m => m.IdPos, "POS", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                            @Html.LabelFor(m => m.Pos.Id, "POS", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
                             <select id="IdPos" name="IdPos" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
                         </div>
                         <div class="mb-6">
@@ -54,7 +54,7 @@
                                 <select id="Priority" name="Priority" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
                             </div>
                             <div>
-                                @Html.LabelFor(m => m.IdStatus, "Status", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                                @Html.LabelFor(m => m.Status.Id, "Status", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
                                 <select id="IdStatus" name="IdStatus" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     <option>Normal</option>
                                     <option>Medium</option>
@@ -63,7 +63,7 @@
                             </div>
                         </div>
                         <div class="mb-6">
-                            @Html.LabelFor(m => m.IdAssigned, "Assigned To", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                            @Html.LabelFor(m => m.UserAsigned.Id, "Assigned To", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
                             <select id="IdAssigned" name="IdAssigned" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
                         </div>
                         <div class="mb-6">
