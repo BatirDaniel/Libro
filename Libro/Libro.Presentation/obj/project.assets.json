@@ -13396,23 +13396,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\danie\\.nuget\\packages\\": {},
+    "C:\\Users\\crme031\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\danie\\OneDrive\\Desktop\\Libro\\Libro\\Libro.Presentation\\Libro.Presentation.csproj",
+      "projectUniqueName": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\Libro.Presentation.csproj",
       "projectName": "Libro.Presentation",
-      "projectPath": "C:\\Users\\danie\\OneDrive\\Desktop\\Libro\\Libro\\Libro.Presentation\\Libro.Presentation.csproj",
-      "packagesPath": "C:\\Users\\danie\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\danie\\OneDrive\\Desktop\\Libro\\Libro\\Libro.Presentation\\obj\\",
+      "projectPath": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\Libro.Presentation.csproj",
+      "packagesPath": "C:\\Users\\crme031\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\danie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\crme031\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -13421,18 +13421,18 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\danie\\OneDrive\\Desktop\\Libro\\Libro\\Libro.Business\\Libro.Business.csproj": {
-              "projectPath": "C:\\Users\\danie\\OneDrive\\Desktop\\Libro\\Libro\\Libro.Business\\Libro.Business.csproj"
+            "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Business\\Libro.Business.csproj": {
+              "projectPath": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Business\\Libro.Business.csproj"
             },
-            "C:\\Users\\danie\\OneDrive\\Desktop\\Libro\\Libro\\Libro.Infrastructure\\Libro.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\danie\\OneDrive\\Desktop\\Libro\\Libro\\Libro.Infrastructure\\Libro.Infrastructure.csproj"
+            "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Infrastructure\\Libro.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Infrastructure\\Libro.Infrastructure.csproj"
             }
           }
         }
@@ -13523,7 +13523,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
       }
     }
   },

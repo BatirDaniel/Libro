@@ -110,7 +110,7 @@ namespace Libro.Business.Managers
             }
 
             model.UserName = user.UserDTO.Username;
-            model.Name = user.UserDTO.Name;
+            model.Name = string.Join(" ", user.UserDTO.Firstname, user.UserDTO.Lastname);
             model.Telephone = user.UserDTO.Telephone;
             model.Email = user.UserDTO.Email;
 
@@ -187,15 +187,20 @@ namespace Libro.Business.Managers
                 })).FirstOrDefault();
 
             var origUser = _mapperly.Map(user);
-            if (user.Role != null)
+
+            var userRoles = await _userManager.GetRolesAsync(origUser);
+
+            if (userRoles.Any())
             {
-                var userRoles = await _userManager.GetRolesAsync(origUser);
-                if (userRoles.Any())
+                user.Role = new IdentityRole();
+                user.Role.Name = userRoles.FirstOrDefault();
+
+                var role = await _roleManager.Roles.SingleOrDefaultAsync(r => r.Name == user.Role.Name);
+                if (role != null)
                 {
-                    user.Role.Name = userRoles.First();
+                    user.Role.Id = role.Id;
                 }
             }
-            user.Role.Id = await _roleManager.GetRoleIdAsync(user.Role);
 
             return user;
         }

@@ -42,7 +42,18 @@ namespace Libro.Presentation.Controllers.Identity
             if (string.IsNullOrEmpty(result.Item2))
             {
                 var claimIdentity = new ClaimsIdentity(result.Item1, CookieAuthenticationDefaults.AuthenticationScheme);
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimIdentity));
+
+                var authProperties = new AuthenticationProperties
+                {
+                    IsPersistent = command.RememberMe,
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddMonths(1)
+                };
+
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimIdentity),
+                    authProperties);
+
                 return ResponseResult("Logged successfully", ToastStatus.Success, ReturnUrl ?? "/dashboard");
             }
             else

@@ -10,15 +10,8 @@
                 var dropdown = $('#addRole');
                 dropdown.empty();
 
-                var dropdownU = $('#updateRole');
-                dropdownU.empty();
-
                 $.each(data, function (index, item) {
                     dropdown.append($('<option></option>')
-                        .attr('value', item.Id)
-                        .text(item.Name));
-
-                    dropdownU.append($('<option></option>')
                         .attr('value', item.Id)
                         .text(item.Name));
                 });
@@ -32,10 +25,9 @@
             event.preventDefault();
 
             var formData = $(this).serialize();
-            var actionUrl = form.attr('action');
 
             $.ajax({
-                url: actionUrl,
+                url: "/Identity/Create",
                 type: "POST",
                 data: formData,
                 success: function (response) {
@@ -45,7 +37,6 @@
 
                         showToast(svg, message)
                     }
-                    table.reload();
                 },
                 error: function (xhr) {
                     if (xhr.responseJSON && xhr.responseJSON.toast) {
@@ -185,64 +176,7 @@
                                 let row = table.row(options.$trigger.closest("tr"));
                                 let userId = row.data().Id;
 
-                                //GET: /Identity/GetUserById/userId
-                                $.ajax({
-                                    url: "/Identity/GetUserById/" + userId,
-                                    type: "GET",
-                                    dataType: "json",
-                                    success: function (data) {
-
-                                        var modal = document.getElementById("staticModalUpdate");
-                                        var backdrop = document.getElementById("backdrop");
-                                        modal.classList.remove("hidden")
-                                        backdrop.classList.remove("hidden")
-
-                                        $.each(data, function (key, value) {
-                                            var inputField = $("#" + key);
-                                            if (inputField.length > 0) {
-                                                inputField.val(value);
-                                            }
-
-                                            $('#Firstname').val(data.Name.split(' ')[0])
-                                            $('#Lastname').val(data.Name.split(' ')[1])
-                                        });
-
-                                        $('#cancelModal, #closeModal').on('click', function () {
-                                            modal.classList.add("hidden")
-                                            backdrop.classList.add("hidden")
-                                        })
-
-                                        $("#updateForm").validate({
-                                            submitHandler: function (event) {
-                                                event.preventDefault();
-
-                                                var formData = $(this).serialize();
-
-                                                $.ajax({
-                                                    url: "/Identity/Update",
-                                                    type: "PUT",
-                                                    data: formData,
-                                                    success: function (response) {
-                                                        if (response.toast) {
-                                                            var svg = response.toast.svg;
-                                                            var message = response.toast.message;
-
-                                                            showToast(svg, message)
-                                                        }
-                                                    },
-                                                    error: function (xhr) {
-                                                        if (xhr.responseJSON && xhr.responseJSON.toast) {
-                                                            var svg = xhr.responseJSON.toast.svg;
-                                                            var message = xhr.responseJSON.toast.message;
-
-                                                            showToast(svg, message)
-                                                        }
-                                                    }
-                                                });
-                                            }
-                                        });
-                                    }
-                                });
+                                window.location.href = '/details/' + userId;
                             }
                         },
                         "delete": {
@@ -260,7 +194,7 @@
                                     icon: 'warning',
                                     showCancelButton: true,
                                     confirmButtonColor: '#16a34a',
-                                    cancelButtonColor: ' #ffc266',
+                                    cancelButtonColor: ' #c4c4c4',
                                     confirmButtonText: 'Confirm'
                                 }).then((result) => {
                                     if (result.isConfirmed) {
@@ -324,4 +258,3 @@
         }
     });
 });
-

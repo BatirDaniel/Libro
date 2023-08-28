@@ -55,8 +55,7 @@ namespace Libro.Presentation.Controllers.User
 
         //POST: /Identity/Update
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        [HttpPut("/Identity/Update")]
+        [HttpPost("/Identity/Update")]
         public async Task<IActionResult> Update(UpdateUserDTO model)
         {
             var validator = await _validatorUpdate.ValidateAsync(model);
@@ -65,7 +64,7 @@ namespace Libro.Presentation.Controllers.User
 
             var result = await _mediator.Send(new UpdateUserCommand(model));
             if (result != null)
-                ResponseResult(result, ToastStatus.Error);
+                return ResponseResult(result, ToastStatus.Error);
 
             return ResponseResult("Success", ToastStatus.Success);
         }
@@ -125,6 +124,15 @@ namespace Libro.Presentation.Controllers.User
         public IActionResult Users()
         {
             return View();
+        }
+
+        [Route("details/{userId}")]
+        public IActionResult Details(string? userId)
+        {
+            if(GetUserById(userId) != null)
+                return View();
+
+            return ResponseResult("Invalid user provided", ToastStatus.Error);
         }
     }
 }

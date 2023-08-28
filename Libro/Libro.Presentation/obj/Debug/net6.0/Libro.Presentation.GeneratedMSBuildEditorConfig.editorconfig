@@ -9,97 +9,97 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Libro.Presentation
 build_property.RootNamespace = Libro.Presentation
-build_property.ProjectDir = C:\Users\danie\OneDrive\Desktop\Libro\Libro\Libro.Presentation\
+build_property.ProjectDir = C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\danie\OneDrive\Desktop\Libro\Libro\Libro.Presentation
+build_property.MSBuildProjectDirectory = C:\Users\crme031\Desktop\Libro\Libro\Libro.Presentation
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/Analytics/Dashboard.cshtml]
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Analytics/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQW5hbHl0aWNzXERhc2hib2FyZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/Auth/Login.cshtml]
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Auth/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/Errors/Error403.cshtml]
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Errors/Error403.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JzXEVycm9yNDAzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/Errors/Error404.cshtml]
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Errors/Error404.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JzXEVycm9yNDA0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/Errors/Error500.cshtml]
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Errors/Error500.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JzXEVycm9yNTAwLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/Home/Error.cshtml]
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Home/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFcnJvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/Home/Index.cshtml]
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/Home/Privacy.cshtml]
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/Identity/Users.cshtml]
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Identity/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSWRlbnRpdHlcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Identity/Users.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSWRlbnRpdHlcVXNlcnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/Identity/_CreateUser.cshtml]
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Identity/_CreateUser.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSWRlbnRpdHlcX0NyZWF0ZVVzZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/Identity/_UpdateUser.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSWRlbnRpdHlcX1VwZGF0ZVVzZXIuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/Imports/_ValidationScriptsPartial.cshtml]
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Imports/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1wb3J0c1xfVmFsaWRhdGlvblNjcmlwdHNQYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/Issue/Issue.cshtml]
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Issue/Issue.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSXNzdWVcSXNzdWUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/Pos/Pos.cshtml]
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Pos/Pos.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zXFBvcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/Shared/Components/_footer.cshtml]
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Shared/Components/_footer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcX2Zvb3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/Shared/Components/_main.cshtml]
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Shared/Components/_main.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcX21haW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/Shared/Components/_navbar.cshtml]
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Shared/Components/_navbar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcX25hdmJhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/Shared/Components/_sidebar.cshtml]
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Shared/Components/_sidebar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcX3NpZGViYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/Shared/_LandingPage.cshtml]
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Shared/_LandingPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYW5kaW5nUGFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/Toast/_PartialToast.cshtml]
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Toast/_PartialToast.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9hc3RcX1BhcnRpYWxUb2FzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/_ViewImports.cshtml]
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danie/OneDrive/Desktop/Libro/Libro/Libro.Presentation/Views/_ViewStart.cshtml]
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Libro.Presentation.Controllers
 {
-    public abstract class LibroController : Controller
+    public class LibroController : Controller
     {
         protected readonly IToastService _toastService;
         protected readonly IUnitOfWork _unitOfWork;
@@ -27,6 +27,9 @@ namespace Libro.Presentation.Controllers
                 ViewBag.ToastMessage = TempData["ToastMessage"];
                 ViewBag.ToastSvg = TempData["ToastSvg"];
             }
+            if (User.Identity.IsAuthenticated)
+                return View("~/Views/Analytics/Dashboard.cshtml");
+
             return View("~/Views/Home/Index.cshtml");
         }
 

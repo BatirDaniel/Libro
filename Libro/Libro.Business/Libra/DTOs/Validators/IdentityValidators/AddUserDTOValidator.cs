@@ -37,9 +37,9 @@ namespace Libro.Business.Libra.DTOs.Validators.IdentityValidators
                 .WithMessage("Confirm password must match the password.");
 
             RuleFor(x => x.Telephone)
-            .MinimumLength(10).WithMessage("PhoneNumber must not be less than 10 characters.")
-            .MaximumLength(20).WithMessage("PhoneNumber must not exceed 20 characters.")
-            .Matches(new Regex(@"^\+\d{2,4}\d{8,12}$")).WithMessage("Phone Number not valid. Use the format: +[country code][phone number]");
+                .MinimumLength(10).WithMessage("PhoneNumber must not be less than 10 characters.")
+                .MaximumLength(20).WithMessage("PhoneNumber must not exceed 20 characters.")
+                .Matches(new Regex(@"^\+\d{2,4}\d{8,12}$")).WithMessage("Phone Number not valid. Use the format: +[country code][phone number]");
 
             RuleFor(x => x.Telephone)
                 .Matches(new Regex(@"^\+373\d{8}$")).WithMessage("Moldova: Phone Number not valid.")

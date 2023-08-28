@@ -1,0 +1,89 @@
+﻿@model Libro.Business.Libra.DTOs.IdentityDTOs.UpdateUserDTO
+@{
+    ViewBag.Title = "Details";
+}
+<div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+    <h2 class="text-xl font-extrabold dark:text-white mb-2">
+        Settings
+    </h2>
+    <div class="flex flex-col lg:flex-row">
+        <div class="flex flex-col justify-center items-center p-4 mt-5 lg:mt-0 rounded shadow bg-white lg:w-1/3 h-1/2 lg:mr-1">
+            <img class="w-24 h-24 rounded-full shadow-lg" src="https://images.pexels.com/photos/879109/pexels-photo-879109.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="img" />
+            <div class="flex flex-col justify-center items-center">
+                <h5 class="text-xl font-medium text-gray-900 dark:text-white">Batir Daniel</h5>
+                <span class="text-sm text-gray-500 dark:text-gray-400">Administrator</span>
+            </div>
+            <div class="flex flex-col mt-3">
+                <button type="button" class="w-full mb-1 py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Settings</button>
+                <button type="button" class="w-full py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Analytics</button>
+            </div>
+        </div>
+
+        <div class="p-4 mt-5 lg:mt-0 rounded shadow bg-white lg:w-2/3 lg:ml-1">
+            <h2 class="text-xl font-extrabold dark:text-white mb-2">
+                General information
+            </h2>
+
+            @using (Html.BeginForm("Update","Identity",FormMethod.Post, new { @class = "space-y-4 md:space-y-6", id = "updateForm" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="grid gap-6 mb-6 md:grid-cols-2">
+                    <div>
+                        @Html.LabelFor(m => m.Firstname, "First name", new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
+                        @Html.TextBoxFor(m => m.Firstname, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="John" })
+                        @Html.ValidationMessageFor(m => m.Firstname, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"})
+                    </div>
+                    <div>
+                        @Html.LabelFor(m => m.Lastname, "Last name", new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
+                        @Html.TextBoxFor(m => m.Lastname, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="Doe" })
+                        @Html.ValidationMessageFor(m => m.Lastname, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"})
+                    </div>
+                </div>
+                <div class="mb-6">
+                    @Html.LabelFor(m => m.Username, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
+                    @Html.TextBoxFor(m => m.Username, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="JohnDoe001" })
+                    @Html.ValidationMessageFor(m => m.Username, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"})
+                </div>
+                <div class="mb-6">
+                    @Html.LabelFor(m => m.Email, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
+                    @Html.TextBoxFor(m => m.Email, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="john.doe@gmail.com" })
+                    @Html.ValidationMessageFor(m => m.Email, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"})
+                </div>
+                <div class="mb-6">
+                    @Html.LabelFor(m => m.Password, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
+                    @Html.PasswordFor(m => m.Password, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="•••••••••" })
+                    @Html.ValidationMessageFor(m => m.Password, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"})
+                </div>
+                <div class="mb-6">
+                    @Html.LabelFor(m => m.Telephone, "Number phone", new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
+                    @Html.TextBoxFor(m => m.Telephone, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="78-099-291" })
+                    @Html.ValidationMessageFor(m => m.Telephone, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"})
+
+                </div>
+                <div class="mb-6">
+                    @Html.LabelFor(m => m.Role, "Role", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                    <select id="updateRole" name="Role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
+                </div>
+                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                    <button type="submit" id="submitButton" class="text-white bg-blue-700 ml-[-1.4rem] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+    <script src="~/lib/jquery-datatable/DataTables-1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/jquery-datatable/Responsive-2.5.0/js/dataTables.responsive.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+
+    <script src="~/js/user-details.js"></script>
+}

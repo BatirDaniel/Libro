@@ -2,6 +2,7 @@
     ViewBag.Title = "Administration";
 }
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/lib/jquery-datatable/DataTables-1.13.6/css/jquery.dataTables.min.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/lib/jquery-datatable/Responsive-2.5.0/css/responsive.dataTables.min.css" asp-append-version="true" />
@@ -9,7 +10,7 @@
  
 <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
     <div class="flex justify-between">
-        <h2 class="text-2xl text-gray-500 font-extrabold dark:text-white">
+        <h2 class="text-xl font-extrabold dark:text-white mb-2">
             @ViewBag.Title
         </h2>
         <button data-modal-target="staticModal" data-modal-toggle="staticModal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
@@ -20,9 +21,6 @@
     @*MODAL for users registrations*@
     <partial name="~/Views/Identity/_CreateUser.cshtml" />
 
-    @*MODAL for users updates*@
-    <partial name="~/Views/Identity/_UpdateUser.cshtml" />
-   
     @*jQuery DATA TABLE USERS*@
     <div class="relative rounded-lg shadow mt-6 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <div class="p-4 mt-5 shadow overflow-hidden overflow-x-auto border-b border-gray-200 sm:rounded-lg">
@@ -31,8 +29,6 @@
         </div>
     </div>
 </div>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
 
 @section Scripts{
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
