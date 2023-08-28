@@ -57,7 +57,7 @@ namespace Libro.Business.Managers
         {
             command.UserDTO.Username = command.UserDTO.Username?.Trim();
 
-            User user = _mapperly.Map(command);
+            User user = _mapperly.Map(command.UserDTO);
             user.DateRegistered = DateTime.Now;
             user.UserName = command.UserDTO.Username;
 
@@ -166,6 +166,7 @@ namespace Libro.Business.Managers
                    Email = x.Email,
                    Username = x.UserName,
                    Telephone = x.Telephone,
+                   IsArchieved= x.IsArchieved,
                    Role = _userManager.GetRolesAsync(x).Result.LastOrDefault(),
                }).ToListAsync();
 
@@ -186,7 +187,14 @@ namespace Libro.Business.Managers
                 })).FirstOrDefault();
 
             var origUser = _mapperly.Map(user);
-            user.Role.Name = _userManager.GetRolesAsync(origUser).Result.First();
+            if (user.Role != null)
+            {
+                var userRoles = await _userManager.GetRolesAsync(origUser);
+                if (userRoles.Any())
+                {
+                    user.Role.Name = userRoles.First();
+                }
+            }
             user.Role.Id = await _roleManager.GetRoleIdAsync(user.Role);
 
             return user;

@@ -10,17 +10,17 @@
                 var dropdown = $('#addRole');
                 dropdown.empty();
 
-                var dropdownU = $('#addRole');
+                var dropdownU = $('#updateRole');
                 dropdownU.empty();
 
                 $.each(data, function (index, item) {
                     dropdown.append($('<option></option>')
                         .attr('value', item.Id)
-                        .text(item.UserType));
+                        .text(item.Name));
 
                     dropdownU.append($('<option></option>')
                         .attr('value', item.Id)
-                        .text(item.UserType));
+                        .text(item.Name));
                 });
             }
         }
@@ -70,11 +70,7 @@
             "type": "POST",
             "datatype": "json"
         },
-        "columnDefs": [{
-            "targets": [0],
-            "visible": false,
-            "searchable": false
-        }],
+
         "language": {
             "emptyTable": "No record found.",
             "processing":
@@ -122,15 +118,15 @@
                 "searchable": true
             },
             {
-                "data": "isArchieved",
+                "data": "IsArchieved",
                 title: "Status",
-                name: "isArchieved",
+                name: "IsArchieved",
                 autoWidth: true,
                 visible: true,
                 orderable: false,
                 filter: false,
                 "render": function (data, type, row) {
-                    if (data) {
+                    if (data === true || data === "true") {
                         return `<span class="px-4 py-1 ml-auto text-sm font-medium tracking-wide text-yellow-500 bg-yellow-100 rounded-full">
                                   Disabled
                                 </span>`;

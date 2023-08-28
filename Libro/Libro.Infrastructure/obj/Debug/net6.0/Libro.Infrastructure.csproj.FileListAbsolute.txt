@@ -10,3 +10,15 @@ C:\Users\crme031\Desktop\Libro\Libro\Libro.Infrastructure\obj\Debug\net6.0\Libro
 C:\Users\crme031\Desktop\Libro\Libro\Libro.Infrastructure\obj\Debug\net6.0\refint\Libro.Infrastructure.dll
 C:\Users\crme031\Desktop\Libro\Libro\Libro.Infrastructure\obj\Debug\net6.0\Libro.Infrastructure.pdb
 C:\Users\crme031\Desktop\Libro\Libro\Libro.Infrastructure\obj\Debug\net6.0\ref\Libro.Infrastructure.dll
+C:\Users\danie\OneDrive\Desktop\Libro\Libro\Libro.Infrastructure\bin\Debug\net6.0\Libro.Infrastructure.deps.json
+C:\Users\danie\OneDrive\Desktop\Libro\Libro\Libro.Infrastructure\bin\Debug\net6.0\Libro.Infrastructure.dll
+C:\Users\danie\OneDrive\Desktop\Libro\Libro\Libro.Infrastructure\bin\Debug\net6.0\Libro.Infrastructure.pdb
+C:\Users\danie\OneDrive\Desktop\Libro\Libro\Libro.Infrastructure\obj\Debug\net6.0\Libro.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\danie\OneDrive\Desktop\Libro\Libro\Libro.Infrastructure\obj\Debug\net6.0\Libro.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\danie\OneDrive\Desktop\Libro\Libro\Libro.Infrastructure\obj\Debug\net6.0\Libro.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\danie\OneDrive\Desktop\Libro\Libro\Libro.Infrastructure\obj\Debug\net6.0\Libro.Infrastructure.AssemblyInfo.cs
+C:\Users\danie\OneDrive\Desktop\Libro\Libro\Libro.Infrastructure\obj\Debug\net6.0\Libro.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\danie\OneDrive\Desktop\Libro\Libro\Libro.Infrastructure\obj\Debug\net6.0\Libro.Infrastructure.dll
+C:\Users\danie\OneDrive\Desktop\Libro\Libro\Libro.Infrastructure\obj\Debug\net6.0\refint\Libro.Infrastructure.dll
+C:\Users\danie\OneDrive\Desktop\Libro\Libro\Libro.Infrastructure\obj\Debug\net6.0\Libro.Infrastructure.pdb
+C:\Users\danie\OneDrive\Desktop\Libro\Libro\Libro.Infrastructure\obj\Debug\net6.0\ref\Libro.Infrastructure.dll
