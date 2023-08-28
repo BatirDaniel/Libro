@@ -13,14 +13,14 @@ namespace Libro.Infrastructure.Mappers
     public partial class Mapperly
     {
         //Create a mapper declaration as a partial class and apply the Riok.Mapperly.Abstractions.MapperAttribute attribute.
-        public partial User Map(AddUserCommand command); //Mapping from AddUserCommand => User
+        public partial User Map(AddUserDTO user); //Mapping from AddUserCommand => User
         public partial UpdateUserDTO Map(User user);
-        public partial User Map(UpdateUserDTO command);
+        public partial User Map(UpdateUserDTO user);
         public partial Role Map(IdentityRole role);
-        public partial Issue Map(CreateIssueDTO issueDTO);
-        public partial Issue Map(UpdateIssueDTO issueDTO);
-        public partial UpdateIssueDTO Map(Issue issueDTO);
-        public partial IssueDTO MapIssueDTO(Issue issueDTO);
+        public partial Issue Map(CreateIssueDTO issue);
+        public partial Issue Map(UpdateIssueDTO issue);
+        public partial UpdateIssueDTO Map(Issue issue);
+        public partial IssueDTO MapIssueDTO(Issue issue);
         public partial Pos Map(CreatePOSDTO pos);
         public partial Pos Map(UpdatePOSDTO pos);
         public partial UpdatePOSDTO Map(Pos pos);

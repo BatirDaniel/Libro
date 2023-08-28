@@ -37,9 +37,25 @@ namespace Libro.Business.Libra.DTOs.Validators.IdentityValidators
                 .WithMessage("Confirm password must match the password.");
 
             RuleFor(x => x.Telephone)
-                .MinimumLength(10).WithMessage("PhoneNumber must not be less than 10 characters.")
-                .MaximumLength(20).WithMessage("PhoneNumber must not exceed 50 characters.")
-                .Matches(new Regex(@"^\+373\s\d{2}\s\d{3}\s\d{3}$")).WithMessage("Phone Number not valid"); //Validation for Republic of Moldova
+            .MinimumLength(10).WithMessage("PhoneNumber must not be less than 10 characters.")
+            .MaximumLength(20).WithMessage("PhoneNumber must not exceed 20 characters.")
+            .Matches(new Regex(@"^\+\d{2,4}\d{8,12}$")).WithMessage("Phone Number not valid. Use the format: +[country code][phone number]");
+
+            RuleFor(x => x.Telephone)
+                .Matches(new Regex(@"^\+373\d{8}$")).WithMessage("Moldova: Phone Number not valid.")
+                .When(x => x.Telephone.StartsWith("+373"));
+
+            RuleFor(x => x.Telephone)
+                .Matches(new Regex(@"^\+39\d{9,10}$")).WithMessage("Italy: Phone Number not valid.")
+                .When(x => x.Telephone.StartsWith("+39"));
+
+            RuleFor(x => x.Telephone)
+                .Matches(new Regex(@"^\+40\d{9}$")).WithMessage("Romania: Phone Number not valid.")
+                .When(x => x.Telephone.StartsWith("+40"));
+
+            RuleFor(x => x.Telephone)
+                .Matches(new Regex(@"^\+44\d{10}$")).WithMessage("England: Phone Number not valid.")
+                .When(x => x.Telephone.StartsWith("+44"));
 
             RuleFor(x => x.Role.Id)
                 .NotEmpty().WithMessage("Role cannot be empty")
