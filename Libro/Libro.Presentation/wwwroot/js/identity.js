@@ -19,46 +19,17 @@
         }
     });
 
-    //VALIDATION: register form validation
-    $("#registerForm").validate({
-        submitHandler: function (event) {
-            event.preventDefault();
-
-            var formData = $(this).serialize();
-
-            $.ajax({
-                url: "/Identity/Create",
-                type: "POST",
-                data: formData,
-                success: function (response) {
-                    if (response.toast) {
-                        var svg = response.toast.svg;
-                        var message = response.toast.message;
-
-                        showToast(svg, message)
-                    }
-                },
-                error: function (xhr) {
-                    if (xhr.responseJSON && xhr.responseJSON.toast) {
-                        var svg = xhr.responseJSON.toast.svg;
-                        var message = xhr.responseJSON.toast.message;
-
-                        showToast(svg, message)
-                    }
-                }
-            });
-        }
-    });
-
     //GET: users list
     var table = $('#usersTable').DataTable({
         "processing": true,
         "serverSide": true,
-        "filter": true,
         scrollX: true,
         "ajax": {
             "url": "/Identity/GetUsers",
             "type": "POST",
+            xhrFields: {
+                withCredentials: true
+            },
             "datatype": "json"
         },
 
@@ -68,60 +39,20 @@
                 '<i class="fa fa-spinner fa-spin fa-3x fa-fw" style="color:#2a2b2b;"></i><span class="sr-only">Loading...</span> '
         },
         "columns": [
+            { "data": "Id", title: "Id", name: "Id", visible: false, searchable: false, filter: false },
+            { "data": "Username", title: "Username", name: "Username", autoWidth: true },
+            { "data": "Email", title: "Email", name: "Email", autoWidth: true },
+            { "data": "Name", title: "Name", name: "Name", autoWidth: true },
+            { "data": "Telephone", title: "Telephone", name: "Telephone", autoWidth: true },
+            { "data": "Role", title: "Role", name: "Role", autoWidth: true, visible: true, filter: false, orderable: false },
             {
-                "data": "Id",
-                title: "Id",
-                name: "Id",
-                visible: false,
-                searchable: false
-            },
-            {
-                "data": "Name",
-                title: "Name",
-                name: "Name",
-                autoWidth: true,
-                visible: true,
-                orderable: false,
-                filter: false
-            },
-            {
-                "data": "Email",
-                title: "Email",
-                name: "Email",
-                autoWidth: true,
-                visible: true,
-                searchable: true
-            },
-            {
-                "data": "Username",
-                title: "Username",
-                name: "Username",
-                autoWidth: true,
-                visible: true,
-                searchable: true
-            },
-            {
-                "data": "Telephone",
-                title: "Telephone",
-                name: "Telephone",
-                autoWidth: true,
-                "visible": true,
-                "searchable": true
-            },
-            {
-                "data": "IsArchieved",
-                title: "Status",
-                name: "IsArchieved",
-                autoWidth: true,
-                visible: true,
-                orderable: false,
-                filter: false,
+                "data": "IsArchieved", title: "Status", name: "IsArchieved", autoWidth: true,
                 "render": function (data, type, row) {
                     if (data === true || data === "true") {
                         return `<span class="px-4 py-1 ml-auto text-sm font-medium tracking-wide text-yellow-500 bg-yellow-100 rounded-full">
                                   Disabled
                                 </span>`;
-                    } else{
+                    } else {
                         return `<span class="px-4 py-1 ml-auto text-sm font-medium tracking-wide text-green-600 bg-green-200 rounded-full">
                                   Enabled
                                 </span>`;
@@ -129,20 +60,7 @@
                 }
             },
             {
-                "data": "Role",
-                title: "Role",
-                name: "Role",
-                autoWidth: true,
-                visible: true,
-                orderable: false,
-                filter: false
-            },
-            {
-                "data": null,
-                filter: false,
-                innerHeight: "200px",
-                innerWidth: "200px",
-                orderable: false,
+                "data": null, filter: false, innerHeight: "200px", innerWidth: "200px", orderable: false,
                 "render": function (data, type, row) {
                     return `<button id="drop" class="dropdown-button text-gray-900 bg-gray-100 hover:bg-gray-200 focus:ring-4
                                 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center 
@@ -153,7 +71,10 @@
                 }
             }
         ]
-    });    
+    });
+
+    table.ajax.reload();
+
     //CONTEXT MENU: options (edit, delete) for all users
     $(document).contextMenu({
         selector: '.dropdown-button',
@@ -163,7 +84,7 @@
             let row = table.row($triggerElement.closest("tr"));
             if (row) {
                 let isArchived = row.data().IsArchieved;
-                let archiveName = isArchived ? "Enable" : "Disable";
+                let archiveName = isArchived ? "Enable user" : "Disable user";
 
                 return {
                     items: {
@@ -176,7 +97,7 @@
                                 let row = table.row(options.$trigger.closest("tr"));
                                 let userId = row.data().Id;
 
-                                window.location.href = '/details/' + userId;
+                                window.location.href = '/edit/' + userId;
                             }
                         },
                         "delete": {
@@ -208,6 +129,8 @@
 
                                                     showToast(svg, message)
                                                 }
+
+                                                table.ajax.reload(); //Reloading table
                                             },
                                             error: function (xhr) {
                                                 if (xhr.responseJSON && xhr.responseJSON.toast) {
@@ -222,34 +145,16 @@
                                 })
                             }
                         },
-                        "archive": {
-                            name: archiveName,
+                        "datails": {
+                            name: 'Details',
                             className: 'text-sm',
-                            icon: 'bi bi-archive-fill',
+                            icon: 'bi bi-info-circle',
                             callback: function (key, options) {
+
                                 let row = table.row(options.$trigger.closest("tr"));
                                 let userId = row.data().Id;
 
-                                $.ajax({
-                                    url: "/Identity/UpdateStatusUser/" + userId,
-                                    type: "POST",
-                                    success: function (response) {
-                                        if (response.toast) {
-                                            var svg = response.toast.svg;
-                                            var message = response.toast.message;
-
-                                            showToast(svg, message)
-                                        }
-                                    },
-                                    error: function (xhr) {
-                                        if (xhr.responseJSON && xhr.responseJSON.toast) {
-                                            var svg = xhr.responseJSON.toast.svg;
-                                            var message = xhr.responseJSON.toast.message;
-
-                                            showToast(svg, message)
-                                        }
-                                    }
-                                });
+                                window.location.href = '/details/' + userId;
                             }
                         }
                     }
