@@ -6,6 +6,7 @@ using Libro.Business.Libra.DTOs.TableParameters;
 using Libro.Business.Libra.Queries.PosQueries;
 using Libro.Business.Libra.Queries.POSQueries;
 using Libro.DataAccess.Contracts;
+using Libro.DataAccess.Data;
 using Libro.Infrastructure.Services.ToastHelper;
 using Libro.Infrastructure.Services.ToastService;
 using MediatR;
@@ -21,17 +22,20 @@ namespace Libro.Presentation.Controllers.Pos
         private readonly IMediator _mediator;
         private readonly IValidator<CreatePOSDTO> _createValidator;
         private readonly IValidator<UpdatePOSDTO> _updateValidator;
+        private readonly ApplicationDbContext _context;
         public PosController(IMediator mediator,
             IToastService toastService,
             IUnitOfWork unitOfWork,
             UserManager<DataAccess.Entities.User> userManager,
             IValidator<CreatePOSDTO> createValidator,
-            IValidator<UpdatePOSDTO> updateValidator)
-            : base(toastService, unitOfWork)
+            IValidator<UpdatePOSDTO> updateValidator,
+            ApplicationDbContext context)
+            : base(toastService, unitOfWork, context)
         {
             _mediator = mediator;
             _createValidator = createValidator;
             _updateValidator = updateValidator;
+            _context = context;
         }
 
         //POST: /POS/Create
@@ -78,15 +82,16 @@ namespace Libro.Presentation.Controllers.Pos
 
         //POST: /POS/GetPOSs
         [HttpPost("/POS/GetPOSs")]
-        public async Task<IActionResult> GetIssues(DataTablesParameters param = null)
+        public async Task<IActionResult> GetPOSs(DataTablesParameters param = null)
         {
             var result = await _mediator.Send(new GetPOSsQuery(param));
+            var totalRecords = _context.POSs.ToList().Count();
 
             var jsonData = new
             {
                 draw = param.Draw,
                 recordsFiltered = result.Count(),
-                recordsTotal = result.Count(),
+                recordsTotal = totalRecords,
                 data = result
             };
 

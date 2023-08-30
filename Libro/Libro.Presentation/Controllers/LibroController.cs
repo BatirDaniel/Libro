@@ -14,10 +14,12 @@ namespace Libro.Presentation.Controllers
 
         public LibroController(
             IToastService toastService,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            ApplicationDbContext context = null)
         {
             _toastService = toastService;
             _unitOfWork = unitOfWork;
+            _context = context;
         }
 
         public IActionResult Index()

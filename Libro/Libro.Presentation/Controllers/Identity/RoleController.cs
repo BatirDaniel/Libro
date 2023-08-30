@@ -20,7 +20,7 @@ namespace Libro.Presentation.Controllers.Identity
             RoleManager<IdentityRole> roleManager,
             IUnitOfWork unitOfWork,
             IToastService toastService,
-            ApplicationDbContext _context) : base (toastService, unitOfWork)
+            ApplicationDbContext context) : base (toastService, unitOfWork, context)
         {
             _mapperly = mapperly;
             _roleManager = roleManager;
