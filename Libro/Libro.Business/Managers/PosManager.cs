@@ -94,21 +94,21 @@ namespace Libro.Business.Managers
             return pos;
         }
 
-        public async Task<List<PosDTO>> GetPOSs(DataTablesParameters? param)
+        public Task<List<PosDTO>> GetPOSs(DataTablesParameters? param)
         {
-            string searchValue = param.Search.Value ?? "";
-            Expression<Func<Pos, bool>> expression = null;
+            string searchValue = param.Search.Value?.ToLower() ?? "";
+            Expression<Func<Pos, bool>> expression = q => true;
 
-            if (searchValue != "")
+            if (!string.IsNullOrEmpty(searchValue))
             {
-                expression = q => q.Name.Contains(searchValue)
-                || q.Telephone.Contains(searchValue)
-                || q.Address.Contains(searchValue)
-                || _context.Issues.Where(x => x.IdPos == q.Id).
-                    Count().ToString().Contains(searchValue);
+                expression = q => q.Name.ToLower().Contains(searchValue)
+                                 || q.Telephone.ToLower().Contains(searchValue)
+                                 || q.Address.ToLower().Contains(searchValue)
+                                 || _context.Issues.Any(x => x.IdPos == q.Id &&
+                               x.IdPos.ToString().Contains(searchValue));
             }
 
-            var issues = await _context.POSs
+            var issues = _context.POSs
                .Where(expression)
                .OrderByExtension(param.Columns[param.Order[0].Column].Name, param.Order[0].Dir)
                .Skip(param.Start)
@@ -119,11 +119,10 @@ namespace Libro.Business.Managers
                    Name = x.Name,
                    Telephone = x.Telephone,
                    Address = x.Address,
-                   Status = _context.Issues.Where(x => x.IdPos == x.Id).
-                    Count(),
-               }).ToListAsync();
+                   Status = _context.Issues.Count(x => x.IdPos == x.Id),
+               }).ToList();
 
-            return issues;
+            return Task.FromResult(issues);
         }
     }
 }

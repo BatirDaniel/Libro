@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "dQ5sygBVoyYKmBQdgifK8jKygC2tFvUUqcj9JV769RA=",
+  "Hash": "seRltUZXlVVOQNn9TijdMQKnldCULMzMa4pncbVoWHU=",
   "Source": "Libro.Presentation",
   "BasePath": "_content/Libro.Presentation",
   "Mode": "Default",
@@ -867,6 +867,40 @@
       "OriginalItemSpec": "wwwroot\\js\\bootstrap-js\\bootstrap.min.js.map"
     },
     {
+      "Identity": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\create-user.js",
+      "SourceId": "Libro.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\",
+      "BasePath": "_content/Libro.Presentation",
+      "RelativePath": "js/create-user.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\create-user.js"
+    },
+    {
+      "Identity": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\details-user.js",
+      "SourceId": "Libro.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\",
+      "BasePath": "_content/Libro.Presentation",
+      "RelativePath": "js/details-user.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\details-user.js"
+    },
+    {
       "Identity": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\identity.js",
       "SourceId": "Libro.Presentation",
       "SourceType": "Discovered",
@@ -918,6 +952,23 @@
       "OriginalItemSpec": "wwwroot\\js\\login.js"
     },
     {
+      "Identity": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\pos.js",
+      "SourceId": "Libro.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\",
+      "BasePath": "_content/Libro.Presentation",
+      "RelativePath": "js/pos.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\pos.js"
+    },
+    {
       "Identity": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\site.js",
       "SourceId": "Libro.Presentation",
       "SourceType": "Discovered",
@@ -935,12 +986,12 @@
       "OriginalItemSpec": "wwwroot\\js\\site.js"
     },
     {
-      "Identity": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\user-details.js",
+      "Identity": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\update-user.js",
       "SourceId": "Libro.Presentation",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\",
       "BasePath": "_content/Libro.Presentation",
-      "RelativePath": "js/user-details.js",
+      "RelativePath": "js/update-user.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -949,7 +1000,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\user-details.js"
+      "OriginalItemSpec": "wwwroot\\js\\update-user.js"
     },
     {
       "Identity": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\lib\\bootstrap-icons-1.10.5\\0-circle.svg",

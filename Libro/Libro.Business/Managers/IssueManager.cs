@@ -1,17 +1,11 @@
 ﻿using Libro.Business.Common.Helpers.OrderHelper;
-using Libro.Business.Libra.DTOs.IdentityDTOs;
 using Libro.Business.Libra.DTOs.IssueDTOs;
 using Libro.DataAccess.Contracts;
 using Libro.DataAccess.Data;
 using Libro.DataAccess.Entities;
-using Libro.DataAccess.Repository;
-using Libro.Infrastructure.Helpers.ExpressionSuport;
 using Libro.Infrastructure.Mappers;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using NHibernate.Criterion;
-using NHibernate.Id;
 using System.Linq.Expressions;
 using System.Security.Claims;
 
@@ -118,12 +112,12 @@ namespace Libro.Business.Managers
             return result;
         }
 
-        public async Task<List<IssueDTO>> GetIssues(Libra.DTOs.TableParameters.DataTablesParameters? param)
+        public Task<List<IssueDTO>> GetIssues(Libra.DTOs.TableParameters.DataTablesParameters? param)
         {
-            string searchValue = param.Search.Value ?? "";
+            string searchValue = param.Search.Value?.ToLower() ?? "";
             Expression<Func<Issue, bool>> expression = null;
 
-            if (searchValue != "")
+            if (!string.IsNullOrEmpty(searchValue))
             {
                 expression = q => q.Pos.Name.Contains(searchValue)
                 || q.User.Id.Contains(searchValue)
@@ -134,7 +128,7 @@ namespace Libro.Business.Managers
                 || q.Priority.Contains(searchValue);
             }
 
-            var issues = await _context.Issues
+            var issues = _context.Issues
                .Where(expression)
                .OrderByExtension(param.Columns[param.Order[0].Column].Name, param.Order[0].Dir)
                .Skip(param.Start)
@@ -150,9 +144,9 @@ namespace Libro.Business.Managers
                    AssignedTo = x.UserAsigned.Name,
                    Memo = x.Memo,
                    Priority = x.Priority
-               }).ToListAsync();
+               }).ToList();
 
-            return issues;
+            return Task.FromResult(issues);
         }
     }
 }

@@ -56,7 +56,7 @@ builder.Services.AddCors();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection") ?? "");
-});
+}, ServiceLifetime.Scoped);
 
 builder.Services.RegisterHandlers();
 
@@ -67,7 +67,7 @@ builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.Configure<IdentityOptions>(q =>
 {
     q.Password.RequireDigit = false;
-    q.Password.RequiredLength = 5;
+    q.Password.RequiredLength = 8;
     q.Password.RequireNonAlphanumeric = false;
     q.Password.RequireLowercase = false;
     q.Password.RequireUppercase = false;

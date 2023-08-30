@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\pngs\default-user.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="MediatR.Extensions.Autofac.DependencyInjection" Version="11.0.0" />
@@ -42,6 +46,9 @@
 
   <ItemGroup>
     <Resource Include="Resources\pngs\bank.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\pngs\default-user.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -17,7 +17,28 @@ namespace Libro.DataAccess.Data
             SeedConnectionTypes(dbContext);
             SeedStatuses(dbContext);
             SeedIssueTypes(dbContext);
+            SeedCities(dbContext);
         }
+
+        private static void SeedCities(ApplicationDbContext dbContext)
+        {
+            (new List<string> { "Chișinău", "Bălți", "Tiraspol", "Bender", "Cahul", "Comrat", "Orhei", "Ungheni", "Soroca", "Călărași",
+               "Paris", "Roma", "Madrid", "Berlin", "Londra", "Londra", "Londra", "Viena", "Lisabona", "Oslo" })
+               .ForEach(async x =>
+               {
+                   if(!dbContext.Cities.Any(c => c.CityName == x))
+                   {
+                       dbContext.Cities.Add(new City
+                       {
+                           Id = Guid.NewGuid().ToString(),
+                           CityName = x
+                       });
+                   }
+               });
+
+            dbContext.SaveChanges();
+        }
+
         private static async Task SeedRoles(RoleManager<IdentityRole> roleManager)
         {
             var roles = new List<string> { "Administrator", "Tehnical Group", "User" };
@@ -97,11 +118,5 @@ namespace Libro.DataAccess.Data
                 });
             dbContext.SaveChanges();
         }
-
-        // Configure logging to console
-        //private static readonly ILogger _logger = LoggerFactory.Create(builder =>
-        //{
-        //    builder.AddConsole();
-        //}).CreateLogger<SeedData>();
     }
 }

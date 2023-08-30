@@ -113,6 +113,7 @@ namespace Libro.Business.Managers
             model.Name = string.Join(" ", user.UserDTO.Firstname, user.UserDTO.Lastname);
             model.Telephone = user.UserDTO.Telephone;
             model.Email = user.UserDTO.Email;
+            model.IsArchieved = (bool)user.UserDTO.IsArchieved;
 
             result = await _identityService.UpdateUserData(model);
             if (result != null)
@@ -137,40 +138,53 @@ namespace Libro.Business.Managers
 
         public async Task<List<UserDTO>?> GetUsers(DataTablesParameters? param)
         {
-            string searchValue = param.Search.Value ?? "";
+            string searchValue = param.Search.Value?.ToLower() ?? "";
 
             Expression<Func<User, bool>> expression = q => q.UserName != "admin@libro";
 
-            if(searchValue != "")
+            if (!string.IsNullOrEmpty(searchValue))
             {
-                Expression<Func<User, bool>> expression1 = q => (q.Name.Contains(searchValue)
-                || q.Name.Contains(searchValue)
-                || q.UserName.Contains(searchValue)
-                || q.Email.Contains(searchValue)
-                || q.Telephone.Contains(searchValue)
-                || _userManager.GetRolesAsync(q).Result.First().Contains(searchValue)
-                || (q.IsArchieved ? "Archieved" : "Unarchieved").Contains(searchValue));
+                Expression<Func<User, bool>> expression1 = q =>
+                    (q.Name.ToLower().Contains(searchValue) 
+                    || q.UserName.ToLower().Contains(searchValue) 
+                    || q.Email.ToLower().Contains(searchValue) 
+                    || q.Telephone.ToLower().Contains(searchValue) 
+                    || (q.IsArchieved ? "enable" : "disable").Contains(searchValue));
 
                 expression = ExpressionCombiner.And(expression, expression1);
             }
 
-            var users = await _context.Users
-               .Where(expression)
-               .OrderByExtension(param.Columns[param.Order[0].Column].Name, param.Order[0].Dir)
-               .Skip(param.Start)
-               .Take(param.Length)
-               .Select(x => new UserDTO
-               {
-                   Id = x.Id,
-                   Name = x.Name,
-                   Email = x.Email,
-                   Username = x.UserName,
-                   Telephone = x.Telephone,
-                   IsArchieved= x.IsArchieved,
-                   Role = _userManager.GetRolesAsync(x).Result.LastOrDefault(),
-               }).ToListAsync();
+            var users = _context.Users
+                .Where(expression)
+                .OrderByExtension(param.Columns[param.Order[0].Column].Name, param.Order[0].Dir)
+                .Skip(param.Start)
+                .Take(param.Length)
+                .ToList();
 
-            return users;
+            var userDTOs = new List<UserDTO>();
+
+            foreach (var user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+
+                if (roles.First().ToLower().Contains(searchValue))
+                {
+                    var userDTO = new UserDTO
+                    {
+                        Id = user.Id,
+                        Name = user.Name,
+                        Email = user.Email,
+                        Username = user.UserName,
+                        Telephone = user.Telephone,
+                        IsArchieved = user.IsArchieved,
+                        Role = roles.FirstOrDefault()
+                    };
+
+                    userDTOs.Add(userDTO);
+                }
+            }
+
+            return userDTOs;
         }
 
         public async Task<UpdateUserDTO?> GetUserById(string? id)
@@ -184,6 +198,7 @@ namespace Libro.Business.Managers
                     Telephone = x.Telephone,
                     Email = x.Email,
                     Username = x.UserName,
+                    IsArchieved = x.IsArchieved,
                 })).FirstOrDefault();
 
             var origUser = _mapperly.Map(user);
@@ -192,7 +207,7 @@ namespace Libro.Business.Managers
 
             if (userRoles.Any())
             {
-                user.Role = new IdentityRole();
+                user.Role = new Role();
                 user.Role.Name = userRoles.FirstOrDefault();
 
                 var role = await _roleManager.Roles.SingleOrDefaultAsync(r => r.Name == user.Role.Name);
@@ -205,18 +220,41 @@ namespace Libro.Business.Managers
             return user;
         }
 
-        public async Task<string> UpdateUserStatus(string id)
+        public async Task<DetailsUserDTO> GetUserDetails(string id)
         {
-            if (!await _unitOfWork.Users.isExists(x => x.Id == id))
-                return "Invalid id provided";
+            var user = (await _unitOfWork.Users.Find<DetailsUserDTO>(
+                where: x => x.Id == id,
+                include: x => x
+                 .Include(x => x.Issues)
+                 .Include(x => x.Logs),
+                select : x => new DetailsUserDTO
+                {
+                    Name = x.Name,
+                    Email = x.Email,
+                    Role = _userManager.GetRolesAsync(x).Result.FirstOrDefault(),
+                    Joined = ((DateTime)x.DateRegistered).ToString("dd/MM/yyyy")
+                })).FirstOrDefault();
 
-            var model = await _userManager.FindByIdAsync(id);
-            model.IsArchieved = !model.IsArchieved;
+            user.NumberOfIssuesAdded = await GetIssuesAdded(id);
+            user.NumberOfIssuesAssigned = await GetIssuesAssigned(id);
 
-            _unitOfWork.Users.Update(model);
-            await _unitOfWork.Save();
+            return user;
+        }
 
-            return null;
+        private async Task<int> GetIssuesAssigned(string id)
+        {
+            var result = (await _unitOfWork.Issues.FindAll<Issue>(
+                where: x => x.IdAssigned == id)).Count();
+
+            return result;
+        }
+
+        private async Task<int> GetIssuesAdded(string id)
+        {
+            var result = (await _unitOfWork.Issues.FindAll<Issue>(
+               where: x => x.IdUserCreated == id)).Count();
+
+            return result;
         }
     }
 }

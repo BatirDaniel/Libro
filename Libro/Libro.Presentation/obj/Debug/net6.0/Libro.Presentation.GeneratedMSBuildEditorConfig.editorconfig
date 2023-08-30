@@ -48,8 +48,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Identity/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSWRlbnRpdHlcRGV0YWlscy5jc2h0bWw=
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Identity/DetailsUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSWRlbnRpdHlcRGV0YWlsc1VzZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Identity/UpdateUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSWRlbnRpdHlcVXBkYXRlVXNlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Identity/Users.cshtml]
