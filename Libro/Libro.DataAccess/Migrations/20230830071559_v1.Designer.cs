@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Libro.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230825062345_v1")]
+    [Migration("20230830071559_v1")]
     partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -257,7 +257,7 @@ namespace Libro.DataAccess.Migrations
 
                     b.HasIndex("IdConnectionType");
 
-                    b.ToTable("Pos");
+                    b.ToTable("POSs");
                 });
 
             modelBuilder.Entity("Libro.DataAccess.Entities.Status", b =>

@@ -134,7 +134,7 @@ namespace Libro.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Pos",
+                name: "POSs",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -157,25 +157,25 @@ namespace Libro.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pos", x => x.Id);
+                    table.PrimaryKey("PK_POSs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Pos_Cities_CityId",
+                        name: "FK_POSs_Cities_CityId",
                         column: x => x.CityId,
                         principalTable: "Cities",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Pos_Cities_IdCity",
+                        name: "FK_POSs_Cities_IdCity",
                         column: x => x.IdCity,
                         principalTable: "Cities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Pos_ConnectionTypes_ConnectionTypesId",
+                        name: "FK_POSs_ConnectionTypes_ConnectionTypesId",
                         column: x => x.ConnectionTypesId,
                         principalTable: "ConnectionTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Pos_ConnectionTypes_IdConnectionType",
+                        name: "FK_POSs_ConnectionTypes_IdConnectionType",
                         column: x => x.IdConnectionType,
                         principalTable: "ConnectionTypes",
                         principalColumn: "Id",
@@ -316,14 +316,14 @@ namespace Libro.DataAccess.Migrations
                         principalTable: "IssueTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Issues_Pos_IdPos",
+                        name: "FK_Issues_POSs_IdPos",
                         column: x => x.IdPos,
-                        principalTable: "Pos",
+                        principalTable: "POSs",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Issues_Pos_PosId",
+                        name: "FK_Issues_POSs_PosId",
                         column: x => x.PosId,
-                        principalTable: "Pos",
+                        principalTable: "POSs",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Issues_Statuses_IdStatus",
@@ -487,23 +487,23 @@ namespace Libro.DataAccess.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pos_CityId",
-                table: "Pos",
+                name: "IX_POSs_CityId",
+                table: "POSs",
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pos_ConnectionTypesId",
-                table: "Pos",
+                name: "IX_POSs_ConnectionTypesId",
+                table: "POSs",
                 column: "ConnectionTypesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pos_IdCity",
-                table: "Pos",
+                name: "IX_POSs_IdCity",
+                table: "POSs",
                 column: "IdCity");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pos_IdConnectionType",
-                table: "Pos",
+                name: "IX_POSs_IdConnectionType",
+                table: "POSs",
                 column: "IdConnectionType");
         }
 
@@ -537,7 +537,7 @@ namespace Libro.DataAccess.Migrations
                 name: "IssueTypes");
 
             migrationBuilder.DropTable(
-                name: "Pos");
+                name: "POSs");
 
             migrationBuilder.DropTable(
                 name: "Statuses");

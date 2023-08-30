@@ -255,7 +255,7 @@ namespace Libro.DataAccess.Migrations
 
                     b.HasIndex("IdConnectionType");
 
-                    b.ToTable("Pos");
+                    b.ToTable("POSs");
                 });
 
             modelBuilder.Entity("Libro.DataAccess.Entities.Status", b =>
