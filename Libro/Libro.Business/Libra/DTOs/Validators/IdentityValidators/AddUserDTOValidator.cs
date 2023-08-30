@@ -32,30 +32,33 @@ namespace Libro.Business.Libra.DTOs.Validators.IdentityValidators
                 .NotEmpty().WithMessage("Email cannot be empty")
                 .Matches(new Regex(@"^[a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$")).WithMessage("Email is incorrect");
 
+            RuleFor(x => x.Password)
+                .NotEmpty().WithMessage("Password is required.")
+                .MinimumLength(8).WithMessage("Password must be at least 8 characters long.")
+                .Matches(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).*$")
+                .WithMessage("Password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character.");
+
             RuleFor(x => x.ConfirmPassword)
                 .Equal(x => x.Password)
                 .WithMessage("Confirm password must match the password.");
 
             RuleFor(x => x.Telephone)
                 .MinimumLength(10).WithMessage("PhoneNumber must not be less than 10 characters.")
-                .MaximumLength(20).WithMessage("PhoneNumber must not exceed 20 characters.")
-                .Matches(new Regex(@"^\+\d{2,4}\d{8,12}$")).WithMessage("Phone Number not valid. Use the format: +[country code][phone number]");
+                .MaximumLength(20).WithMessage("PhoneNumber must not exceed 20 characters.");
 
-            RuleFor(x => x.Telephone)
-                .Matches(new Regex(@"^\+373\d{8}$")).WithMessage("Moldova: Phone Number not valid.")
-                .When(x => x.Telephone.StartsWith("+373"));
+            //    .Matches(new Regex(@"^\+\d{2,4}\d{8,12}$")).WithMessage("Phone Number not valid. Use the format: +[country code][phone number]");
 
-            RuleFor(x => x.Telephone)
-                .Matches(new Regex(@"^\+39\d{9,10}$")).WithMessage("Italy: Phone Number not valid.")
-                .When(x => x.Telephone.StartsWith("+39"));
+            //RuleFor(x => x.Telephone)
+            //    .Matches(new Regex(@"^\+373\d{8}$")).WithMessage("Moldova: Phone Number not valid.");
 
-            RuleFor(x => x.Telephone)
-                .Matches(new Regex(@"^\+40\d{9}$")).WithMessage("Romania: Phone Number not valid.")
-                .When(x => x.Telephone.StartsWith("+40"));
+            //RuleFor(x => x.Telephone)
+            //    .Matches(new Regex(@"^\+39\d{9,10}$")).WithMessage("Italy: Phone Number not valid.");
 
-            RuleFor(x => x.Telephone)
-                .Matches(new Regex(@"^\+44\d{10}$")).WithMessage("England: Phone Number not valid.")
-                .When(x => x.Telephone.StartsWith("+44"));
+            //RuleFor(x => x.Telephone)
+            //    .Matches(new Regex(@"^\+40\d{9}$")).WithMessage("Romania: Phone Number not valid.");
+
+            //RuleFor(x => x.Telephone)
+            //    .Matches(new Regex(@"^\+44\d{10}$")).WithMessage("England: Phone Number not valid.");
 
             RuleFor(x => x.Role.Id)
                 .NotEmpty().WithMessage("Role cannot be empty")

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Libro.DataAccess.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace Libro.Business.Libra.DTOs.IdentityDTOs
 {
@@ -10,8 +11,10 @@ namespace Libro.Business.Libra.DTOs.IdentityDTOs
         public string? Lastname { get; set; }
         public string? Username { get; set; }
         public string? Email { get; set; }
+        public string? ConfirmPassword { get; set; }
         public string? Password { get; set; }
         public string? Telephone { get; set; }
-        public IdentityRole? Role { get; set; }
+        public bool IsArchieved { get; set; }
+        public Role? Role { get; set; }
     }
 }
