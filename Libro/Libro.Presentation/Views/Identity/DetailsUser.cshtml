@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "User details";
+}
+
+<div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ml-auto mr-auto">
+    <div class="flex flex-col items-center pb-10 ml-auto mr-auto">
+        <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="~/Resources/pngs/default-user.png" alt="default user" />
+        <div class="ml-auto mr-auto">
+            <div class="flex justify-start">
+                <h5 class="text-sm text-gray-500 dark:text-gray-700 mr-3">Name : </h5>
+                <h5 id="name" class="text-sm text-gray-500 dark:text-gray-400"></h5>
+            </div>
+            <div class="flex justify-start">
+                <h5 class="text-sm text-gray-500 dark:text-gray-700 mr-3">Email : </h5>
+                <h5 id="email" class="text-sm text-gray-500 dark:text-gray-400"></h5>
+            </div>
+            <div class="flex justify-start">
+                <h5 class="text-sm text-gray-500 dark:text-gray-700 mr-3">Role : </h5>
+                <h5 id="role" class="text-sm text-gray-500 dark:text-gray-400"></h5>
+            </div>
+            <div class="flex justify-start">
+                <h5 class="text-sm text-gray-500 dark:text-gray-700 mr-3">Joined : </h5>
+                <h5 id="joined" class="text-sm text-gray-500 dark:text-gray-400"></h5>
+            </div>
+        </div>
+        </div>
+    <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
+        <div class="grid grid-cols-2 gap-3 mb-2">
+            <dl class="bg-orange-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[78px]">
+                <dt id="issuesCreated" class="w-8 h-8 rounded-full bg-orange-100 dark:bg-gray-500 text-orange-600 dark:text-orange-300 text-sm font-medium flex items-center justify-center mb-1"></dt>
+                <dd class="text-orange-600 dark:text-orange-300 text-sm font-medium">Issues Created</dd>
+            </dl>
+            <dl class="bg-teal-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[78px]">
+                <dt id="issuesAssigned" class="w-8 h-8 rounded-full bg-teal-100 dark:bg-gray-500 text-teal-600 dark:text-teal-300 text-sm font-medium flex items-center justify-center mb-1"></dt>
+                <dd class="text-teal-600 dark:text-teal-300 text-sm font-medium">Issues Assigned</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+    <script src="~/lib/jquery-datatable/DataTables-1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/jquery-datatable/Responsive-2.5.0/js/dataTables.responsive.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+
+    <script src="~/js/details-user.js"></script>
+}

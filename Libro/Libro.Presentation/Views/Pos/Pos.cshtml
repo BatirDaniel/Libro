@@ -3,9 +3,15 @@
     ViewBag.Title = "Point of Sale";
 }
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/lib/jquery-datatable/DataTables-1.13.6/css/jquery.dataTables.min.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/lib/jquery-datatable/Responsive-2.5.0/css/responsive.dataTables.min.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/tables.css" asp-append-version="true" />
+
 <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
     <div class="flex justify-between">
-        <h4 class="text-2xl text-gray-500 font-extrabold dark:text-white">
+        <h2 class="text-xl font-extrabold dark:text-white mb-2">
             @ViewBag.Title
         </h4>
         <button data-modal-target="staticModal" data-modal-toggle="staticModal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
@@ -18,7 +24,7 @@
                 <div class="space-y-4 md:space-y-6 sm:p-8">
                     <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                            Add new user
+                            Create issue
                         </h3>
                         <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="staticModal">
                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -27,79 +33,106 @@
                             <span class="sr-only">Close modal</span>
                         </button>
                     </div>
-                    @*@using (Html.BeginForm("Create", "Issue", FormMethod.Post, new { @class = "space-y-4 md:space-y-6", @id = "issueForm" }))
+                    @using (Html.BeginForm(FormMethod.Post, new { @class = "space-y-4 md:space-y-6", @id = "issueForm" }))
                     {
-                        <div class="grid gap-6 mb-6 md:grid-cols-2">
-                            <div>
-                                @Html.LabelFor(m => m.IdType, "Issue Type", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
-                                <select id="IdType" name="IdType" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
-                            </div>
-                            <div>
-                                @Html.LabelFor(m => m.IdSubType, "Subclass", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
-                                <select id="IdSubType" name="IdSubType" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
-                            </div>
-                        </div>
                         <div class="mb-6">
-                            @Html.LabelFor(m => m.IdPos, "POS", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
-                            <select id="IdPos" name="IdPos" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
-                        </div>
-                        <div class="mb-6">
-                            @Html.LabelFor(m => m.Description, "Description", new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
-                            @Html.TextBoxFor(m => m.Description, new {@class="bg-gray-50 h-[15px] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="78-099-291"})
-                            @Html.ValidationMessageFor(m => m.Description)
+                            @Html.LabelFor(m => m.Name, "Name", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                            @Html.TextBoxFor(m => m.Name, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", autocomplete="off" })
+                            @Html.ValidationMessageFor(m => m.Name, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
                         </div>
                         <div class="grid gap-6 mb-6 md:grid-cols-2">
                             <div>
-                                @Html.LabelFor(m => m.Priority, "Priority", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
-                                <select id="Priority" name="Priority" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
+                                @Html.LabelFor(m => m.Telephone, "Telephone", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                                @Html.TextBoxFor(m => m.Telephone, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" , autocomplete="off" })
+                                @Html.ValidationMessageFor(m => m.Telephone, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
                             </div>
                             <div>
-                                @Html.LabelFor(m => m.Priority, "Status", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
-                                <select id="IdStatus" name="IdStatus" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option>Normal</option>
-                                    <option>Medium</option>
-                                    <option>Urgent</option>
-                                </select>
+                                @Html.LabelFor(m => m.Cellphone, "Cellphone", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                                @Html.TextBoxFor(m => m.Cellphone, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", autocomplete="off" })
+                                @Html.ValidationMessageFor(m => m.Cellphone, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
                             </div>
                         </div>
                         <div class="mb-6">
-                            @Html.LabelFor(m => m.IdAssigned, "Assigned To", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
-                            <select id="IdAssigned" name="IdAssigned" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
+                            @Html.LabelFor(m => m.Address, "Address", new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
+                            @Html.TextBoxFor(m => m.Address, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", autocomplete="off" })
+                            @Html.ValidationMessageFor(m => m.Address, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
                         </div>
                         <div class="mb-6">
-                            @Html.LabelFor(m => m.Memo, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
-                            @Html.TextBoxFor(m => m.Memo, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="john.doe@gmail.com"})
-                            @Html.ValidationMessageFor(m => m.Memo)
+                            @Html.LabelFor(m => m.IdCity, "City", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                            <select id="IdCity" name="IdCity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
+                        </div>
+                        <div>
+                            @Html.LabelFor(m => m.Model, "Model", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                            @Html.TextBoxFor(m => m.Model, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", autocomplete="off" })
+                            @Html.ValidationMessageFor(m => m.Model, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
+                        </div>
+                        <div class="mb-6">
+                            @Html.LabelFor(m => m.Brand, "Brand", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                            @Html.TextBoxFor(m => m.Brand, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", autocomplete="off" })
+                            @Html.ValidationMessageFor(m => m.Brand, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
+                        </div>
+                        <div class="mb-6">
+                            @Html.LabelFor(m => m.IdConnectionType, "Connection Type", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                            <select id="IdConnectionType" name="IdConnectionType" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
+                            @Html.ValidationMessageFor(m => m.IdConnectionType, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
+                        </div>
+                        <div class="grid gap-6 mb-6 md:grid-cols-2">
+                            <div>
+                                @Html.LabelFor(m => m.MorningOpening, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
+                                <input type="time" id="MorningOpening" name="MorningOpening" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                @Html.ValidationMessageFor(m => m.MorningOpening, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
+                            </div>
+                            <div>
+                                @Html.LabelFor(m => m.MorningClosing, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
+                                <input type="time" id="MorningClosing" name="MorningClosing" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                @Html.ValidationMessageFor(m => m.MorningClosing, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
+                            </div>
+                        </div>
+                        <div class="grid gap-6 mb-6 md:grid-cols-2">
+                            <div>
+                                @Html.LabelFor(m => m.AfternoonOpening, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
+                                <input type="time" id="AfternoonOpening" name="AfternoonOpening" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                @Html.ValidationMessageFor(m => m.AfternoonOpening, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
+                            </div>
+                            <div>
+                                @Html.LabelFor(m => m.AfternoonClosing, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
+                                <input type="time" id="AfternoonClosing" name="AfternoonClosing" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                @Html.ValidationMessageFor(m => m.AfternoonClosing, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
+                            </div>
                         </div>
                         <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create</button>
                             <button data-modal-hide="staticModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                         </div>
-                    }*@
+                    }
                 </div>
             </div>
         </div>
     </div>
 
-    @*jQuery DATA TABLE USERS*@
+    @*jQuery DATA TABLE POSs*@
 
     <div class="relative overflow-x-auto rounded-lg shadow mt-6 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <div class="p-4 mt-5 lg:mt-0 rounded shadow bg-white">
-            <table id="usersTable" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
-                <thead>
-                    <tr class="bg-blue-600 bg-opacity-100 text-white">
-                        <th data-priority="0">Issue Type</th>
-                        <th data-priority="1">Subclass</th>
-                        <th data-priority="2">POS</th>
-                        <th data-priority="3">Description</th>
-                        <th data-priority="4">Priority</th>
-                        <th data-priority="5">Status</th>
-                        <th data-priority="6">Assigned To</th>
-                        <th data-priority="6"></th>
-                    </tr>
-                </thead>
-                <tbody> </tbody>
+            <table id="possTable" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
             </table>
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+    <script src="~/lib/jquery-datatable/DataTables-1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/jquery-datatable/Responsive-2.5.0/js/dataTables.responsive.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+
+    <script src="~/js/pos.js"></script>
+    <script>
+
+    </script>
+}

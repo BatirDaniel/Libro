@@ -3,9 +3,15 @@
     ViewBag.Title = "Issues";
 }
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/lib/jquery-datatable/DataTables-1.13.6/css/jquery.dataTables.min.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/lib/jquery-datatable/Responsive-2.5.0/css/responsive.dataTables.min.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/tables.css" asp-append-version="true" />
+
 <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
     <div class="flex justify-between">
-        <h4 class="text-2xl text-gray-500 font-extrabold dark:text-white">
+        <h2 class="text-xl font-extrabold dark:text-white mb-2">
             @ViewBag.Title
         </h4>
         <button data-modal-target="staticModal" data-modal-toggle="staticModal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
@@ -27,7 +33,7 @@
                             <span class="sr-only">Close modal</span>
                         </button>
                     </div>
-                    @using (Html.BeginForm("Create", "Issue", FormMethod.Post, new { @class = "space-y-4 md:space-y-6", @id = "issueForm" }))
+                    @using (Html.BeginForm(FormMethod.Post, new { @class = "space-y-4 md:space-y-6", @id = "issueForm" }))
                     {
                         <div class="grid gap-6 mb-6 md:grid-cols-2">
                             <div>
@@ -45,8 +51,8 @@
                         </div>
                         <div class="mb-6">
                             @Html.LabelFor(m => m.Description, "Description", new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
-                            @Html.TextBoxFor(m => m.Description, new {@class="bg-gray-50 h-[15px] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="78-099-291"})
-                            @Html.ValidationMessageFor(m => m.Description)
+                            @Html.TextAreaFor(m => m.Description, new {@class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="Write description here...", autocomplete="off" })
+                            @Html.ValidationMessageFor(m => m.Description, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
                         </div>
                         <div class="grid gap-6 mb-6 md:grid-cols-2">
                             <div>
@@ -68,8 +74,8 @@
                         </div>
                         <div class="mb-6">
                             @Html.LabelFor(m => m.Memo, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
-                            @Html.TextBoxFor(m => m.Memo, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="john.doe@gmail.com"})
-                            @Html.ValidationMessageFor(m => m.Memo)
+                            @Html.TextBoxFor(m => m.Memo, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="john.doe@gmail.com", autocomplete="off" })
+                            @Html.ValidationMessageFor(m => m.Memo, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
                         </div>
                         <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create</button>
@@ -81,25 +87,26 @@
         </div>
     </div>
 
-    @*jQuery DATA TABLE USERS*@
+    @*jQuery DATA TABLE ISSUES*@
 
     <div class="relative overflow-x-auto rounded-lg shadow mt-6 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <div class="p-4 mt-5 lg:mt-0 rounded shadow bg-white">
-            <table id="usersTable" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
-                <thead>
-                    <tr class="bg-blue-600 bg-opacity-100 text-white">
-                        <th data-priority="0">Issue Type</th>
-                        <th data-priority="1">Subclass</th>
-                        <th data-priority="2">POS</th>
-                        <th data-priority="3">Description</th>
-                        <th data-priority="4">Priority</th>
-                        <th data-priority="5">Status</th>
-                        <th data-priority="6">Assigned To</th>
-                        <th data-priority="6"></th>
-                    </tr>
-                </thead>
-                <tbody> </tbody>
+            <table id="issuesTable" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
             </table>
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+    <script src="~/lib/jquery-datatable/DataTables-1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/jquery-datatable/Responsive-2.5.0/js/dataTables.responsive.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+
+    <script src="~/js/issue.js"></script>
+}
