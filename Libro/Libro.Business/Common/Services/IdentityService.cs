@@ -98,7 +98,7 @@ namespace Libro.Business.Services
             List<string> userRoles = (await _userManager.GetRolesAsync(user)).ToList();
             foreach (string role in userRoles)
             {
-                userClaims.Add(new ("Role", role));
+                userClaims.Add(new (ClaimTypes.Role, role));
             }
 
             return userClaims;
