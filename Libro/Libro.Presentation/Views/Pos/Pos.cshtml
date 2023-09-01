@@ -1,5 +1,4 @@
-﻿@model Libro.Business.Libra.DTOs.POSDTOs.CreatePOSDTO
-@{
+﻿@{
     ViewBag.Title = "Point of Sale";
 }
 
@@ -13,102 +12,14 @@
     <div class="flex justify-between">
         <h2 class="text-xl font-extrabold dark:text-white mb-2">
             @ViewBag.Title
-        </h4>
-        <button data-modal-target="staticModal" data-modal-toggle="staticModal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+        </h2>
+        <button data-modal-target="createPosModal" data-modal-toggle="createPosModal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
             + Add POS
         </button>
     </div>
-    <div id="staticModal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full mt-10">
-        <div class="relative w-full max-w-2xl max-h-full">
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <div class="space-y-4 md:space-y-6 sm:p-8">
-                    <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                            Create issue
-                        </h3>
-                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="staticModal">
-                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                            </svg>
-                            <span class="sr-only">Close modal</span>
-                        </button>
-                    </div>
-                    @using (Html.BeginForm(FormMethod.Post, new { @class = "space-y-4 md:space-y-6", @id = "issueForm" }))
-                    {
-                        <div class="mb-6">
-                            @Html.LabelFor(m => m.Name, "Name", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
-                            @Html.TextBoxFor(m => m.Name, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", autocomplete="off" })
-                            @Html.ValidationMessageFor(m => m.Name, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
-                        </div>
-                        <div class="grid gap-6 mb-6 md:grid-cols-2">
-                            <div>
-                                @Html.LabelFor(m => m.Telephone, "Telephone", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
-                                @Html.TextBoxFor(m => m.Telephone, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" , autocomplete="off" })
-                                @Html.ValidationMessageFor(m => m.Telephone, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
-                            </div>
-                            <div>
-                                @Html.LabelFor(m => m.Cellphone, "Cellphone", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
-                                @Html.TextBoxFor(m => m.Cellphone, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", autocomplete="off" })
-                                @Html.ValidationMessageFor(m => m.Cellphone, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
-                            </div>
-                        </div>
-                        <div class="mb-6">
-                            @Html.LabelFor(m => m.Address, "Address", new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
-                            @Html.TextBoxFor(m => m.Address, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", autocomplete="off" })
-                            @Html.ValidationMessageFor(m => m.Address, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
-                        </div>
-                        <div class="mb-6">
-                            @Html.LabelFor(m => m.IdCity, "City", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
-                            <select id="IdCity" name="IdCity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
-                        </div>
-                        <div>
-                            @Html.LabelFor(m => m.Model, "Model", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
-                            @Html.TextBoxFor(m => m.Model, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", autocomplete="off" })
-                            @Html.ValidationMessageFor(m => m.Model, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
-                        </div>
-                        <div class="mb-6">
-                            @Html.LabelFor(m => m.Brand, "Brand", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
-                            @Html.TextBoxFor(m => m.Brand, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", autocomplete="off" })
-                            @Html.ValidationMessageFor(m => m.Brand, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
-                        </div>
-                        <div class="mb-6">
-                            @Html.LabelFor(m => m.IdConnectionType, "Connection Type", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
-                            <select id="IdConnectionType" name="IdConnectionType" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
-                            @Html.ValidationMessageFor(m => m.IdConnectionType, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
-                        </div>
-                        <div class="grid gap-6 mb-6 md:grid-cols-2">
-                            <div>
-                                @Html.LabelFor(m => m.MorningOpening, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
-                                <input type="time" id="MorningOpening" name="MorningOpening" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                @Html.ValidationMessageFor(m => m.MorningOpening, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
-                            </div>
-                            <div>
-                                @Html.LabelFor(m => m.MorningClosing, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
-                                <input type="time" id="MorningClosing" name="MorningClosing" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                @Html.ValidationMessageFor(m => m.MorningClosing, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
-                            </div>
-                        </div>
-                        <div class="grid gap-6 mb-6 md:grid-cols-2">
-                            <div>
-                                @Html.LabelFor(m => m.AfternoonOpening, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
-                                <input type="time" id="AfternoonOpening" name="AfternoonOpening" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                @Html.ValidationMessageFor(m => m.AfternoonOpening, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
-                            </div>
-                            <div>
-                                @Html.LabelFor(m => m.AfternoonClosing, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
-                                <input type="time" id="AfternoonClosing" name="AfternoonClosing" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                @Html.ValidationMessageFor(m => m.AfternoonClosing, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
-                            </div>
-                        </div>
-                        <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create</button>
-                            <button data-modal-hide="staticModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
+
+    @*CREATE POS modal*@
+    <partial name="~/Views/Pos/_CreatePos.cshtml"></partial>
 
     @*jQuery DATA TABLE POSs*@
 
@@ -131,8 +42,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
 
-    <script src="~/js/pos.js"></script>
-    <script>
-
-    </script>
+    <script src="~/js/pos/pos.js"></script>
 }
