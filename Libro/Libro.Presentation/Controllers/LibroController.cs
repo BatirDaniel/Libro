@@ -2,6 +2,7 @@
 using Libro.DataAccess.Data;
 using Libro.Infrastructure.Services.ToastHelper;
 using Libro.Infrastructure.Services.ToastService;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Libro.Presentation.Controllers
@@ -9,17 +10,20 @@ namespace Libro.Presentation.Controllers
     public class LibroController : Controller
     {
         protected readonly IToastService _toastService;
-        protected readonly IUnitOfWork _unitOfWork;
-        protected readonly ApplicationDbContext _context;
+        protected IUnitOfWork _unitOfWork;
+        protected ApplicationDbContext _context;
+        protected IMediator _mediator;
 
         public LibroController(
             IToastService toastService,
             IUnitOfWork unitOfWork,
-            ApplicationDbContext context = null)
+            ApplicationDbContext context,
+            IMediator mediator)
         {
             _toastService = toastService;
             _unitOfWork = unitOfWork;
             _context = context;
+            _mediator = mediator;
         }
 
         public IActionResult Index()
@@ -50,21 +54,21 @@ namespace Libro.Presentation.Controllers
             });
         }
 
-        [Route("Errors/403")]
+        [Route("error/403")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public IActionResult Error403()
         {
             return View("~/Views/Errors/Error403.cshtml");
         }
 
-        [Route("Errors/404")]
+        [Route("error/404")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Error404()
         {
             return View("~/Views/Errors/Error404.cshtml");
         }
 
-        [Route("Errors/500")]
+        [Route("error/500")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult Error500()
         {
