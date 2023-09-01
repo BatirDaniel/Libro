@@ -9,19 +9,20 @@ using Libro.DataAccess.Data;
 using Libro.Infrastructure.Services.ToastHelper;
 using Libro.Infrastructure.Services.ToastService;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Libro.Presentation.Controllers.User
 {
-    [System.Web.Mvc.Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
     public class IdentityController : LibroController
     {
-        private readonly IMediator _mediator;
-        private readonly IValidator<AddUserDTO> _validatorCreate;
-        private readonly IValidator<UpdateUserDTO> _validatorUpdate;
-        public readonly IToastService _toastService;
-        public readonly ApplicationDbContext _context;
+        private new IMediator _mediator;
+        private IValidator<AddUserDTO> _validatorCreate;
+        private IValidator<UpdateUserDTO> _validatorUpdate;
+        public new IToastService _toastService;
+        public new ApplicationDbContext _context;
         public IdentityController(
             IMediator mediator,
             IToastService toastService,
@@ -30,7 +31,7 @@ namespace Libro.Presentation.Controllers.User
             IValidator<AddUserDTO> validator,
             IValidator<UpdateUserDTO> validatorUpdate,
             ApplicationDbContext context) 
-            : base(toastService, unitOfWork, context)
+            : base(toastService, unitOfWork, context, mediator)
         {
             _mediator = mediator;
             _toastService = toastService;
@@ -46,7 +47,7 @@ namespace Libro.Presentation.Controllers.User
         {
             var validation = await _validatorCreate.ValidateAsync(model);
             if (!validation.IsValid)
-                return View("Users", model);
+                return ResponseResult(validation.Errors.FirstOrDefault()?.ErrorMessage, ToastStatus.Error);
 
             var result = await _mediator.Send(new AddUserCommand(model));
             if(result != null)
@@ -59,9 +60,9 @@ namespace Libro.Presentation.Controllers.User
         [HttpPost("/Identity/Update")]
         public async Task<IActionResult> Update(UpdateUserDTO model)
         {
-            var validator = await _validatorUpdate.ValidateAsync(model);
-            if (!validator.IsValid)
-                return View("Users", model);
+            var validation = await _validatorUpdate.ValidateAsync(model);
+            if (!validation.IsValid)
+                return ResponseResult(validation.Errors.FirstOrDefault()?.ErrorMessage, ToastStatus.Error);
 
             var result = await _mediator.Send(new UpdateUserCommand(model));
             if (result != null)
@@ -86,13 +87,11 @@ namespace Libro.Presentation.Controllers.User
         public async Task<IActionResult> GetUsers(DataTablesParameters param = null)
         {
             var result = await _mediator.Send(new GetUsersQuery(param));
-            var totalRecords = _context.Users.ToList().Count();
-
             var jsonData = new
             {
                 draw = param.Draw,
                 recordsFiltered = result.Count(),
-                recordsTotal = totalRecords-1,
+                recordsTotal = result.Count(),
                 data = result
             };
 
@@ -122,7 +121,7 @@ namespace Libro.Presentation.Controllers.User
             return View();
         }
 
-        [Route("edit/{userId}")]
+        [Route("user/edit/{userId}")]
         public IActionResult UpdateUser(string? userId)
         {
             if(GetUserById(userId) != null)
@@ -131,7 +130,7 @@ namespace Libro.Presentation.Controllers.User
             return RedirectToAction("Users");
         }
 
-        [Route("details/{userId}")]
+        [Route("user/details/{userId}")]
         public IActionResult DetailsUser(string? userId)
         {
             if (GetUserById(userId) != null)

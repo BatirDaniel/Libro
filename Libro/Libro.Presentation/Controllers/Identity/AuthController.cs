@@ -14,13 +14,14 @@ namespace Libro.Presentation.Controllers.Identity
 {
     public class AuthController : LibroController
     {
-        readonly IMediator _mediator;
+        private new IMediator _mediator;
         private new readonly IToastService _toastService;
         public AuthController(
             ApplicationDbContext context,
             IUnitOfWork unitOfWork,
-            IToastService toastService = null,
-            IMediator mediator = null) : base(toastService, unitOfWork)
+            IToastService toastService,
+            IMediator mediator) 
+            : base(toastService, unitOfWork, context, mediator)
         {
             _mediator = mediator;
             _toastService = toastService;
