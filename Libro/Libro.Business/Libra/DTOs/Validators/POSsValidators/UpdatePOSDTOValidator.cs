@@ -20,14 +20,10 @@ namespace Libro.Business.Libra.DTOs.Validators.POSsValidators
 
             RuleFor(x => x.Telephone)
                 .NotEmpty().WithMessage("Telephone cannot be empty.")
-                .Length(10, 20).WithMessage("Telephone cannot contain less than 10 digit and more than 20")
-                .Matches(new Regex(@"^\+39\s\d{2,3}\s\d{6,7}$")).WithMessage("Phone Number not valid")
-                .Matches(new Regex(@"^\+373\s\d{2}\s\d{3}\s\d{3}$")).WithMessage("Phone Number not valid");
+                .Length(10, 20).WithMessage("Telephone cannot contain less than 10 digit and more than 20");
 
             RuleFor(x => x.Cellphone)
-                .Length(10, 20).WithMessage("Cellphone cannot contain less than 10 digit and more than 20")
-                .Matches(new Regex(@"^\+39\s\d{2,3}\s\d{6,7}$")).WithMessage("Phone Number not valid")
-                .Matches(new Regex(@"^\+373\s\d{2}\s\d{3}\s\d{3}$")).WithMessage("Phone Number not valid");
+                .Length(10, 20).WithMessage("Cellphone cannot contain less than 10 digit and more than 20");
 
             RuleFor(x => x.Address)
                 .Length(5, 80).WithMessage("Adress must not be less than 5 letters and more than 80");
@@ -37,8 +33,8 @@ namespace Libro.Business.Libra.DTOs.Validators.POSsValidators
                 .WithMessage("City cannot be empty.");
 
             RuleFor(x => x.Model)
-            .NotEmpty()
-            .WithMessage("Brand cannot be empty.");
+                .NotEmpty()
+                .WithMessage("Brand cannot be empty.");
 
             RuleFor(x => x.Brand)
                 .NotEmpty()
@@ -66,7 +62,7 @@ namespace Libro.Business.Libra.DTOs.Validators.POSsValidators
 
             RuleFor(x => x.DaysClosed)
                 .Must(x => _validator.ValidateDaysClosedM(x))
-                .WithMessage("Values must be integers between 1 and 7, separated by space.");
+                .WithMessage("Invalid days ");
         }
     }
 }
