@@ -81,8 +81,8 @@ builder.Services.AddIdentityCore<User>(options =>
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = new PathString("/auth/Login");
-        options.AccessDeniedPath = new PathString("/Errors/403");
+        options.LoginPath = new PathString("/auth/login");
+        options.AccessDeniedPath = new PathString("/error/403");
         options.LogoutPath = "";
         options.Cookie.Name = configuration["AppSettings:Cookie_Name"];
         options.ExpireTimeSpan = TimeSpan.FromSeconds(int.Parse(configuration["AppSettings:ExpireTimeSpan"]));
