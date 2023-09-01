@@ -26,17 +26,33 @@
                         <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">@User.FindFirst("Email")?.Value</span>
                     </div>
                     <ul class="py-2" aria-labelledby="user-menu-button">
-                        @if (@User.FindFirst("Role")?.Value.ToString() == "Administrator")
+                        @if (@User.IsInRole("Administrator"))
                         {
                             <li>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Admin</a>
+                                <a href="/administration/users" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white flex">
+                                    <span class="inline-flex justify-center items-center ml-1 text-blue-600 mr-3">
+                                        <i class="bi bi-people-fill"></i>
+                                    </span>
+                                    Admin
+                                </a>
                             </li>
                         }
+
                         <li>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
+                            <a href="/user/details/@User.FindFirst("Id")?.Value.ToString()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white flex">
+                                <span class="inline-flex justify-center items-center ml-1 text-blue-600 mr-3">
+                                    <i class="bi bi-gear-fill"></i>
+                                </span>
+                                Profile
+                            </a>
                         </li>
                         <li>
-                            <a asp-area="" asp-controller="Auth" asp-action="SignOut" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+                            <a asp-area="" asp-controller="Auth" asp-action="SignOut" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white flex">
+                                <span class="inline-flex justify-center items-center ml-1 text-blue-600 mr-3">
+                                    <i class="bi bi-box-arrow-left"></i>
+                                </span>
+                                Sign out
+                            </a>
                         </li>
                     </ul>
                 </div>

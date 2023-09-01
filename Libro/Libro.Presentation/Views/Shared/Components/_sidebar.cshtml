@@ -29,7 +29,7 @@
                         <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-indigo-500 bg-indigo-50 rounded-full">New</span>
                     </a>
                 </li>
-                @if (@User.FindFirst("Role")?.Value.ToString() == "Administrator")
+                @*@if (@User.IsInRole("Administrator"))
                 {
                     <li>
                         <a asp-controller="Identity" asp-action="Users" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
@@ -40,7 +40,7 @@
                             <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-500 bg-red-50 rounded-full">Administration</span>
                         </a>
                     </li>
-                }
+                }*@
             </ul>
         </div>
     </div>
