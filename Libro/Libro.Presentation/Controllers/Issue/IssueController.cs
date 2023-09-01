@@ -18,10 +18,10 @@ namespace Libro.Presentation.Controllers.Issue
     [Authorize]
     public class IssueController : LibroController
     {
-        private readonly IMediator _mediator;
-        private readonly IValidator<CreateIssueDTO> _createValidator;
-        private readonly IValidator<UpdateIssueDTO> _updateValidator;
-        private readonly ApplicationDbContext _context;
+        private new IMediator _mediator;
+        private IValidator<CreateIssueDTO> _createValidator;
+        private IValidator<UpdateIssueDTO> _updateValidator;
+        private new ApplicationDbContext _context;
 
         public IssueController(IMediator mediator,
             IToastService toastService,
@@ -30,7 +30,7 @@ namespace Libro.Presentation.Controllers.Issue
             IValidator<CreateIssueDTO> createValidator,
             IValidator<UpdateIssueDTO> updateValidator,
             ApplicationDbContext context)
-            : base(toastService, unitOfWork, context)
+            : base(toastService, unitOfWork, context, mediator)
         {
             _mediator = mediator;
             _createValidator = createValidator;
@@ -45,7 +45,7 @@ namespace Libro.Presentation.Controllers.Issue
         {
             var validation = await _createValidator.ValidateAsync(model);
             if (!validation.IsValid)
-                return View("Issue", model);
+                return ResponseResult(validation.Errors.FirstOrDefault()?.ErrorMessage, ToastStatus.Error);
 
             var result = await _mediator.Send(new CreateIssueCommand(model));
             if (result != null)
@@ -60,7 +60,7 @@ namespace Libro.Presentation.Controllers.Issue
         {
             var validation = await _updateValidator.ValidateAsync(model);
             if (!validation.IsValid)
-                return View("Issue", model);
+                return ResponseResult(validation.Errors.FirstOrDefault()?.ErrorMessage, ToastStatus.Error);
 
             var result = await _mediator.Send(new UpdateIssueCommand(model));
             if (result != null)

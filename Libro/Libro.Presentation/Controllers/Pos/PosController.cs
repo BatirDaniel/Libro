@@ -19,10 +19,10 @@ namespace Libro.Presentation.Controllers.Pos
     [Authorize]
     public class PosController : LibroController
     {
-        private readonly IMediator _mediator;
-        private readonly IValidator<CreatePOSDTO> _createValidator;
-        private readonly IValidator<UpdatePOSDTO> _updateValidator;
-        private readonly ApplicationDbContext _context;
+        private new IMediator _mediator;
+        private IValidator<CreatePOSDTO> _createValidator;
+        private IValidator<UpdatePOSDTO> _updateValidator;
+        private new ApplicationDbContext _context;
         public PosController(IMediator mediator,
             IToastService toastService,
             IUnitOfWork unitOfWork,
@@ -30,7 +30,7 @@ namespace Libro.Presentation.Controllers.Pos
             IValidator<CreatePOSDTO> createValidator,
             IValidator<UpdatePOSDTO> updateValidator,
             ApplicationDbContext context)
-            : base(toastService, unitOfWork, context)
+            : base(toastService, unitOfWork, context, mediator)
         {
             _mediator = mediator;
             _createValidator = createValidator;
@@ -41,35 +41,35 @@ namespace Libro.Presentation.Controllers.Pos
         //POST: /POS/Create
         [ValidateAntiForgeryToken]
         [HttpPost("/POS/Create")]
-        public async Task<IActionResult> Create(CreatePOSDTO model)
+        public async Task<IActionResult> Create(CreatePOSDTO modelH)
         {
-            var validation = await _createValidator.ValidateAsync(model);
+            var validation = await _createValidator.ValidateAsync(modelH);
             if (!validation.IsValid)
-                return View("Pos", model);
+                return ResponseResult(validation.Errors.FirstOrDefault()?.ErrorMessage, ToastStatus.Error);
 
-            var result = await _mediator.Send(new CreatePOSCommand(model));
+            var result = await _mediator.Send(new CreatePOSCommand(modelH));
             if (result != null)
                 return ResponseResult(result, ToastStatus.Error);
 
             return ResponseResult("Success", ToastStatus.Success);
         }
 
-        //PUT: /POS/Update
-        [HttpPut("/POS/Update")]
-        public async Task<IActionResult> Update(UpdatePOSDTO model)
+        //POST: /POS/Update
+        [HttpPost("/POS/Update")]
+        public async Task<IActionResult> Update(UpdatePOSDTO modelH)
         {
-            var validation = await _updateValidator.ValidateAsync(model);
+            var validation = await _updateValidator.ValidateAsync(modelH);
             if (!validation.IsValid)
-                return View("Pos", model);
+                return ResponseResult(validation.Errors.FirstOrDefault()?.ErrorMessage, ToastStatus.Error);
 
-            var result = await _mediator.Send(new UpdatePOSCommand(model));
+            var result = await _mediator.Send(new UpdatePOSCommand(modelH));
             if (result != null)
                 return ResponseResult(result, ToastStatus.Error);
 
             return ResponseResult("Success", ToastStatus.Success);
         }
 
-        //PUT: /POS/Update
+        //DELETE: /POS/Update
         [HttpDelete("/POS/Delete/{posId}")]
         public async Task<IActionResult> Delete(string posId)
         {
@@ -90,7 +90,7 @@ namespace Libro.Presentation.Controllers.Pos
             var jsonData = new
             {
                 draw = param.Draw,
-                recordsFiltered = result.Count(),
+                recordsFiltered = totalRecords,
                 recordsTotal = totalRecords,
                 data = result
             };
@@ -98,7 +98,7 @@ namespace Libro.Presentation.Controllers.Pos
             return Ok(jsonData);
         }
 
-        //POS: /POS/GetPOSById/{posId}
+        //GET: /POS/GetPOSById/{posId}
         [HttpGet("/POS/GetPOSById/{posId}")]
         public async Task<IActionResult> GetPOSById(string posId)
         {
@@ -110,6 +110,24 @@ namespace Libro.Presentation.Controllers.Pos
         public IActionResult Pos()
         {
             return View();
+        }
+
+        [Route("pos/edit/{posId}")]
+        public IActionResult UpdatePos(string? posId)
+        {
+            if (GetPOSById(posId) != null)
+                return View();
+
+            return ResponseResult("Invalid POS", ToastStatus.Error);
+        }
+
+        [Route("pos/details/{posId}")]
+        public IActionResult DetailsPos(string? posId)
+        {
+            if (GetPOSById(posId) != null)
+                return View();
+
+            return ResponseResult("Invalid POS", ToastStatus.Error);
         }
     }
 }
