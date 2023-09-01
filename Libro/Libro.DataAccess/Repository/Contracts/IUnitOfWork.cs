@@ -12,7 +12,7 @@ namespace Libro.DataAccess.Contracts
         IGenericRepository<IssueTypes> IssueTypes { get; }
         IGenericRepository<Issue> Issues { get; }
         IGenericRepository<ConnectionTypes> ConnectionTypes { get; }
-        IGenericRepository<City> City { get; }
+        IGenericRepository<City> Cities { get; }
 
         Task Save();
     }
