@@ -201,36 +201,36 @@
       "PackagePath": "staticwebassets\\js\\bootstrap-js\\bootstrap.min.js.map"
     },
     {
-      "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\create-user.js",
-      "PackagePath": "staticwebassets\\js\\create-user.js"
+      "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\identity\\details-user.js",
+      "PackagePath": "staticwebassets\\js\\identity\\details-user.js"
     },
     {
-      "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\details-user.js",
-      "PackagePath": "staticwebassets\\js\\details-user.js"
+      "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\identity\\identity.js",
+      "PackagePath": "staticwebassets\\js\\identity\\identity.js"
     },
     {
-      "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\identity.js",
-      "PackagePath": "staticwebassets\\js\\identity.js"
+      "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\identity\\login.js",
+      "PackagePath": "staticwebassets\\js\\identity\\login.js"
+    },
+    {
+      "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\identity\\update-user.js",
+      "PackagePath": "staticwebassets\\js\\identity\\update-user.js"
     },
     {
       "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\issue.js",
       "PackagePath": "staticwebassets\\js\\issue.js"
     },
     {
-      "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\login.js",
-      "PackagePath": "staticwebassets\\js\\login.js"
+      "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\pos\\pos.js",
+      "PackagePath": "staticwebassets\\js\\pos\\pos.js"
     },
     {
-      "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\pos.js",
-      "PackagePath": "staticwebassets\\js\\pos.js"
+      "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\pos\\update-pos.js",
+      "PackagePath": "staticwebassets\\js\\pos\\update-pos.js"
     },
     {
       "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
-    },
-    {
-      "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\update-user.js",
-      "PackagePath": "staticwebassets\\js\\update-user.js"
     },
     {
       "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\lib\\bootstrap-icons-1.10.5\\0-circle-fill.svg",
