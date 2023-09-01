@@ -149,7 +149,7 @@ namespace Libro.Business.Managers
                     || q.UserName.ToLower().Contains(searchValue) 
                     || q.Email.ToLower().Contains(searchValue) 
                     || q.Telephone.ToLower().Contains(searchValue) 
-                    || (q.IsArchieved ? "enable" : "disable").Contains(searchValue));
+                    || (q.IsArchieved ? "disabled" : "enabled").Contains(searchValue));
 
                 expression = ExpressionCombiner.And(expression, expression1);
             }
@@ -167,21 +167,18 @@ namespace Libro.Business.Managers
             {
                 var roles = await _userManager.GetRolesAsync(user);
 
-                if (roles.First().ToLower().Contains(searchValue))
+                var userDTO = new UserDTO
                 {
-                    var userDTO = new UserDTO
-                    {
-                        Id = user.Id,
-                        Name = user.Name,
-                        Email = user.Email,
-                        Username = user.UserName,
-                        Telephone = user.Telephone,
-                        IsArchieved = user.IsArchieved,
-                        Role = roles.FirstOrDefault()
-                    };
+                    Id = user.Id,
+                    Name = user.Name,
+                    Email = user.Email,
+                    Username = user.UserName,
+                    Telephone = user.Telephone,
+                    IsArchieved = user.IsArchieved,
+                    Role = roles.FirstOrDefault()
+                };
 
-                    userDTOs.Add(userDTO);
-                }
+                userDTOs.Add(userDTO);
             }
 
             return userDTOs;

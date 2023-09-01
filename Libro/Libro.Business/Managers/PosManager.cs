@@ -1,4 +1,6 @@
 ﻿using Libro.Business.Common.Helpers.OrderHelper;
+using Libro.Business.Libra.DTOs.CityDTOs;
+using Libro.Business.Libra.DTOs.ConnectionTypesDTOs;
 using Libro.Business.Libra.DTOs.POSDTOs;
 using Libro.Business.Libra.DTOs.TableParameters;
 using Libro.DataAccess.Contracts;
@@ -91,10 +93,19 @@ namespace Libro.Business.Managers
                 include: x => x.Include(i => i.Issues),
                 select: x => _mapperly.Map(x))).FirstOrDefault();
 
+            var origPos = (await _unitOfWork.POSs.Find<Pos>(
+                where: x => x.Id == id)).FirstOrDefault();
+
+            pos.City = new CityDTO();
+            pos.City.Id = origPos.IdCity;
+
+            pos.ConnectionType = new ConnectionTypeDTO();
+            pos.ConnectionType.Id = origPos.IdConnectionType;
+
             return pos;
         }
 
-        public Task<List<PosDTO>> GetPOSs(DataTablesParameters? param)
+        public async Task<List<PosDTO>> GetPOSs(DataTablesParameters param)
         {
             string searchValue = param.Search.Value?.ToLower() ?? "";
             Expression<Func<Pos, bool>> expression = q => true;
@@ -104,11 +115,12 @@ namespace Libro.Business.Managers
                 expression = q => q.Name.ToLower().Contains(searchValue)
                                  || q.Telephone.ToLower().Contains(searchValue)
                                  || q.Address.ToLower().Contains(searchValue)
-                                 || _context.Issues.Any(x => x.IdPos == q.Id &&
-                               x.IdPos.ToString().Contains(searchValue));
+                                 || (_context.Issues.Count(x => x.IdPos == q.Id) > 0 ? 
+                                 _context.Issues.Count(x => x.IdPos == q.Id).ToString() + "active issues" 
+                                 : "No issues").Contains(searchValue);
             }
 
-            var issues = _context.POSs
+            var issues = await _context.POSs
                .Where(expression)
                .OrderByExtension(param.Columns[param.Order[0].Column].Name, param.Order[0].Dir)
                .Skip(param.Start)
@@ -120,9 +132,9 @@ namespace Libro.Business.Managers
                    Telephone = x.Telephone,
                    Address = x.Address,
                    Status = _context.Issues.Count(x => x.IdPos == x.Id),
-               }).ToList();
+               }).ToListAsync();
 
-            return Task.FromResult(issues);
+            return issues;
         }
     }
 }
