@@ -10,9 +10,9 @@ namespace Libro.Business.Libra.Queries.IdentityQueries
 {
     public class GetUserDetailsByIdQuery : IRequest<DetailsUserDTO>
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
-        public GetUserDetailsByIdQuery(string id)
+        public GetUserDetailsByIdQuery(Guid id)
         {
             Id = id;
         }

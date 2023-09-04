@@ -24,8 +24,9 @@ namespace Libro.DataAccess.Migrations
 
             modelBuilder.Entity("Libro.DataAccess.Entities.City", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CityName")
                         .IsRequired()
@@ -39,10 +40,12 @@ namespace Libro.DataAccess.Migrations
 
             modelBuilder.Entity("Libro.DataAccess.Entities.ConnectionTypes", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ConnectionType")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -52,13 +55,14 @@ namespace Libro.DataAccess.Migrations
 
             modelBuilder.Entity("Libro.DataAccess.Entities.Issue", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("AssignedDate")
+                    b.Property<DateTime>("AssignedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("CreationDate")
+                    b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -68,42 +72,43 @@ namespace Libro.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("IdPos")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("IdPos")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("IdStatus")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("IdStatus")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("IdSubType")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("IdSubType")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("IdType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("IdType")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("IdUserCreated")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IssueTypesId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid?>("IssueTypesId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<byte[]>("Memo")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<string>("Memo")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("ModifDate")
+                    b.Property<DateTime>("ModifDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("PosId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid?>("PosId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Priority")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Solution")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("StatusId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid?>("StatusId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UserAsignedId")
                         .HasColumnType("nvarchar(450)");
@@ -131,20 +136,23 @@ namespace Libro.DataAccess.Migrations
 
             modelBuilder.Entity("Libro.DataAccess.Entities.IssueTypes", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("InsertDate")
+                    b.Property<DateTime>("InsertDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("IssueLevel")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ParentIssue")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("ParentIssue")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -153,23 +161,26 @@ namespace Libro.DataAccess.Migrations
 
             modelBuilder.Entity("Libro.DataAccess.Entities.Log", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Action")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IdIssue")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("IdIssue")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("IdUser")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("InsertDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("IssueId1")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid?>("IssueId1")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
@@ -192,57 +203,63 @@ namespace Libro.DataAccess.Migrations
 
             modelBuilder.Entity("Libro.DataAccess.Entities.Pos", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<TimeSpan?>("AfternoonClosing")
+                    b.Property<TimeSpan>("AfternoonClosing")
                         .HasColumnType("time");
 
-                    b.Property<TimeSpan?>("AfternoonOpening")
+                    b.Property<TimeSpan>("AfternoonOpening")
                         .HasColumnType("time");
 
                     b.Property<string>("Brand")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Cellphone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CityId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid?>("CityId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ConnectionTypesId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid?>("ConnectionTypesId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("DaysClosed")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IdCity")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("IdCity")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("IdConnectionType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("IdConnectionType")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("InserDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Model")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<TimeSpan?>("MorningClosing")
+                    b.Property<TimeSpan>("MorningClosing")
                         .HasColumnType("time");
 
-                    b.Property<TimeSpan?>("MorningOpening")
+                    b.Property<TimeSpan>("MorningOpening")
                         .HasColumnType("time");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Telephone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -260,10 +277,12 @@ namespace Libro.DataAccess.Migrations
 
             modelBuilder.Entity("Libro.DataAccess.Entities.Status", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Status_Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -495,19 +514,21 @@ namespace Libro.DataAccess.Migrations
                     b.Property<DateTime?>("DateArchieved")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DateRegistered")
+                    b.Property<DateTime>("DateRegistered")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsArchieved")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoleId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Telephone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasIndex("Email")
@@ -529,11 +550,15 @@ namespace Libro.DataAccess.Migrations
 
                     b.HasOne("Libro.DataAccess.Entities.Pos", "Pos")
                         .WithMany()
-                        .HasForeignKey("IdPos");
+                        .HasForeignKey("IdPos")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Libro.DataAccess.Entities.Status", "Status")
                         .WithMany()
-                        .HasForeignKey("IdStatus");
+                        .HasForeignKey("IdStatus")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Libro.DataAccess.Entities.IssueTypes", "IssueTypes")
                         .WithMany()
@@ -572,11 +597,15 @@ namespace Libro.DataAccess.Migrations
                 {
                     b.HasOne("Libro.DataAccess.Entities.Issue", "Issue")
                         .WithMany()
-                        .HasForeignKey("IdIssue");
+                        .HasForeignKey("IdIssue")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("Libro.DataAccess.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("IdUser");
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Libro.DataAccess.Entities.Issue", null)
                         .WithMany("Logs")

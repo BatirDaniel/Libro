@@ -45,19 +45,19 @@ namespace Libro.Business.Libra.DTOs.Validators.POSsValidators
                 .WithMessage("Connection type cannot be empty.");
 
             RuleFor(x => x.MorningOpening)
-                .LessThan(x => x.MorningClosing.GetValueOrDefault())
+                .LessThan(x => x.MorningClosing)
                 .WithMessage("Morning opening time must be greater than or equal to morning closing time.");
 
             RuleFor(x => x.MorningClosing)
-                .GreaterThanOrEqualTo(x => x.MorningOpening.GetValueOrDefault())
+                .GreaterThanOrEqualTo(x => x.MorningOpening)
                 .WithMessage("Morning closing time must be less than or equal to morning opening time.");
 
             RuleFor(x => x.AfternoonOpening)
-                .LessThan(x => x.AfternoonClosing.GetValueOrDefault())
+                .LessThan(x => x.AfternoonClosing)
                 .WithMessage("Afternoon opening time must be greater than or equal to afternoon closing time.");
 
             RuleFor(x => x.AfternoonClosing)
-                .GreaterThanOrEqualTo(x => x.AfternoonOpening.GetValueOrDefault())
+                .GreaterThanOrEqualTo(x => x.AfternoonOpening)
                 .WithMessage("Afternoon closing time must be less than or equal to afternoon opening time.");
 
             RuleFor(x => x.DaysClosed)

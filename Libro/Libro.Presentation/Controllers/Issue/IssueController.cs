@@ -71,7 +71,7 @@ namespace Libro.Presentation.Controllers.Issue
 
         //PUT: /Issue/Delete
         [HttpDelete("/Issue/Delete/{issueId}")]
-        public async Task<IActionResult> Delete(string? issueId)
+        public async Task<IActionResult> Delete(Guid issueId)
         {
             var result = await _mediator.Send(new DeleteIssueCommand(issueId));
             if (result != null)
@@ -100,7 +100,7 @@ namespace Libro.Presentation.Controllers.Issue
 
         //GET: /Issue/GetIssueById/{issueId}
         [HttpGet("/Issue/GetIssueById/{issueId}")]
-        public async Task<IActionResult> GetIssueById(string? issueId)
+        public async Task<IActionResult> GetIssueById(Guid issueId)
         {
             var result = await _mediator.Send(new GetIssueByIdQuery(issueId));
             return Ok(result);

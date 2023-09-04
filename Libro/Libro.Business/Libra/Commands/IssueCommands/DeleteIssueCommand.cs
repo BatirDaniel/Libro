@@ -9,9 +9,9 @@ namespace Libro.Business.Libra.Commands.IssueCommands
 {
     public class DeleteIssueCommand : IRequest<string>
     {
-        public string? Id { get; set; }
+        public Guid Id { get; set; }
 
-        public DeleteIssueCommand(string? id)
+        public DeleteIssueCommand(Guid id)
         {
             Id = id;
         }

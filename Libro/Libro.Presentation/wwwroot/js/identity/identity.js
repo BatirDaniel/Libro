@@ -75,7 +75,34 @@
                                 let row = table.row(options.$trigger.closest("tr"));
                                 let userId = row.data().Id;
 
-                                window.location.href = '/user/edit/' + userId;
+                                //GET: edit user page
+                                $.ajax({
+                                    url: '/user/edit/' + userId,
+                                    success: function (response) {
+
+                                        window.location.href = '/user/edit/' + userId;
+
+                                        if (response.toast) {
+                                            var svg = response.toast.svg;
+                                            var message = response.toast.message;
+
+                                            showToast(svg, message)
+                                        }
+                                    },
+                                    error: function (xhr) {
+
+                                        if (xhr.redirectUrl) {
+                                            window.location.href = response.redirectUrl;
+                                        }
+
+                                        if (xhr.responseJSON && xhr.responseJSON.toast) {
+                                            var svg = xhr.responseJSON.toast.svg;
+                                            var message = xhr.responseJSON.toast.message;
+
+                                            showToast(svg, message)
+                                        }
+                                    }
+                                });
                             }
                         },
                         "delete": {
@@ -132,7 +159,34 @@
                                 let row = table.row(options.$trigger.closest("tr"));
                                 let userId = row.data().Id;
 
-                                window.location.href = '/user/details/' + userId;
+                                //GET: details user page
+                                $.ajax({
+                                    url: '/user/details/' + userId,
+                                    success: function (response) {
+
+                                        window.location.href = '/user/details/' + userId;
+
+                                        if (response.toast) {
+                                            var svg = response.toast.svg;
+                                            var message = response.toast.message;
+
+                                            showToast(svg, message)
+                                        }
+                                    },
+                                    error: function (xhr) {
+
+                                        if (xhr.redirectUrl) {
+                                            window.location.href = response.redirectUrl;
+                                        }
+
+                                        if (xhr.responseJSON && xhr.responseJSON.toast) {
+                                            var svg = xhr.responseJSON.toast.svg;
+                                            var message = xhr.responseJSON.toast.message;
+
+                                            showToast(svg, message)
+                                        }
+                                    }
+                                });
                             }
                         }
                     }
@@ -141,24 +195,26 @@
         }
     });
 
-    //GET: roles
-    $.ajax({
-        type: 'GET',
-        url: '/roles/GetAllRoles',
-        dataType: 'json',
-        success: function (data) {
-            if (data && data.length > 0) {
-                var dropdown = $('#addRole');
-                dropdown.empty();
+    $('#createUser').on('click', function () {
+        //GET: roles
+        $.ajax({
+            type: 'GET',
+            url: '/roles/GetAllRoles',
+            dataType: 'json',
+            success: function (data) {
+                if (data && data.length > 0) {
+                    var dropdown = $('#addRole');
+                    dropdown.empty();
 
-                $.each(data, function (index, item) {
-                    dropdown.append($('<option></option>')
-                        .attr('value', item.Id)
-                        .text(item.Name));
-                });
+                    $.each(data, function (index, item) {
+                        dropdown.append($('<option></option>')
+                            .attr('value', item.Id)
+                            .text(item.Name));
+                    });
+                }
             }
-        }
-    });
+        });
+    })
 
     //POST: create user
     $('#registerUserForm').submit(function (e) {

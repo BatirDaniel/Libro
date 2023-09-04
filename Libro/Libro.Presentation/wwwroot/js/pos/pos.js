@@ -71,7 +71,34 @@ $(document).ready(function () {
                                 let row = table.row(options.$trigger.closest("tr"));
                                 let posId = row.data().Id;
 
-                                window.location.href = '/pos/edit/' + posId;
+                                //GET: edit pos page
+                                $.ajax({
+                                    url: '/pos/edit/' + posId,
+                                    success: function (response) {
+
+                                        window.location.href = '/pos/edit/' + posId;
+
+                                        if (response.toast) {
+                                            var svg = response.toast.svg;
+                                            var message = response.toast.message;
+
+                                            showToast(svg, message)
+                                        }
+                                    },
+                                    error: function (xhr) {
+
+                                        if (xhr.redirectUrl) {
+                                            window.location.href = response.redirectUrl;
+                                        }
+
+                                        if (xhr.responseJSON && xhr.responseJSON.toast) {
+                                            var svg = xhr.responseJSON.toast.svg;
+                                            var message = xhr.responseJSON.toast.message;
+
+                                            showToast(svg, message)
+                                        }
+                                    }
+                                });
                             }
                         },
                         "delete": {
@@ -93,6 +120,8 @@ $(document).ready(function () {
                                     confirmButtonText: 'Confirm'
                                 }).then((result) => {
                                     if (result.isConfirmed) {
+
+                                        //DELETE: pos
                                         $.ajax({
                                             url: `/POS/Delete/` + posId,
                                             type: "DELETE",
@@ -128,7 +157,33 @@ $(document).ready(function () {
                                 let row = table.row(options.$trigger.closest("tr"));
                                 let posId = row.data().Id;
 
-                                window.location.href = '/pos/details/' + posId;
+                                $.ajax({
+                                    url: '/pos/edit/' + posId,
+                                    success: function (response) {
+
+                                        window.location.href = '/pos/details/' + posId;
+
+                                        if (response.toast) {
+                                            var svg = response.toast.svg;
+                                            var message = response.toast.message;
+
+                                            showToast(svg, message)
+                                        }
+                                    },
+                                    error: function (xhr) {
+
+                                        if (xhr.redirectUrl) {
+                                            window.location.href = response.redirectUrl;
+                                        }
+
+                                        if (xhr.responseJSON && xhr.responseJSON.toast) {
+                                            var svg = xhr.responseJSON.toast.svg;
+                                            var message = xhr.responseJSON.toast.message;
+
+                                            showToast(svg, message)
+                                        }
+                                    }
+                                });
                             }
                         }
                     }
@@ -137,42 +192,44 @@ $(document).ready(function () {
         }
     });
 
-    //GET: cities
-    $.ajax({
-        type: 'GET',
-        url: '/Cities/GetCities',
-        datatype: 'json',
-        success: function (data) {
-            if (data && data.length > 0) {
-                var dropdown = $('#addCity');
-                dropdown.empty();
+    $('#createPOS').on('click', function () {
+        //GET: cities
+        $.ajax({
+            type: 'GET',
+            url: '/Cities/GetCities',
+            datatype: 'json',
+            success: function (data) {
+                if (data && data.length > 0) {
+                    var dropdown = $('#addCity');
+                    dropdown.empty();
 
-                $.each(data, function (index, item) {
-                    dropdown.append($('<option></option>')
-                        .attr('value', item.Id)
-                        .text(item.Name));
-                });
+                    $.each(data, function (index, item) {
+                        dropdown.append($('<option></option>')
+                            .attr('value', item.Id)
+                            .text(item.Name));
+                    });
+                }
             }
-        }
-    });
+        });
 
-    //GET: connections types
-    $.ajax({
-        type: 'GET',
-        url: '/ConnectionTypes/GetConnectionTypes',
-        datatype: 'json',
-        success: function (data) {
-            if (data && data.length > 0) {
-                var dropdown = $('#addConnectionType');
-                dropdown.empty();
+        //GET: connections types
+        $.ajax({
+            type: 'GET',
+            url: '/ConnectionTypes/GetConnectionTypes',
+            datatype: 'json',
+            success: function (data) {
+                if (data && data.length > 0) {
+                    var dropdown = $('#addConnectionType');
+                    dropdown.empty();
 
-                $.each(data, function (index, item) {
-                    dropdown.append($('<option></option>')
-                        .attr('value', item.Id)
-                        .text(item.Type));
-                });
+                    $.each(data, function (index, item) {
+                        dropdown.append($('<option></option>')
+                            .attr('value', item.Id)
+                            .text(item.Type));
+                    });
+                }
             }
-        }
+        });
     });
 
     //POST: create pos
@@ -184,16 +241,15 @@ $(document).ready(function () {
             selectedDays.push($(this).val());
         });
 
-        var daysClosedString = selectedDays.join(' ');
-
-        $('#DaysClosed').val(daysClosedString);
+        var daysClosed = selectedDays.join(' ');
 
         var formData = $(this).serialize();
+        formData = formData.replace(/(^|&)DaysClosed=[^&]*/g, '');
 
         $.ajax({
             url: "/Pos/Create",
             type: "POST",
-            data: formData,
+            data: formData + '&DaysClosed=' + daysClosed,
             success: function (response) {
 
                 window.location.reload();

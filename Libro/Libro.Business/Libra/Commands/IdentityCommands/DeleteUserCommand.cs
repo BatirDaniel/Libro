@@ -9,9 +9,9 @@ namespace Libro.Business.Commands.IdentityCommands
 {
     public class DeleteUserCommand : IRequest<string>
     {
-        public string? Id { get; set; }
+        public Guid Id { get; set; }
 
-        public DeleteUserCommand(string? id)
+        public DeleteUserCommand(Guid id)
         {
             Id = id;
         }

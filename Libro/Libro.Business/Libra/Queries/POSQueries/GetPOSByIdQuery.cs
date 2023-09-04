@@ -10,9 +10,9 @@ namespace Libro.Business.Libra.Queries.POSQueries
 {
     public class GetPOSByIdQuery : IRequest<UpdatePOSDTO>
     {
-        public string? Id { get; set; }
+        public Guid Id { get; set; }
 
-        public GetPOSByIdQuery(string? id)
+        public GetPOSByIdQuery(Guid id)
         {
             Id = id;
         }

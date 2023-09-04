@@ -73,7 +73,7 @@ namespace Libro.Presentation.Controllers.User
 
         //DELETE: /Identity/Delete/userId
         [HttpDelete("/Identity/Delete/{userId}")]
-        public async Task<IActionResult> Delete(string userId)
+        public async Task<IActionResult> Delete(Guid userId)
         {
             var result = await _mediator.Send(new DeleteUserCommand(userId));
             if (result != null)
@@ -100,7 +100,7 @@ namespace Libro.Presentation.Controllers.User
 
         //GET: /Identity/GetUserById/userId
         [HttpGet("/Identity/GetUserById/{userId}")]
-        public async Task<IActionResult> GetUserById(string? userId)
+        public async Task<IActionResult> GetUserById(Guid userId)
         {
             var result = await _mediator.Send(new GetUserByIdQuery(userId));
             return Ok(result);
@@ -108,7 +108,7 @@ namespace Libro.Presentation.Controllers.User
 
         //GET: /Identity/GetUserDetails//userId
         [HttpGet("/Identity/GetUserDetails/{userId}")]
-        public async Task<IActionResult> GetUserDetails(string? userId)
+        public async Task<IActionResult> GetUserDetails(Guid userId)
         {
             var result = await _mediator.Send(new GetUserDetailsByIdQuery(userId));
             return Ok(result);
@@ -122,21 +122,21 @@ namespace Libro.Presentation.Controllers.User
         }
 
         [Route("user/edit/{userId}")]
-        public IActionResult UpdateUser(string? userId)
+        public async Task<IActionResult> UpdateUser(Guid userId)
         {
-            if(GetUserById(userId) != null)
-                return View();
+            if (!await _unitOfWork.Users.isExists(x => x.Id == userId.ToString()))
+                return ResponseResult("Invalid user", ToastStatus.Error, "/administration/users");
 
-            return RedirectToAction("Users");
+            return View();
         }
 
         [Route("user/details/{userId}")]
-        public IActionResult DetailsUser(string? userId)
+        public async Task<IActionResult> DetailsUser(Guid userId)
         {
-            if (GetUserById(userId) != null)
-                return View();
+            if (!await _unitOfWork.Users.isExists(x => x.Id == userId.ToString()))
+                return ResponseResult("Invalid user", ToastStatus.Error, "/administration/users");
 
-            return RedirectToAction("Users");
+            return View();
         }
     }
 }

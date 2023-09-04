@@ -10,9 +10,9 @@ namespace Libro.Business.Libra.Queries.IssueQueries
 {
     public class GetIssueByIdQuery : IRequest<UpdateIssueDTO>
     {
-        public string? Id { get; set; }
+        public Guid Id { get; set; }
 
-        public GetIssueByIdQuery(string? issueId)
+        public GetIssueByIdQuery(Guid issueId)
         {
             Id = issueId;
         }

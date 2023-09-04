@@ -13,6 +13,20 @@ $(document).ready(function () {
                 if (inputField.length > 0) {
                     inputField.val(value);
                 }
+
+                if (key === 'DaysClosed') {
+                    var inputValues = value.split(' ');
+
+                    $("input[name='DaysClosed']").each(function (index, checkbox) {
+                        var checkboxValue = $(checkbox).val();
+
+                        if (inputValues.includes(checkboxValue)) {
+                            $(checkbox).prop('checked', true);
+                        } else {
+                            $(checkbox).prop('checked', false);
+                        }
+                    });
+                }
             });
 
             var city = data.City;
@@ -81,12 +95,20 @@ $(document).ready(function () {
             $('#updatePosForm').submit(function (e) {
                 e.preventDefault();
 
+                var selectedDays = [];
+                $('input[name="DaysClosed"]:checked').each(function () {
+                    selectedDays.push($(this).val());
+                });
+
+                var daysClosed = selectedDays.join(' ');
+
                 var formData = $(this).serialize();
+                formData = formData.replace(/(^|&)DaysClosed=[^&]*/g, '');
 
                 $.ajax({
                     url: '/POS/Update',
                     type: "POST",
-                    data: formData + '&Id=' + posId,
+                    data: formData + '&DaysClosed=' + daysClosed + '&Id=' + posId,
                     success: function (response) {
                         if (response.redirectUrl) {
                             window.location.href = response.redirectUrl;

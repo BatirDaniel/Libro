@@ -9,9 +9,9 @@ namespace Libro.Business.Libra.Commands.PosCommands
 {
     public class DeletePOSCommand : IRequest<string>
     {
-        public string? Id { get; set; }
+        public Guid Id { get; set; }
 
-        public DeletePOSCommand(string? id)
+        public DeletePOSCommand(Guid id)
         {
             Id = id;
         }

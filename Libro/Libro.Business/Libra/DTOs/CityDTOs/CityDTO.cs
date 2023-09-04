@@ -9,7 +9,7 @@ namespace Libro.Business.Libra.DTOs.CityDTOs
 {
     public class CityDTO
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
+        public Guid Id { get; set; }
+        public string? Name { get; set; }
     }
 }

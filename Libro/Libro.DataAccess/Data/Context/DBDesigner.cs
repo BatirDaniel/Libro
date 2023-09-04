@@ -56,7 +56,8 @@ namespace Libro.DataAccess.Data
             modelBuilder.Entity<Log>()
                .HasOne(x => x.Issue)
                .WithMany()
-               .HasForeignKey(x => x.IdIssue);
+               .HasForeignKey(x => x.IdIssue)
+               .OnDelete(DeleteBehavior.NoAction); ;
         }
 
         private void SetColumnConstraint(ModelBuilder modelBuilder)

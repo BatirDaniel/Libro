@@ -5,9 +5,9 @@ namespace Libro.Business.Commands.PosCommands
 {
     public class CreatePOSCommand : IRequest<string>
     {
-        public CreatePOSDTO? PosDTO { get; set; }
+        public CreatePOSDTO PosDTO { get; set; }
 
-        public CreatePOSCommand(CreatePOSDTO? posDTO)
+        public CreatePOSCommand(CreatePOSDTO posDTO)
         {
             PosDTO = posDTO;
         }

@@ -6,9 +6,9 @@ namespace Libro.Business.Queries.IdentityQueries
 {
     public class GetUserByIdQuery : IRequest<UpdateUserDTO>
     {
-        public string? Id { get; set; }
+        public Guid Id { get; set; }
 
-        public GetUserByIdQuery(string? id)
+        public GetUserByIdQuery(Guid id)
         {
             Id = id;
         }

@@ -2,15 +2,15 @@
 {
     public class CreatePOSDTO
     {
-        public string Id { get; set; }
-        public string? Name { get; set; }
-        public string? Telephone { get; set; }
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string Telephone { get; set; }
         public string? Cellphone { get; set; }
-        public string? Address { get; set; }
-        public string IdCity { get; set; }
-        public string? Model { get; set; }
-        public string? Brand { get; set; }
-        public string IdConnectionType { get; set; }
+        public string Address { get; set; }
+        public Guid IdCity { get; set; }
+        public string Model { get; set; }
+        public string Brand { get; set; }
+        public Guid IdConnectionType { get; set; }
         public TimeSpan MorningOpening { get; set; }
         public TimeSpan MorningClosing { get; set; }
         public TimeSpan AfternoonOpening { get; set; }

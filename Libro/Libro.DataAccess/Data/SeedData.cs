@@ -24,13 +24,13 @@ namespace Libro.DataAccess.Data
         {
             (new List<string> { "Chișinău", "Bălți", "Tiraspol", "Bender", "Cahul", "Comrat", "Orhei", "Ungheni", "Soroca", "Călărași",
                "Paris", "Roma", "Madrid", "Berlin", "Londra", "Londra", "Londra", "Viena", "Lisabona", "Oslo" })
-               .ForEach(async x =>
+               .ForEach(x =>
                {
                    if(!dbContext.Cities.Any(c => c.CityName == x))
                    {
                        dbContext.Cities.Add(new City
                        {
-                           Id = Guid.NewGuid().ToString(),
+                           Id = Guid.NewGuid(),
                            CityName = x
                        });
                    }
@@ -76,7 +76,7 @@ namespace Libro.DataAccess.Data
                     {
                         dbContext.IssueTypes.Add(new IssueTypes
                         {
-                            Id = Guid.NewGuid().ToString(),
+                            Id = Guid.NewGuid(),
                             IssueLevel = issueLevel++.ToString(),
                             Name = x,
                             InsertDate = DateTime.Now
@@ -95,7 +95,7 @@ namespace Libro.DataAccess.Data
                     {
                         dbContext.Statuses.Add(new Status()
                         {
-                            Id = Guid.NewGuid().ToString(),
+                            Id = Guid.NewGuid(),
                             Status_Name = x
                         });
                     }
@@ -111,7 +111,7 @@ namespace Libro.DataAccess.Data
                     {
                         dbContext.ConnectionTypes.Add(new ConnectionTypes
                         {
-                            Id = Guid.NewGuid().ToString(),
+                            Id = Guid.NewGuid(),
                             ConnectionType = x
                         });
                     }

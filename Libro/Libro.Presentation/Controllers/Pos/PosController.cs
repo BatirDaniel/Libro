@@ -66,12 +66,12 @@ namespace Libro.Presentation.Controllers.Pos
             if (result != null)
                 return ResponseResult(result, ToastStatus.Error);
 
-            return ResponseResult("Success", ToastStatus.Success);
+            return ResponseResult("Success", ToastStatus.Success, "/pos");
         }
 
         //DELETE: /POS/Update
         [HttpDelete("/POS/Delete/{posId}")]
-        public async Task<IActionResult> Delete(string posId)
+        public async Task<IActionResult> Delete(Guid posId)
         {
             var result = await _mediator.Send(new DeletePOSCommand(posId));
             if (result != null)
@@ -98,9 +98,16 @@ namespace Libro.Presentation.Controllers.Pos
             return Ok(jsonData);
         }
 
+        [HttpGet("/POS/GetPOSDetails/{posId}")]
+        public async Task<IActionResult> GetPOSDetails(Guid posId)
+        {
+            var result = await _mediator.Send(new GetPOSByIdQuery(posId));
+            return Ok(result);
+        }
+
         //GET: /POS/GetPOSById/{posId}
         [HttpGet("/POS/GetPOSById/{posId}")]
-        public async Task<IActionResult> GetPOSById(string posId)
+        public async Task<IActionResult> GetPOSById(Guid posId)
         {
             var result = await _mediator.Send(new GetPOSByIdQuery(posId));
             return Ok(result);
@@ -113,21 +120,21 @@ namespace Libro.Presentation.Controllers.Pos
         }
 
         [Route("pos/edit/{posId}")]
-        public IActionResult UpdatePos(string? posId)
+        public async Task<IActionResult> UpdatePos(Guid posId)
         {
-            if (GetPOSById(posId) != null)
-                return View();
+            if (!await _unitOfWork.POSs.isExists(x => x.Id == posId))
+                return ResponseResult("Invalid POS", ToastStatus.Error, "/pos");
 
-            return ResponseResult("Invalid POS", ToastStatus.Error);
+            return View();
         }
 
         [Route("pos/details/{posId}")]
-        public IActionResult DetailsPos(string? posId)
+        public async Task<IActionResult> DetailsPos(Guid posId)
         {
-            if (GetPOSById(posId) != null)
-                return View();
-
-            return ResponseResult("Invalid POS", ToastStatus.Error);
+            if (!await _unitOfWork.POSs.isExists(x => x.Id == posId))
+                return ResponseResult("Invalid POS", ToastStatus.Error, "/pos");
+                
+            return View();
         }
     }
 }

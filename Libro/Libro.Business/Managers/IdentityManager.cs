@@ -1,4 +1,5 @@
-﻿using Libro.Business.Commands.IdentityCommands;
+﻿using FluentNHibernate.Conventions;
+using Libro.Business.Commands.IdentityCommands;
 using Libro.Business.Common.Helpers.OrderHelper;
 using Libro.Business.Libra.DTOs.IdentityDTOs;
 using Libro.Business.Libra.DTOs.TableParameters;
@@ -6,6 +7,7 @@ using Libro.Business.Services;
 using Libro.DataAccess.Contracts;
 using Libro.DataAccess.Data;
 using Libro.DataAccess.Entities;
+using Libro.DataAccess.Repository;
 using Libro.Infrastructure.Helpers.ExpressionSuport;
 using Libro.Infrastructure.Mappers;
 using Libro.Infrastructure.Persistence.SystemConfiguration.AppSettings;
@@ -82,10 +84,10 @@ namespace Libro.Business.Managers
 
         public async Task<string?> Delete(DeleteUserCommand model)
         {
-            if (!await _unitOfWork.Users.isExists(x => x.Id == model.Id))
+            if (!await _unitOfWork.Users.isExists(x => x.Id == model.Id.ToString()))
                 return "Invalid id provided";
 
-            var user = await GetFullUser(model.Id);
+            var user = await GetFullUser(model.Id.ToString());
 
             _unitOfWork.Users.Delete(user);
             await _unitOfWork.Save();
@@ -97,10 +99,10 @@ namespace Libro.Business.Managers
         {
             string result = null;
 
-            if (!await _unitOfWork.Users.isExists(x => x.Id == user.UserDTO.Id))
+            if (!await _unitOfWork.Users.isExists(x => x.Id == user.UserDTO.Id.ToString()))
                 return "Invalid id provided";
 
-            var model = await _userManager.FindByIdAsync(user.UserDTO.Id);
+            var model = await _userManager.FindByIdAsync(user.UserDTO.Id.ToString());
 
             if (user.UserDTO.Password != null)
             {
@@ -125,7 +127,7 @@ namespace Libro.Business.Managers
 
             return null;
         }
-        private async Task<User?> GetFullUser(string? id)
+        private async Task<User> GetFullUser(string id)
         {
             var user = (await _unitOfWork.Users.Find<User>
                 (where: x => x.Id == id,
@@ -169,7 +171,7 @@ namespace Libro.Business.Managers
 
                 var userDTO = new UserDTO
                 {
-                    Id = user.Id,
+                    Id = Guid.Parse(user.Id),
                     Name = user.Name,
                     Email = user.Email,
                     Username = user.UserName,
@@ -184,13 +186,13 @@ namespace Libro.Business.Managers
             return userDTOs;
         }
 
-        public async Task<UpdateUserDTO?> GetUserById(string? id)
+        public async Task<UpdateUserDTO> GetUserById(Guid id)
         {
             var user = (await _unitOfWork.Users.Find<UpdateUserDTO>(
-                where: x => x.Id == id,
+                where: x => x.Id == id.ToString(),
                 select: x => new UpdateUserDTO
                 {
-                    Id = x.Id,
+                    Id = Guid.Parse(x.Id),
                     Name = x.Name,
                     Telephone = x.Telephone,
                     Email = x.Email,
@@ -217,13 +219,12 @@ namespace Libro.Business.Managers
             return user;
         }
 
-        public async Task<DetailsUserDTO> GetUserDetails(string id)
+        public async Task<DetailsUserDTO> GetUserDetails(Guid id)
         {
             var user = (await _unitOfWork.Users.Find<DetailsUserDTO>(
-                where: x => x.Id == id,
+                where: x => x.Id == id.ToString(),
                 include: x => x
-                 .Include(x => x.Issues)
-                 .Include(x => x.Logs),
+                 .Include(x => x.Issues),
                 select : x => new DetailsUserDTO
                 {
                     Name = x.Name,
@@ -238,18 +239,18 @@ namespace Libro.Business.Managers
             return user;
         }
 
-        private async Task<int> GetIssuesAssigned(string id)
+        private async Task<int> GetIssuesAssigned(Guid id)
         {
             var result = (await _unitOfWork.Issues.FindAll<Issue>(
-                where: x => x.IdAssigned == id)).Count();
+                where: x => x.IdAssigned == id.ToString())).Count();
 
             return result;
         }
 
-        private async Task<int> GetIssuesAdded(string id)
+        private async Task<int> GetIssuesAdded(Guid id)
         {
             var result = (await _unitOfWork.Issues.FindAll<Issue>(
-               where: x => x.IdUserCreated == id)).Count();
+               where: x => x.IdUserCreated == id.ToString())).Count();
 
             return result;
         }

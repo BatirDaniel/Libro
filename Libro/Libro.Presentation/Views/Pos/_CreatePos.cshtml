@@ -65,32 +65,30 @@
                     </div>
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
                         <div>
-                            @Html.LabelFor(m => m.MorningOpening, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
+                            @Html.LabelFor(m => m.MorningOpening, "Morning opening", new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
                             <input type="time" id="MorningOpening" name="MorningOpening" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             @Html.ValidationMessageFor(m => m.MorningOpening, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
                         </div>
                         <div>
-                            @Html.LabelFor(m => m.MorningClosing, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
+                            @Html.LabelFor(m => m.MorningClosing, "Morning closing", new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
                             <input type="time" id="MorningClosing" name="MorningClosing" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             @Html.ValidationMessageFor(m => m.MorningClosing, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
                         </div>
                     </div>
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
                         <div>
-                            @Html.LabelFor(m => m.AfternoonOpening, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
+                            @Html.LabelFor(m => m.AfternoonOpening, "Afternoon opening", new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
                             <input type="time" id="AfternoonOpening" name="AfternoonOpening" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             @Html.ValidationMessageFor(m => m.AfternoonOpening, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
                         </div>
                         <div>
-                            @Html.LabelFor(m => m.AfternoonClosing, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
+                            @Html.LabelFor(m => m.AfternoonClosing, "Afternoon closing", new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
                             <input type="time" id="AfternoonClosing" name="AfternoonClosing" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             @Html.ValidationMessageFor(m => m.AfternoonClosing, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
                         </div>
                     </div>
                     <div class="mb-6">
-                        @Html.LabelFor(m => m.DaysClosed, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
-
-                        @Html.HiddenFor(m => m.DaysClosed, new {id = "daysClosed"})
+                        @Html.LabelFor(m => m.DaysClosed, "Days Closed", new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
 
                         <div class="grid grid-cols-7 gap-2 mt-2">
                             <div>

@@ -46,7 +46,7 @@ namespace Libro.Business.Managers
                 && model.User.Id == user.Id)
                 return "Invalid assigned user provided";
 
-            model.Id = Guid.NewGuid().ToString();
+            model.Id = Guid.NewGuid();
             model.AssignedDate = DateTime.Now;
             model.CreationDate = DateTime.Now;
 
@@ -56,7 +56,7 @@ namespace Libro.Business.Managers
             return null;
         }
 
-        public async Task<string> Delete(string? id)
+        public async Task<string> Delete(Guid id)
         {
             if (!await _unitOfWork.Issues.isExists(x => x.Id == id))
                 return "Invalid issue provided";
@@ -69,7 +69,7 @@ namespace Libro.Business.Managers
             return null;
         }
 
-        private async Task<Issue> GetFullIssue(string? id)
+        private async Task<Issue> GetFullIssue(Guid id)
         {
             var issue = (await _unitOfWork.Issues.Find<Issue>(
                 where: x => x.Id == id,
@@ -78,7 +78,7 @@ namespace Libro.Business.Managers
             return issue;
         }
 
-        public async Task<string> Update(UpdateIssueDTO? model)
+        public async Task<string> Update(UpdateIssueDTO model)
         {
             if (!await _unitOfWork.Issues.isExists(x => x.Id == model.Id))
                 return "Invalid issue provided";
@@ -102,7 +102,7 @@ namespace Libro.Business.Managers
             return null;
         }
 
-        public async Task<UpdateIssueDTO> GetIssueById(string? id)
+        public async Task<UpdateIssueDTO> GetIssueById(Guid id)
         {
             var result = (await _unitOfWork.Issues.Find<UpdateIssueDTO>(
                 where: x => x.Id == id,

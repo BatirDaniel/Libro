@@ -10,9 +10,9 @@ namespace Libro.Business.Libra.Commands.PosCommands
 {
     public class UpdatePOSCommand : IRequest<string>
     {
-        public UpdatePOSDTO? PosDTO { get; set; }
+        public UpdatePOSDTO PosDTO { get; set; }
 
-        public UpdatePOSCommand(UpdatePOSDTO? posCommand)
+        public UpdatePOSCommand(UpdatePOSDTO posCommand)
         {
             PosDTO = posCommand;
         }

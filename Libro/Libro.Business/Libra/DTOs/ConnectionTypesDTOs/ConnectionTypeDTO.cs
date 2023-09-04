@@ -8,7 +8,7 @@ namespace Libro.Business.Libra.DTOs.ConnectionTypesDTOs
 {
     public class ConnectionTypeDTO
     {
-        public string Id { get; set; }
-        public string Type { get; set; }
+        public Guid Id { get; set; }
+        public string? Type { get; set; }
     }
 }

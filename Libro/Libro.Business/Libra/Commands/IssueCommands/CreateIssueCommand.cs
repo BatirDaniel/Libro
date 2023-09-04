@@ -11,9 +11,9 @@ namespace Libro.Business.Commands.IssueCommands
 {
     public class CreateIssueCommand : IRequest<string>
     {
-        public CreateIssueDTO? IssueDTO { get; set; }
+        public CreateIssueDTO IssueDTO { get; set; }
 
-        public CreateIssueCommand(CreateIssueDTO? issueDTO)
+        public CreateIssueCommand(CreateIssueDTO issueDTO)
         {
             IssueDTO = issueDTO;
         }

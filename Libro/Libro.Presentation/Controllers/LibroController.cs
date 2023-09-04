@@ -50,6 +50,7 @@ namespace Libro.Presentation.Controllers
 
             return BadRequest(new
             {
+                redirectUrl = additional,
                 toast = _toastService.GetToastData(status.Value, message)
             });
         }

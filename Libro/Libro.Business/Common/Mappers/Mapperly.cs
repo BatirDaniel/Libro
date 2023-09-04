@@ -24,5 +24,6 @@ namespace Libro.Infrastructure.Mappers
         public partial Pos Map(CreatePOSDTO pos);
         public partial Pos Map(UpdatePOSDTO pos);
         public partial UpdatePOSDTO Map(Pos pos);
+        public partial DetailsPOSDTO MapPosToPosDetails(Pos pos);
     }
 }
