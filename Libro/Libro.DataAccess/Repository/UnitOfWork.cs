@@ -25,6 +25,7 @@ namespace Libro.DataAccess.Repository
         private IGenericRepository<ConnectionTypes>? _connectionTypes;
 
         private IGenericRepository<City>? _cities;
+        private IGenericRepository<Priority>? _priorities;
 
 
         public IGenericRepository<User> Users => _users ??= new GenericRepository<User>(_context);
@@ -36,6 +37,7 @@ namespace Libro.DataAccess.Repository
         public IGenericRepository<Issue> Issues => _issues ??= new GenericRepository<Issue>(_context);
         public IGenericRepository<ConnectionTypes> ConnectionTypes => _connectionTypes ??= new GenericRepository<ConnectionTypes>(_context);
         public IGenericRepository<City> Cities => _cities ??= new GenericRepository<City>(_context);
+        public IGenericRepository<Priority> Priorities => _priorities ??= new GenericRepository<Priority>(_context); 
 
         public UnitOfWork(ApplicationDbContext context)
         {

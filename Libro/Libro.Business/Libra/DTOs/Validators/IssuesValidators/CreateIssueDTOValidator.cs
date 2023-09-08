@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using Libro.Business.Libra.DTOs.IssueDTOs;
-using System.Text.RegularExpressions;
 
 namespace Libro.Business.Libra.DTOs.Validators.IssuesValidators
 {
@@ -8,30 +7,26 @@ namespace Libro.Business.Libra.DTOs.Validators.IssuesValidators
     {
         public CreateIssueDTOValidator()
         {
-            RuleFor(x => x.Pos.Id)
+            RuleFor(x => x.IdPos)
              .NotNull().WithMessage("Pos is required")
              .NotEmpty().WithMessage("Pos cannot be empty");
 
-            RuleFor(x => x.IssueTypes.Id)
-                .NotNull().WithMessage("Type is required")
-                .NotEmpty().WithMessage("Type cannot be empty");
+            RuleFor(x => x.IdType)
+                .NotNull().WithMessage("Type is required");
 
-            RuleFor(x => x.IdSubType)
-                .NotEmpty().WithMessage("Subtype cannot be empty");
+            RuleFor(x => x.IdPriority)
+                .NotNull().WithMessage("Type is required");
 
-            RuleFor(x => x.Priority)
-                .NotEmpty().WithMessage("Priority cannot be empty");
-
-            RuleFor(x => x.Status.Id)
+            RuleFor(x => x.IdStatus)
                 .NotNull().WithMessage("Status is required");
 
             RuleFor(x => x.Memo)
                 .NotEmpty().WithMessage("Memo cannot be empty");
 
-            RuleFor(x => x.User.Id)
+            RuleFor(x => x.IdUserCreated)
                 .NotNull().WithMessage("User is required");
 
-            RuleFor(x => x.UserAsigned.Id)
+            RuleFor(x => x.IdUsersAsigned)
                 .NotNull().WithMessage("User is required");
 
             RuleFor(x => x.Solution)

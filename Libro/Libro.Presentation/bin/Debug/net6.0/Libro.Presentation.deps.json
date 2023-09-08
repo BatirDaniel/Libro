@@ -22,7 +22,8 @@
           "Microsoft.Extensions.DependencyInjection": "7.0.0",
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.18.1",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.15",
-          "RestSharp": "110.2.0"
+          "RestSharp": "110.2.0",
+          "Sammy.js": "0.7.5"
         },
         "runtime": {
           "Libro.Presentation.dll": {}
@@ -645,6 +646,7 @@
           }
         }
       },
+      "jQuery/1.4.1": {},
       "MediatR/12.1.1": {
         "dependencies": {
           "MediatR.Contracts": "2.0.1",
@@ -2248,6 +2250,11 @@
       "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
+      "Sammy.js/0.7.5": {
+        "dependencies": {
+          "jQuery": "1.4.1"
+        }
+      },
       "Swashbuckle.AspNetCore/6.2.3": {
         "dependencies": {
           "Microsoft.Extensions.ApiDescription.Server": "3.0.0",
@@ -3612,6 +3619,13 @@
       "path": "iesi.collections/4.0.4",
       "hashPath": "iesi.collections.4.0.4.nupkg.sha512"
     },
+    "jQuery/1.4.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-03J0RdIC52hnLJzZhRVLs2S6VrzQVysGRxwKLl0Pqsa/+ws+z53rmlM4w8WfWnHqZsZGWh0x4xBTxeJhOBtTRw==",
+      "path": "jquery/1.4.1",
+      "hashPath": "jquery.1.4.1.nupkg.sha512"
+    },
     "MediatR/12.1.1": {
       "type": "package",
       "serviceable": true,
@@ -4556,6 +4570,13 @@
       "sha512": "sha512-VB5cn/7OzUfzdnC8tqAIMQciVLiq2epm2NrAm1E9OjNRyG4lVhfR61SMcLizejzQP8R8Uf/0l5qOIbUEi+RdEg==",
       "path": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "hashPath": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512"
+    },
+    "Sammy.js/0.7.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dmJgZ170t8bcvYXk+Zy5bPGQhav+IGcGjzLEa7z5csZc49BH0zx9srKFZnlG06nlVL2LrbzlJhSc9wTBpl/myQ==",
+      "path": "sammy.js/0.7.5",
+      "hashPath": "sammy.js.0.7.5.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore/6.2.3": {
       "type": "package",

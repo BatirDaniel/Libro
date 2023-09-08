@@ -32,6 +32,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.15" />
     <PackageReference Include="RestSharp" Version="110.2.0" />
+    <PackageReference Include="Sammy.js" Version="0.7.5" />
   </ItemGroup>
 
   <ItemGroup>

@@ -252,8 +252,6 @@ $(document).ready(function () {
             data: formData + '&DaysClosed=' + daysClosed,
             success: function (response) {
 
-                window.location.reload();
-
                 if (response.toast) {
                     var svg = response.toast.svg;
                     var message = response.toast.message;

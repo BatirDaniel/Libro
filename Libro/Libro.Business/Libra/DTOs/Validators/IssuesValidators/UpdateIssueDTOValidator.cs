@@ -12,9 +12,8 @@ namespace Libro.Business.Libra.DTOs.Validators.IssuesValidators
                 .NotNull().WithMessage("Pos is required")
                 .NotEmpty().WithMessage("Pos cannot be empty");
 
-            RuleFor(x => x.IssueTypes.Id)
-                .NotNull().WithMessage("Type is required")
-                .NotEmpty().WithMessage("Type cannot be empty");
+            RuleFor(x => x.IdIssueType)
+                .NotNull().WithMessage("Type is required");
 
             RuleFor(x => x.IdSubType)
                 .NotEmpty().WithMessage("Subtype cannot be empty");

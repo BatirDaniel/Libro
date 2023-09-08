@@ -85,7 +85,7 @@ namespace Libro.Business.Services
             return null;
         }
 
-        public async Task<List<Claim>?> GenerateClaims(User user)
+        public async Task<List<Claim>> GenerateClaims(User user)
         {
             var userClaims = new List<Claim>
             {

@@ -1,5 +1,6 @@
 ﻿using Libro.Business.Libra.DTOs.CityDTOs;
 using Libro.Business.Libra.DTOs.ConnectionTypesDTOs;
+using Libro.Business.Libra.DTOs.IssueDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,6 @@ namespace Libro.Business.Libra.DTOs.POSDTOs
     {
         public string Name { get; set; }
         public string Telephone { get; set; }
-        public string? Cellphone { get; set; }
         public string Address { get; set; }
         public CityDTO City { get; set; }
         public string Model { get; set; }
@@ -24,5 +24,6 @@ namespace Libro.Business.Libra.DTOs.POSDTOs
         public TimeSpan AfternoonClosing { get; set; }
         public string DaysClosed { get; set; }
         public DateTime InserDate { get; set; }
+        public List<IssueDTO> Issues{ get; set; }
     }
 }

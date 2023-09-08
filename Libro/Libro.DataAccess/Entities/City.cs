@@ -1,4 +1,6 @@
-﻿namespace Libro.DataAccess.Entities
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Libro.DataAccess.Entities
 {
     public class City
     {

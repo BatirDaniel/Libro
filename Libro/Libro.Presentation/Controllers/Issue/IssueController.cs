@@ -2,6 +2,7 @@
 using Libro.Business.Commands.IssueCommands;
 using Libro.Business.Libra.Commands.IssueCommands;
 using Libro.Business.Libra.DTOs.IssueDTOs;
+using Libro.Business.Libra.DTOs.POSDTOs;
 using Libro.Business.Libra.DTOs.TableParameters;
 using Libro.Business.Libra.Queries.IssueQueries;
 using Libro.DataAccess.Contracts;
@@ -51,7 +52,7 @@ namespace Libro.Presentation.Controllers.Issue
             if (result != null)
                 return ResponseResult(result, ToastStatus.Error);
 
-            return ResponseResult("Succes", ToastStatus.Success);
+            return ResponseResult("Success", ToastStatus.Success, "/issue");
         }
 
         //PUT: /Issue/Update
@@ -66,7 +67,7 @@ namespace Libro.Presentation.Controllers.Issue
             if (result != null)
                 return ResponseResult(result, ToastStatus.Error);
 
-            return ResponseResult("Succes", ToastStatus.Success);
+            return ResponseResult("Success", ToastStatus.Success, "/issue");
         }
 
         //PUT: /Issue/Delete
@@ -77,7 +78,7 @@ namespace Libro.Presentation.Controllers.Issue
             if (result != null)
                 return ResponseResult(result, ToastStatus.Error);
 
-            return ResponseResult("Succes", ToastStatus.Success);
+            return ResponseResult("Success", ToastStatus.Success);
         }
 
         //POST: /Issue/GetIssues
@@ -98,12 +99,45 @@ namespace Libro.Presentation.Controllers.Issue
             return Ok(jsonData);
         }
 
+        //POST: /Issue/GetPOSsFromForIssues
+        [HttpPost("/Issue/GetPOSsFromForIssues")]
+        public async Task<IActionResult> GetPOSsFromForIssues(DataTablesParameters param = null)
+        {
+            var result = await _mediator.Send(new GetPOSsForIssuesQuery(param));
+            var jsonData = new
+            {
+                draw = param.Draw,
+                recordsFiltered = result.Count(),
+                recordsTotal = result.Count(),
+                data = result
+            };
+
+            return Ok(jsonData);
+        }
+
         //GET: /Issue/GetIssueById/{issueId}
         [HttpGet("/Issue/GetIssueById/{issueId}")]
         public async Task<IActionResult> GetIssueById(Guid issueId)
         {
             var result = await _mediator.Send(new GetIssueByIdQuery(issueId));
             return Ok(result);
+        }
+
+        //GET: /Issue/GetAllUsersForIssue
+        [HttpGet("/Issue/GetAllUsersForIssue")]
+        public async Task<IActionResult> GetAllUsersForIssue()
+        {
+            var result = await _mediator.Send(new GetAllUsersForIssueQuery());
+            return Ok(result);
+        }
+
+        [Route("issue/create/{posId}")]
+        public async Task<IActionResult> CreateIssue(Guid posId)
+        {
+            if (!await _unitOfWork.POSs.isExists(x => x.Id == posId))
+                return ResponseResult("Invalid POS", ToastStatus.Error, "/pos");
+
+            return View();
         }
 
         [Route("issue")]

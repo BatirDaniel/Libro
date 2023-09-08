@@ -7,10 +7,11 @@
 <link rel="stylesheet" href="~/css/tables.css" asp-append-version="true" />
 
 <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-    <h2 class="text-xl font-extrabold dark:text-white mb-2">
-        Dashboard
-    </h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <h5 class="text-xl inline-flex items-center font-medium text-gray-700 dark:text-gray-400">
+        <i class="bi bi-pie-chart-fill mr-2"></i>
+        @ViewBag.Title
+    </h5>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
 
         <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6 bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
             <div class="flex justify-between mb-5">

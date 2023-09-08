@@ -153,6 +153,10 @@
       "PackagePath": "staticwebassets\\js\\analytics.js"
     },
     {
+      "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\angularjs\\angular-route.js",
+      "PackagePath": "staticwebassets\\js\\angularjs\\angular-route.js"
+    },
+    {
       "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\bootstrap-js\\bootstrap.bundle.js",
       "PackagePath": "staticwebassets\\js\\bootstrap-js\\bootstrap.bundle.js"
     },
@@ -217,8 +221,16 @@
       "PackagePath": "staticwebassets\\js\\identity\\update-user.js"
     },
     {
-      "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\issue.js",
-      "PackagePath": "staticwebassets\\js\\issue.js"
+      "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\issue\\create-issue.js",
+      "PackagePath": "staticwebassets\\js\\issue\\create-issue.js"
+    },
+    {
+      "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\issue\\issue.js",
+      "PackagePath": "staticwebassets\\js\\issue\\issue.js"
+    },
+    {
+      "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\pos\\details-pos.js",
+      "PackagePath": "staticwebassets\\js\\pos\\details-pos.js"
     },
     {
       "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\pos\\pos.js",
@@ -227,6 +239,10 @@
     {
       "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\pos\\update-pos.js",
       "PackagePath": "staticwebassets\\js\\pos\\update-pos.js"
+    },
+    {
+      "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\sammy.js",
+      "PackagePath": "staticwebassets\\js\\sammy.js"
     },
     {
       "Id": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\site.js",

@@ -32,3 +32,24 @@ const showToast = (svg, message) => {
         })
     }
 }
+
+var app = angular.module('myApp', ['ngRoute']);
+
+app.config(function ($routeProvider) {
+    $routeProvider
+        .when('/pos', {
+            templateUrl: 'pos',
+            controller: 'PosController'
+        })
+        .when('/issue', {
+            templateUrl: 'issue',
+            controller: 'IssueController'
+        })
+        .when('/administration/users', {
+            templateUrl: 'views/contact.html',
+            controller: 'IdentityController'
+        })
+        .otherwise({
+            redirectTo: '/'
+        });
+});

@@ -41,23 +41,31 @@ namespace Libro.DataAccess.Data
             modelBuilder.Entity<Issue>()
                .HasOne(x => x.Pos)
                .WithMany()
-               .HasForeignKey(x => x.IdPos);
+               .HasForeignKey(x => x.IdPos)
+               .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Issue>()
-               .HasOne(x => x.User)
+               .HasOne(x => x.UsersAssigned)
                .WithMany()
-               .HasForeignKey(x => x.IdAssigned);
+               .HasForeignKey(x => x.IdUsersAssigned)
+               .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Log>()
                .HasOne(x => x.User)
                .WithMany()
-               .HasForeignKey(x => x.IdUser);
+               .HasForeignKey(x => x.IdUser)
+               .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Log>()
                .HasOne(x => x.Issue)
                .WithMany()
                .HasForeignKey(x => x.IdIssue)
-               .OnDelete(DeleteBehavior.NoAction); ;
+               .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Issue>()
+               .HasOne(x => x.Priority)
+               .WithMany()
+               .HasForeignKey(x => x.IdPriority);
         }
 
         private void SetColumnConstraint(ModelBuilder modelBuilder)
@@ -72,7 +80,7 @@ namespace Libro.DataAccess.Data
                 .IsRequired();
 
             modelBuilder.Entity<Issue>()
-                .Property(x => x.IdAssigned)
+                .Property(x => x.IdUsersAssigned)
                 .IsRequired();
 
             modelBuilder.Entity<Pos>()

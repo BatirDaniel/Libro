@@ -23,5 +23,6 @@ namespace Libro.DataAccess.Data
         public DbSet<IssueTypes> IssueTypes { get; set; }
         public DbSet<ConnectionTypes> ConnectionTypes { get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<Priority> Priorities { get; set; }
     }
 }

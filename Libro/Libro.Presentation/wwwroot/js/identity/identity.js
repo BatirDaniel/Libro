@@ -226,7 +226,6 @@
             url: "/Identity/Create",
             type: "POST",
             data: formData,
-            async: false,
             success: function (response) {
 
                 window.location.reload();

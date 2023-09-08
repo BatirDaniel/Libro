@@ -1,12 +1,16 @@
 ﻿using Libro.Business.Common.Helpers.OrderHelper;
 using Libro.Business.Libra.DTOs.CityDTOs;
 using Libro.Business.Libra.DTOs.ConnectionTypesDTOs;
+using Libro.Business.Libra.DTOs.IssueDTOs;
 using Libro.Business.Libra.DTOs.POSDTOs;
 using Libro.Business.Libra.DTOs.TableParameters;
 using Libro.DataAccess.Contracts;
 using Libro.DataAccess.Data;
 using Libro.DataAccess.Entities;
+using Libro.Infrastructure.Helpers.ExpressionSuport;
 using Libro.Infrastructure.Mappers;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
@@ -16,22 +20,25 @@ namespace Libro.Business.Managers
 {
     public class PosManager : EntityManager
     {
-        public Mapperly _mapperly;
-        public new IUnitOfWork _unitOfWork;
-        public ApplicationDbContext _context;
-        public ILogger<PosManager> _logger;
+        private Mapperly _mapperly;
+        private new IUnitOfWork _unitOfWork;
+        private ApplicationDbContext _context;
+        private ILogger<PosManager> _logger;
+        private UserManager<User> _userManager;
 
         public PosManager(
             IUnitOfWork unitOfWork,
             ClaimsPrincipal user,
             Mapperly mapperly,
             ApplicationDbContext context,
-            ILogger<PosManager> logger) : base(unitOfWork, user)
+            ILogger<PosManager> logger,
+            UserManager<User> userManager = null) : base(unitOfWork, user)
         {
             _mapperly = mapperly;
             _unitOfWork = unitOfWork;
             _context = context;
             _logger = logger;
+            _userManager = userManager;
         }
 
         public async Task<string> Create(CreatePOSDTO posDTO)
@@ -118,13 +125,7 @@ namespace Libro.Business.Managers
 
             var origPos = (await _unitOfWork.POSs.Find<Pos>(
                 where: x => x.Id == id)).FirstOrDefault();
-
-            pos.City = new CityDTO();
-            pos.City.Id = origPos.IdCity;
-
-            pos.ConnectionType = new ConnectionTypeDTO();
-            pos.ConnectionType.Id = origPos.IdConnectionType;
-
+            
             return pos;
         }
 
@@ -139,14 +140,15 @@ namespace Libro.Business.Managers
                                  || q.Telephone.ToLower().Contains(searchValue)
                                  || q.Address.ToLower().Contains(searchValue)
                                  || (_context.Issues.Count(x => x.IdPos == q.Id) > 0 ? 
-                                 _context.Issues.Count(x => x.IdPos == q.Id).ToString() + "active issues" 
+                                 _context.Issues
+                                    .Include(x => x.Status)
+                                    .Count(x => x.IdPos == q.Id && x.Status.Status_Name != "Done")
+                                    .ToString() + "active issues" 
                                  : "No issues").Contains(searchValue);
             }
 
             var issues = await _context.POSs
                .Where(expression)
-               .Include(x=> x.City)
-               .Include(x=> x.ConnectionType)
                .OrderByExtension(param.Columns[param.Order[0].Column].Name, param.Order[0].Dir)
                .Skip(param.Start)
                .Take(param.Length)
@@ -171,16 +173,68 @@ namespace Libro.Business.Managers
                 .Include(i => i.ConnectionType),
                 select: x => _mapperly.MapPosToPosDetails(x))).FirstOrDefault();
 
-            var origPos = (await _unitOfWork.POSs.Find<Pos>(
-                where: x => x.Id == id)).FirstOrDefault();
+            pos.City.Name = (await _unitOfWork.Cities.Find<City>(
+                where: x => x.Id == pos.City.Id)).FirstOrDefault()?.CityName;
 
-            pos.City = new CityDTO();
-            pos.City.Id = origPos.IdCity;
-
-            pos.ConnectionType = new ConnectionTypeDTO();
-            pos.ConnectionType.Id = origPos.IdConnectionType;
+            pos.ConnectionType.Type = (await _unitOfWork.ConnectionTypes.Find<ConnectionTypes>(
+                where: x => x.Id == pos.ConnectionType.Id)).FirstOrDefault()?.ConnectionType;
 
             return pos;
         }
+
+        public async Task<List<DetailsIssuesOfPOSDTO>> GetIssuesOfPOS(DataTablesParameters param, string id)
+        {
+            string? searchTerm = param.Search.Value?.ToLower();
+            IQueryable<Issue> issueQuery = _context.Issues
+                .Where(x => x.IdPos.ToString() == id);
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                issueQuery = issueQuery.Where(x => 
+                    x.Pos.Name.ToLower().Contains(searchTerm) || 
+                    x.User.Name.ToLower().Contains(searchTerm) ||
+                    x.IssueTypes.Name.ToLower().Contains(searchTerm) ||
+                    x.CreationDate.ToString("dd/mm/yyyy").Contains(searchTerm) ||
+                    x.Status.Status_Name.ToLower().Contains(searchTerm) ||
+                    x.UsersAssigned.Name.ToLower().Contains(searchTerm) ||
+                    x.Memo.ToLower().Contains(searchTerm));
+            }
+
+            if(param.Order[0].Dir == "desc")
+            {
+                issueQuery = issueQuery.OrderByDescending(GetSortProperty(param));
+            }
+            else
+            {
+                issueQuery = issueQuery.OrderBy(GetSortProperty(param));
+            }
+
+            var result = await issueQuery.Select(x => new DetailsIssuesOfPOSDTO
+            {
+                Id = x.Id,
+                POSName = x.Pos,
+                CreatedBy = x.User,
+                IssueType = x.IssueTypes,
+                DateCreated = x.CreationDate.ToString("dd/mm/yyyy"),
+                Status = x.Status,
+                AssignedTo = x.UsersAssigned,
+                Memo = x.Memo
+            }).ToListAsync();
+
+            return result;
+        }
+
+        private static Expression<Func<Issue, object>> GetSortProperty(DataTablesParameters request) =>
+            request.Columns[request.Order[0].Column].Data.ToLower() switch
+            {
+                "posname.name" => issue => issue.Pos.Name,
+                "createdby.name" => issue => issue.User.Name,
+                "issuetype.name" => issue => issue.IssueTypes.Name,
+                "datecreated" => issue => issue.CreationDate,
+                "status.status_name" => issue => issue.Status.Status_Name,
+                "assignedto.name" => issue => issue.UsersAssigned.Name,
+                "memo" => issue => issue.Memo,
+                _ => issue => issue.Id 
+            };
     }
 }

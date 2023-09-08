@@ -11,9 +11,9 @@ namespace Libro.Business.Libra.DTOs.IssueDTOs
     {
         public Guid Id { get; set; }
         public Pos Pos { get; set; }
-        public IssueTypes IssueTypes { get; set; }
+        public Guid IdIssueType { get; set; }
         public string IdSubType { get; set; }
-        public string Priority { get; set; }
+        public Priority Priority { get; set; }
         public Status Status { get; set; }
         public string Memo { get; set; }
         public User User { get; set; }

@@ -1,5 +1,4 @@
-﻿using FluentNHibernate.Conventions;
-using Libro.Business.Commands.IdentityCommands;
+﻿using Libro.Business.Commands.IdentityCommands;
 using Libro.Business.Common.Helpers.OrderHelper;
 using Libro.Business.Libra.DTOs.IdentityDTOs;
 using Libro.Business.Libra.DTOs.TableParameters;
@@ -7,7 +6,6 @@ using Libro.Business.Services;
 using Libro.DataAccess.Contracts;
 using Libro.DataAccess.Data;
 using Libro.DataAccess.Entities;
-using Libro.DataAccess.Repository;
 using Libro.Infrastructure.Helpers.ExpressionSuport;
 using Libro.Infrastructure.Mappers;
 using Libro.Infrastructure.Persistence.SystemConfiguration.AppSettings;
@@ -140,18 +138,18 @@ namespace Libro.Business.Managers
 
         public async Task<List<UserDTO>?> GetUsers(DataTablesParameters? param)
         {
-            string searchValue = param.Search.Value?.ToLower() ?? "";
+            string searchTerm = param.Search.Value?.ToLower();
 
             Expression<Func<User, bool>> expression = q => q.UserName != "admin@libro";
-
-            if (!string.IsNullOrEmpty(searchValue))
+            
+            if (!string.IsNullOrEmpty(searchTerm))
             {
                 Expression<Func<User, bool>> expression1 = q =>
-                    (q.Name.ToLower().Contains(searchValue) 
-                    || q.UserName.ToLower().Contains(searchValue) 
-                    || q.Email.ToLower().Contains(searchValue) 
-                    || q.Telephone.ToLower().Contains(searchValue) 
-                    || (q.IsArchieved ? "disabled" : "enabled").Contains(searchValue));
+                    (q.Name.ToLower().Contains(searchTerm) 
+                    || q.UserName.ToLower().Contains(searchTerm) 
+                    || q.Email.ToLower().Contains(searchTerm) 
+                    || q.Telephone.ToLower().Contains(searchTerm) 
+                    || (q.IsArchieved ? "disabled" : "enabled").Contains(searchTerm));
 
                 expression = ExpressionCombiner.And(expression, expression1);
             }
@@ -168,7 +166,6 @@ namespace Libro.Business.Managers
             foreach (var user in users)
             {
                 var roles = await _userManager.GetRolesAsync(user);
-
                 var userDTO = new UserDTO
                 {
                     Id = Guid.Parse(user.Id),
@@ -241,8 +238,16 @@ namespace Libro.Business.Managers
 
         private async Task<int> GetIssuesAssigned(Guid id)
         {
+            var role = _userManager.GetRolesAsync(await GetFullUser(id.ToString()))
+                .Result.FirstOrDefault();
+
+            var identityRole = new IdentityRole
+            {
+                Name = role
+            };
+
             var result = (await _unitOfWork.Issues.FindAll<Issue>(
-                where: x => x.IdAssigned == id.ToString())).Count();
+                where: x => x.IdUsersAssigned == _roleManager.GetRoleIdAsync(identityRole).Result)).Count();
 
             return result;
         }

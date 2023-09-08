@@ -711,6 +711,9 @@
           }
         }
       },
+      "jQuery/1.4.1": {
+        "type": "package"
+      },
       "MediatR/12.1.1": {
         "type": "package",
         "dependencies": {
@@ -3227,6 +3230,12 @@
             "assetType": "native",
             "rid": "ubuntu.16.10-x64"
           }
+        }
+      },
+      "Sammy.js/0.7.5": {
+        "type": "package",
+        "dependencies": {
+          "jQuery": "1.4.1"
         }
       },
       "Swashbuckle.AspNetCore/6.2.3": {
@@ -5863,6 +5872,20 @@
         "lib/netstandard1.0/Iesi.Collections.xml",
         "lib/netstandard1.3/Iesi.Collections.dll",
         "lib/netstandard1.3/Iesi.Collections.xml"
+      ]
+    },
+    "jQuery/1.4.1": {
+      "sha512": "03J0RdIC52hnLJzZhRVLs2S6VrzQVysGRxwKLl0Pqsa/+ws+z53rmlM4w8WfWnHqZsZGWh0x4xBTxeJhOBtTRw==",
+      "type": "package",
+      "path": "jquery/1.4.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/Scripts/jquery-1.4.1-vsdoc.js",
+        "Content/Scripts/jquery-1.4.1.js",
+        "Content/Scripts/jquery-1.4.1.min.js",
+        "jquery.1.4.1.nupkg.sha512",
+        "jquery.nuspec"
       ]
     },
     "MediatR/12.1.1": {
@@ -9189,6 +9212,23 @@
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.nuspec",
         "runtimes/ubuntu.16.10-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
+      ]
+    },
+    "Sammy.js/0.7.5": {
+      "sha512": "dmJgZ170t8bcvYXk+Zy5bPGQhav+IGcGjzLEa7z5csZc49BH0zx9srKFZnlG06nlVL2LrbzlJhSc9wTBpl/myQ==",
+      "type": "package",
+      "path": "sammy.js/0.7.5",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/Scripts/sammy-0.7.5.js",
+        "Content/Scripts/sammy-0.7.5.min.js",
+        "Tools/common.ps1",
+        "Tools/install.ps1",
+        "Tools/uninstall.ps1",
+        "sammy.js.0.7.5.nupkg.sha512",
+        "sammy.js.nuspec"
       ]
     },
     "Swashbuckle.AspNetCore/6.2.3": {
@@ -13392,7 +13432,8 @@
       "Microsoft.Extensions.DependencyInjection >= 7.0.0",
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.18.1",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 6.0.15",
-      "RestSharp >= 110.2.0"
+      "RestSharp >= 110.2.0",
+      "Sammy.js >= 0.7.5"
     ]
   },
   "packageFolders": {
@@ -13502,6 +13543,10 @@
           "RestSharp": {
             "target": "Package",
             "version": "[110.2.0, )"
+          },
+          "Sammy.js": {
+            "target": "Package",
+            "version": "[0.7.5, )"
           }
         },
         "imports": [

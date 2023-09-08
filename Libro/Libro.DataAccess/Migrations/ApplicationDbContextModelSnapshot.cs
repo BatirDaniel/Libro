@@ -68,17 +68,16 @@ namespace Libro.DataAccess.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IdAssigned")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<Guid>("IdPos")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("IdPriority")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("IdStatus")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdSubType")
+                    b.Property<Guid?>("IdSubType")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("IdType")
@@ -86,7 +85,11 @@ namespace Libro.DataAccess.Migrations
 
                     b.Property<string>("IdUserCreated")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("IdUsersAssigned")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid?>("IssueTypesId")
                         .HasColumnType("uniqueidentifier");
@@ -94,15 +97,11 @@ namespace Libro.DataAccess.Migrations
                     b.Property<string>("Memo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifDate")
+                    b.Property<DateTime?>("ModifDate")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("PosId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Priority")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Solution")
                         .HasColumnType("nvarchar(max)");
@@ -110,18 +109,22 @@ namespace Libro.DataAccess.Migrations
                     b.Property<Guid?>("StatusId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("UserAsignedId")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdAssigned");
-
                     b.HasIndex("IdPos");
+
+                    b.HasIndex("IdPriority");
 
                     b.HasIndex("IdStatus");
 
                     b.HasIndex("IdType");
+
+                    b.HasIndex("IdUserCreated");
+
+                    b.HasIndex("IdUsersAssigned");
 
                     b.HasIndex("IssueTypesId");
 
@@ -129,7 +132,7 @@ namespace Libro.DataAccess.Migrations
 
                     b.HasIndex("StatusId");
 
-                    b.HasIndex("UserAsignedId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Issues");
                 });
@@ -151,10 +154,12 @@ namespace Libro.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ParentIssue")
+                    b.Property<Guid?>("ParentIssueId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentIssueId");
 
                     b.ToTable("IssueTypes");
                 });
@@ -273,6 +278,21 @@ namespace Libro.DataAccess.Migrations
                     b.HasIndex("IdConnectionType");
 
                     b.ToTable("POSs");
+                });
+
+            modelBuilder.Entity("Libro.DataAccess.Entities.Priority", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Priorities");
                 });
 
             modelBuilder.Entity("Libro.DataAccess.Entities.Status", b =>
@@ -542,15 +562,15 @@ namespace Libro.DataAccess.Migrations
 
             modelBuilder.Entity("Libro.DataAccess.Entities.Issue", b =>
                 {
-                    b.HasOne("Libro.DataAccess.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("IdAssigned")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Libro.DataAccess.Entities.Pos", "Pos")
                         .WithMany()
                         .HasForeignKey("IdPos")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Libro.DataAccess.Entities.Priority", "Priority")
+                        .WithMany()
+                        .HasForeignKey("IdPriority")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -566,6 +586,18 @@ namespace Libro.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Libro.DataAccess.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("IdUserCreated")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Libro.DataAccess.Entities.Role", "UsersAssigned")
+                        .WithMany()
+                        .HasForeignKey("IdUsersAssigned")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("Libro.DataAccess.Entities.IssueTypes", null)
                         .WithMany("Issues")
                         .HasForeignKey("IssueTypesId");
@@ -578,19 +610,30 @@ namespace Libro.DataAccess.Migrations
                         .WithMany("Issues")
                         .HasForeignKey("StatusId");
 
-                    b.HasOne("Libro.DataAccess.Entities.User", "UserAsigned")
+                    b.HasOne("Libro.DataAccess.Entities.User", null)
                         .WithMany("Issues")
-                        .HasForeignKey("UserAsignedId");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("IssueTypes");
 
                     b.Navigation("Pos");
 
+                    b.Navigation("Priority");
+
                     b.Navigation("Status");
 
                     b.Navigation("User");
 
-                    b.Navigation("UserAsigned");
+                    b.Navigation("UsersAssigned");
+                });
+
+            modelBuilder.Entity("Libro.DataAccess.Entities.IssueTypes", b =>
+                {
+                    b.HasOne("Libro.DataAccess.Entities.IssueTypes", "ParentIssue")
+                        .WithMany("SubIssues")
+                        .HasForeignKey("ParentIssueId");
+
+                    b.Navigation("ParentIssue");
                 });
 
             modelBuilder.Entity("Libro.DataAccess.Entities.Log", b =>
@@ -604,7 +647,7 @@ namespace Libro.DataAccess.Migrations
                     b.HasOne("Libro.DataAccess.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("IdUser")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Libro.DataAccess.Entities.Issue", null)
@@ -723,6 +766,8 @@ namespace Libro.DataAccess.Migrations
             modelBuilder.Entity("Libro.DataAccess.Entities.IssueTypes", b =>
                 {
                     b.Navigation("Issues");
+
+                    b.Navigation("SubIssues");
                 });
 
             modelBuilder.Entity("Libro.DataAccess.Entities.Pos", b =>

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "QKh4dUEzO/7GWj3i4Pkt5axTBvKJ9GdRzbwnbD/WqPmolJmo5HTHtpYDPs+QLg8ZNC4ev7zmqQHCNwlWnLl9hw==",
+  "dgSpecHash": "GcnJ0nBH0bA/2BCnADoi3jsDXyuw0LEqPEuqU3TLXwxdGyyaqOV4sNeTJSupDYxbtjoVAh1X5aPbEZL2hTtYCg==",
   "success": true,
   "projectFilePath": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\Libro.Presentation.csproj",
   "expectedPackageFiles": [
@@ -61,6 +61,7 @@
     "C:\\Users\\crme031\\.nuget\\packages\\humanizer.core.zh-hans\\2.14.1\\humanizer.core.zh-hans.2.14.1.nupkg.sha512",
     "C:\\Users\\crme031\\.nuget\\packages\\humanizer.core.zh-hant\\2.14.1\\humanizer.core.zh-hant.2.14.1.nupkg.sha512",
     "C:\\Users\\crme031\\.nuget\\packages\\iesi.collections\\4.0.4\\iesi.collections.4.0.4.nupkg.sha512",
+    "C:\\Users\\crme031\\.nuget\\packages\\jquery\\1.4.1\\jquery.1.4.1.nupkg.sha512",
     "C:\\Users\\crme031\\.nuget\\packages\\mediatr\\12.1.1\\mediatr.12.1.1.nupkg.sha512",
     "C:\\Users\\crme031\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
     "C:\\Users\\crme031\\.nuget\\packages\\mediatr.extensions.autofac.dependencyinjection\\11.0.0\\mediatr.extensions.autofac.dependencyinjection.11.0.0.nupkg.sha512",
@@ -196,6 +197,7 @@
     "C:\\Users\\crme031\\.nuget\\packages\\runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\crme031\\.nuget\\packages\\runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\crme031\\.nuget\\packages\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
+    "C:\\Users\\crme031\\.nuget\\packages\\sammy.js\\0.7.5\\sammy.js.0.7.5.nupkg.sha512",
     "C:\\Users\\crme031\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
     "C:\\Users\\crme031\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
     "C:\\Users\\crme031\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",

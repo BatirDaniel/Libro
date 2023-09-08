@@ -59,6 +59,7 @@ namespace Libro.Presentation.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public IActionResult Error403()
         {
+            ViewBag.Title = "Status 403";
             return View("~/Views/Errors/Error403.cshtml");
         }
 
@@ -66,6 +67,7 @@ namespace Libro.Presentation.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Error404()
         {
+            ViewBag.Title = "Status 404";
             return View("~/Views/Errors/Error404.cshtml");
         }
 
@@ -73,6 +75,7 @@ namespace Libro.Presentation.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult Error500()
         {
+            ViewBag.Title = "Status 500";
             return View("~/Views/Errors/Error500.cshtml");
         }
     }

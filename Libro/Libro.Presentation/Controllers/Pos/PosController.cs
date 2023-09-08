@@ -98,11 +98,29 @@ namespace Libro.Presentation.Controllers.Pos
             return Ok(jsonData);
         }
 
+        //GET: pos details
         [HttpGet("/POS/GetPOSDetails/{posId}")]
         public async Task<IActionResult> GetPOSDetails(Guid posId)
         {
-            var result = await _mediator.Send(new GetPOSByIdQuery(posId));
+            var result = await _mediator.Send(new GetPOSDetailsQuery(posId));
             return Ok(result);
+        }
+
+        //POST: issues of the pos 
+        [HttpPost("/POS/GetIssuesOfThePOS/{posId}")]
+        public async Task<IActionResult> GetIssuesOfThePOS(DataTablesParameters param = null, string posId = null)
+        {
+            var result = await _mediator.Send(new GetIssuesOfPOSQuery(param, posId.ToString()));
+
+            var jsonData = new
+            {
+                draw = param.Draw,
+                recordsFiltered = result.Count(),
+                recordsTotal = result.Count(),
+                data = result
+            };
+
+            return Ok(jsonData);
         }
 
         //GET: /POS/GetPOSById/{posId}
@@ -134,7 +152,7 @@ namespace Libro.Presentation.Controllers.Pos
             if (!await _unitOfWork.POSs.isExists(x => x.Id == posId))
                 return ResponseResult("Invalid POS", ToastStatus.Error, "/pos");
                 
-            return View();
+            return View(await _mediator.Send(new GetPOSDetailsQuery(posId)));
         }
     }
 }

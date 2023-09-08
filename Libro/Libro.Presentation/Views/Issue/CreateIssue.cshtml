@@ -1,0 +1,105 @@
+﻿@model Libro.Business.Libra.DTOs.IssueDTOs.CreateIssueDTO
+@{
+    ViewBag.Title = "Edit user details";
+}
+<div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10 flex flex-col">
+    <nav class="flex mb-3 ml-1" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+                <a href="/dashboard" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                    <svg class="w-3 h-3 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+                    </svg>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
+                    </svg>
+                    <a href="/issues" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Issue</a>
+                </div>
+            </li>
+            <li aria-current="page">
+                <div class="flex items-center">
+                    <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
+                    </svg>
+                    <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Create</span>
+                </div>
+            </li>
+        </ol>
+    </nav>
+
+    @await Html.PartialAsync("~/Views/Issue/_ViewDetailsPOS.cshtml")
+
+    <div class="w-full max-w-screen-2xl bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6 bg-white border border-gray-200 rounded-lg shadow dark:border-gray-700 dark:bg-gray-800 mt-3">
+        <h2 class="text-xl text-gray-900 font-bold mb-4">
+            <i class="bi bi-exclamation-diamond-fill mr-3"></i>
+            Create issue for POS
+        </h2>
+
+        @using (Html.BeginForm(FormMethod.Post, new { @class = "space-y-4 md:space-y-6", @id = "issueForm" }))
+        {
+            <div class="mb-6">
+                @Html.LabelFor(m => m.IdType, "Issue Type", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                <select id="IssueType" name="IdType" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="" disabled class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">Select issue type ...</option>
+                </select>
+            </div>
+            <div class="grid gap-6 mb-6 md:grid-cols-2">
+                <div>
+                    @Html.LabelFor(m => m.IdPriority, "Priority", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                    <select id="Priority" name="IdPriority" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="" disabled class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">Select priority ...</option>
+                    </select>
+                </div>
+                <div>
+                    @Html.LabelFor(m => m.IdStatus, "Status", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                    <select id="Status" name="IdStatus" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="" disabled class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">Select status ...</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-6">
+                @Html.LabelFor(m => m.IdUsersAsigned, "Assigned To", new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
+                <select id="UsersAssigned" name="IdUsersAsigned" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></select>
+            </div>
+            <div class="mb-6">
+                @Html.LabelFor(m => m.Description, "Description", new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
+                @Html.TextAreaFor(m => m.Description, new {@class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="Write description here...", autocomplete="off" })
+                @Html.ValidationMessageFor(m => m.Description, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
+            </div>
+            <div class="mb-6">
+                @Html.LabelFor(m => m.Solution, "Solution", new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
+                @Html.TextAreaFor(m => m.Solution, new {@class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="Write description here...", autocomplete="off" })
+                @Html.ValidationMessageFor(m => m.Solution, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
+            </div>
+            <div class="mb-6">
+                @Html.LabelFor(m => m.Memo, new {@class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"})
+                @Html.TextBoxFor(m => m.Memo, new {@class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder="ex: Transaction No. 1234 cancelled", autocomplete="off" })
+                @Html.ValidationMessageFor(m => m.Memo, null, new {@class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-3"})
+            </div>
+            <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create</button>
+            </div>
+        }
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+    <script src="~/lib/jquery-datatable/DataTables-1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/jquery-datatable/Responsive-2.5.0/js/dataTables.responsive.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+
+    <script src="~/js/issue/create-issue.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+}

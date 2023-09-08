@@ -18,6 +18,7 @@ namespace Libro.DataAccess.Data
             SeedStatuses(dbContext);
             SeedIssueTypes(dbContext);
             SeedCities(dbContext);
+            SeedPriority(dbContext);
         }
 
         private static void SeedCities(ApplicationDbContext dbContext)
@@ -88,7 +89,7 @@ namespace Libro.DataAccess.Data
         }
         private static void SeedStatuses(ApplicationDbContext dbContext)
         {
-            (new List<string> { "New", "Assigned", "In progress", "Pending" })
+            (new List<string> { "New", "Assigned", "In progress", "Pending", "Solved" })
                 .ForEach(x =>
                 {
                     if (!dbContext.Statuses.Any(s => s.Status_Name == x))
@@ -97,6 +98,23 @@ namespace Libro.DataAccess.Data
                         {
                             Id = Guid.NewGuid(),
                             Status_Name = x
+                        });
+                    }
+                });
+            dbContext.SaveChanges();
+        }
+
+        private static void SeedPriority(ApplicationDbContext dbContext)
+        {
+            (new List<string> { "Normal", "Medium", "Urgent" })
+                .ForEach(x =>
+                {
+                    if (!dbContext.Priorities.Any(s => s.Name == x))
+                    {
+                        dbContext.Priorities.Add(new Priority()
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = x
                         });
                     }
                 });
