@@ -1,5 +1,5 @@
 ﻿<div class="flex flex-wrap items-center justify-between mx-auto @(User.Identity.IsAuthenticated ? "w-full" : "max-w-screen-xl")">
-    <a id="pageclick" class="flex md:mr-24">
+    <a onclick="return loadpage()" class="flex md:mr-24">
         <img src="~/Resources/pngs/bank.png" class="h-8 mr-4 ml-2" alt="Libro" />
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Libra</span>
     </a>
@@ -29,7 +29,7 @@
                         @if (@User.IsInRole("Administrator"))
                         {
                             <li>
-                                <a href="/administration/users" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white flex">
+                                <a asp-controller="Identity" asp-action="Users" onclick="return setHistory('/administration/users')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white flex">
                                     <span class="inline-flex justify-center items-center ml-1 text-blue-600 mr-3">
                                         <i class="bi bi-people-fill"></i>
                                     </span>
@@ -47,7 +47,7 @@
                             </a>
                         </li>
                         <li>
-                            <a asp-area="" asp-controller="Auth" asp-action="SignOut" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white flex">
+                            <a asp-area="" asp-controller="Auth" asp-action="SignOut" onclick="return setHistory('')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white flex">
                                 <span class="inline-flex justify-center items-center ml-1 text-blue-600 mr-3">
                                     <i class="bi bi-box-arrow-left"></i>
                                 </span>

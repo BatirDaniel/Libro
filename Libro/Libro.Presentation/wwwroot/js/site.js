@@ -1,4 +1,4 @@
-﻿//TOAST : function for displaying the toast
+﻿//function for displaying all toasts
 const showToast = (svg, message) => {
     var toastContainer = document.getElementById("toast-container");
 
@@ -33,23 +33,107 @@ const showToast = (svg, message) => {
     }
 }
 
-var app = angular.module('myApp', ['ngRoute']);
+function spaLoad(action, type, data, pushHistory) {
+    abortAjax();
+    $.ajax({
+        url: action,
+        type: type,
+        dataType: 'html',
+    }).done(function (response, status, xhr) {
+        renderPage(xhr, pushHistory);
+    }).fail(function (xhr) {
+        // unauthorized or access denied
+        if (xhr.status === 401 || xhr.status === 403) {
+            return;
+        }
 
-app.config(function ($routeProvider) {
-    $routeProvider
-        .when('/pos', {
-            templateUrl: 'pos',
-            controller: 'PosController'
-        })
-        .when('/issue', {
-            templateUrl: 'issue',
-            controller: 'IssueController'
-        })
-        .when('/administration/users', {
-            templateUrl: 'views/contact.html',
-            controller: 'IdentityController'
-        })
-        .otherwise({
-            redirectTo: '/'
-        });
+        // ignore aborted requests
+        if (xhr.status === 0 || xhr.readyState === 0) {
+            return;
+        }
+        // mark status as handled/aborted
+        xhr.status = 0;
+        renderPage(xhr, pushHistory);
+    });
+}
+
+function renderPage(xhr, pushHistory) {
+    // clear/reset js state
+    clearIntervals();
+    resetGlobalVariables();
+
+    if (pushHistory == false || pushHistory == true) {
+        // location will be null by custom asp.net error page
+        history.pushState(pushHistory);
+    }
+
+    // load document
+    if (xhr.responseText.startsWith('<!DOCTYPE html>')) {
+        // whole document is refreshed
+        var newDocument = document.open('text/html');
+        newDocument.write(xhr.responseText);
+        newDocument.close();
+    } else {
+        $('#spa-content').html(xhr.responseText);
+        // init new page
+        initControls($('#spa-content'));
+    }
+}
+
+
+// history management
+$(function () {
+    window.onpopstate = function () {
+        var action = window.location.pathname + window.location.search;
+        spaLoad(action, "GET", null, "/errors/404");
+    };
+
+    $(document).ajaxSend(function (e, xhr) {
+        xhrPool.push(xhr);
+    });
+    $(document).ajaxComplete(function (e, xhr) {
+        xhrPool = $.grep(xhrPool, function (x) { return x != xhr; });
+    });
 });
+
+var xhrPool = [];
+var abortAjax = function () {
+    $.each(xhrPool, function (idx, xhr) {
+        xhr.abort();
+    });
+};
+
+function resetGlobalVariables() {
+    window.clickCount = 0;
+    window.times = [];
+}
+
+function clearIntervals() {
+    for (var i = 0; i < window.intervals.length; i++) {
+        window.clearInterval(window.intervals[i]);
+    }
+    window.intervalsintervals = [];
+}
+
+function setHistory(term) {
+    switch (term) {
+        case "/dashboard":
+            history.pushState(null, null, term);
+            break;
+        case "/administration/users":
+            history.pushState(null, null, term);
+            break;
+        case "/pos":
+            history.pushState(null, null, term);
+            break;
+        case "/issues/add":
+            history.pushState(null, null, term);
+            break;
+        case "/issues/view":
+            history.pushState(null, null, term);
+            break;
+        case "":
+            history.pushState(null, null, term);
+            break;
+    }
+}

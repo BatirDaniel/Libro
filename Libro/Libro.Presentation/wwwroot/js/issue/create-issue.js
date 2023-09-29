@@ -1,4 +1,4 @@
-$(document).ready(function () {
+ function createIssue() {
     var pathArray = window.location.pathname.split('/');
     var posId = pathArray[pathArray.length - 1];
 
@@ -123,7 +123,7 @@ $(document).ready(function () {
             }
         });
     });
-})
+}
 
 function formatDate(inputDate) {
     const months = [

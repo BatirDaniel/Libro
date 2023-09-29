@@ -1,5 +1,4 @@
-﻿$(document).ready(function () {
-
+﻿function getIdentity() {
     //GET: users
     var table = $('#usersTable').DataTable({
         "processing": true,
@@ -31,12 +30,12 @@
                 "render": function (data, type, row) {
                     if (data === true || data === "true") {
                         return `<span class="px-4 py-1 ml-auto text-sm font-medium tracking-wide text-yellow-500 bg-yellow-100 rounded-full">
-                                  Disabled
-                                </span>`;
+                                Disabled
+                            </span>`;
                     } else {
                         return `<span class="px-4 py-1 ml-auto text-sm font-medium tracking-wide text-green-600 bg-green-200 rounded-full">
-                                  Enabled
-                                </span>`;
+                                Enabled
+                            </span>`;
                     }
                 }
             },
@@ -44,11 +43,11 @@
                 "data": null, filter: false, innerHeight: "200px", innerWidth: "200px", orderable: false,
                 "render": function (data, type, row) {
                     return `<button id="drop" class="dropdown-button text-gray-900 bg-gray-100 hover:bg-gray-200 focus:ring-4
-                                focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center 
-                                inline-flex items-center dark:focus:ring-gray-500" type="button">
-                                <i class="bi bi-three-dots"></i>
-                            </button>
-                            `;
+                            focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center 
+                            inline-flex items-center dark:focus:ring-gray-500" type="button">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                        `;
                 }
             }
         ]
@@ -70,39 +69,16 @@
                             name: 'Edit',
                             className: 'text-sm',
                             icon: 'bi bi-pencil-square',
-                            callback: function (key, options) {
 
+                            callback: function (key, options) {
                                 let row = table.row(options.$trigger.closest("tr"));
                                 let userId = row.data().Id;
 
-                                //GET: edit user page
-                                $.ajax({
-                                    url: '/user/edit/' + userId,
-                                    success: function (response) {
+                                let url = "/user/edit/" + userId;
 
-                                        window.location.href = '/user/edit/' + userId;
+                                history.pushState(null, null, url);
 
-                                        if (response.toast) {
-                                            var svg = response.toast.svg;
-                                            var message = response.toast.message;
-
-                                            showToast(svg, message)
-                                        }
-                                    },
-                                    error: function (xhr) {
-
-                                        if (xhr.redirectUrl) {
-                                            window.location.href = response.redirectUrl;
-                                        }
-
-                                        if (xhr.responseJSON && xhr.responseJSON.toast) {
-                                            var svg = xhr.responseJSON.toast.svg;
-                                            var message = xhr.responseJSON.toast.message;
-
-                                            showToast(svg, message)
-                                        }
-                                    }
-                                });
+                                spaLoad(url, "GET", null, null);
                             }
                         },
                         "delete": {
@@ -150,43 +126,18 @@
                                 })
                             }
                         },
-                        "datails": {
+                        "details": {
                             name: 'Details',
                             className: 'text-sm',
                             icon: 'bi bi-info-circle',
                             callback: function (key, options) {
-
                                 let row = table.row(options.$trigger.closest("tr"));
                                 let userId = row.data().Id;
 
-                                //GET: details user page
-                                $.ajax({
-                                    url: '/user/details/' + userId,
-                                    success: function (response) {
+                                let url = "/user/details/" + userId;
 
-                                        window.location.href = '/user/details/' + userId;
-
-                                        if (response.toast) {
-                                            var svg = response.toast.svg;
-                                            var message = response.toast.message;
-
-                                            showToast(svg, message)
-                                        }
-                                    },
-                                    error: function (xhr) {
-
-                                        if (xhr.redirectUrl) {
-                                            window.location.href = response.redirectUrl;
-                                        }
-
-                                        if (xhr.responseJSON && xhr.responseJSON.toast) {
-                                            var svg = xhr.responseJSON.toast.svg;
-                                            var message = xhr.responseJSON.toast.message;
-
-                                            showToast(svg, message)
-                                        }
-                                    }
-                                });
+                                history.pushState(null, null, url);
+                                spaLoad(url, "GET", null, null);
                             }
                         }
                     }
@@ -194,7 +145,9 @@
             }
         }
     });
+};
 
+function createUser() {
     $('#createUser').on('click', function () {
         //GET: roles
         $.ajax({
@@ -233,7 +186,7 @@
                 if (response.toast) {
                     var svg = response.toast.svg;
                     var message = response.toast.message;
-                    
+
                     showToast(svg, message)
                 }
             },
@@ -247,4 +200,4 @@
             }
         });
     })
-});
+}

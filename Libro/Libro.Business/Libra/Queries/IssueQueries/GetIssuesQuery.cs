@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Libro.Business.Libra.Queries.IssueQueries
 {
-    public class GetIssuesQuery : IRequest<List<IssueDTO>>
+    public class GetIssuesQuery : IRequest<List<IssueR_DTO>>
     {
         public DataTablesParameters? Param { get; set; }
 

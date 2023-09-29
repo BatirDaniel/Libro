@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Libro.Business.Libra.Handlers.QueryHandlers.IssueQueriesHandlers
 {
-    public class GetIssuesHandler : IRequestHandler<GetIssuesQuery, List<IssueDTO>>
+    public class GetIssuesHandler : IRequestHandler<GetIssuesQuery, List<IssueR_DTO>>
     {
         public IssueManager _issueManager;
         public ILogger<GetIssuesHandler> _logger;
@@ -22,7 +22,7 @@ namespace Libro.Business.Libra.Handlers.QueryHandlers.IssueQueriesHandlers
             _logger = logger;
         }
 
-        public async Task<List<IssueDTO>> Handle(GetIssuesQuery request, CancellationToken cancellationToken)
+        public async Task<List<IssueR_DTO>> Handle(GetIssuesQuery request, CancellationToken cancellationToken)
         {
             return await _issueManager.GetIssues(request.Param);
         }

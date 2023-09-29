@@ -1,5 +1,4 @@
-$(document).ready(function () {
-
+function getIssue() {
     var table = $('#possTable').DataTable({
         "processing": true,
         "serverSide": true,
@@ -49,7 +48,7 @@ $(document).ready(function () {
 
                 return {
                     items: {
-                        "edit": {
+                        "create": {
                             name: 'Create issue',
                             className: 'text-sm',
                             icon: 'bi bi-pencil-square',
@@ -58,12 +57,15 @@ $(document).ready(function () {
                                 let row = table.row(options.$trigger.closest("tr"));
                                 let posId = row.data().Id;
 
+                                let url = '/issue/create/' + posId;
+
                                 //GET: create issue page
                                 $.ajax({
-                                    url: '/issue/create/' + posId,
+                                    url: url,
                                     success: function (response) {
 
-                                        window.location.href = '/issue/create/' + posId;
+                                        history.replaceState(null, null, url);
+                                        spaLoad(url, "GET", null, null);
 
                                         if (response.toast) {
                                             var svg = response.toast.svg;
@@ -75,7 +77,8 @@ $(document).ready(function () {
                                     error: function (xhr) {
 
                                         if (xhr.redirectUrl) {
-                                            window.location.href = response.redirectUrl;
+                                            history.pushState(null, null, xhr.redirectUrl);
+                                            spaLoad(xhr.redirectUrl, "GET", null, null);
                                         }
 
                                         if (xhr.responseJSON && xhr.responseJSON.toast) {
@@ -96,12 +99,14 @@ $(document).ready(function () {
 
                                 let row = table.row(options.$trigger.closest("tr"));
                                 let posId = row.data().Id;
+                                let url = '/pos/edit/' + posId;
 
                                 $.ajax({
-                                    url: '/pos/edit/' + posId,
+                                    url: url,
                                     success: function (response) {
 
-                                        window.location.href = '/pos/details/' + posId;
+                                        history.replaceState(null, null, url);
+                                        spaLoad(url, "GET", null, null);
 
                                         if (response.toast) {
                                             var svg = response.toast.svg;
@@ -113,7 +118,8 @@ $(document).ready(function () {
                                     error: function (xhr) {
 
                                         if (xhr.redirectUrl) {
-                                            window.location.href = response.redirectUrl;
+                                            history.pushState(null, null, xhr.redirectUrl);
+                                            spaLoad(xhr.redirectUrl, "GET", null, null);
                                         }
 
                                         if (xhr.responseJSON && xhr.responseJSON.toast) {
@@ -131,4 +137,6 @@ $(document).ready(function () {
             }
         }
     });
-});
+}
+
+    

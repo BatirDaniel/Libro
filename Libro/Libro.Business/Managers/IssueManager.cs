@@ -121,39 +121,51 @@ namespace Libro.Business.Managers
             return result;
         }
 
-        public Task<List<IssueDTO>> GetIssues(DataTablesParameters? param)
+        public async Task<List<IssueR_DTO>> GetIssues(DataTablesParameters? param)
         {
-            string searchValue = param.Search.Value?.ToLower();
-            Expression<Func<Issue, bool>> expression = null;
+            string? searchTerm = param.Search.Value?.ToLower();
+            IQueryable<Issue> issueQuery = _context.Issues
+                .Include(x => x.User)
+                .Include(x => x.IssueTypes)
+                .Include(x => x.Status)
+                .Include(x => x.Priority)
+                .Include(x => x.UsersAssigned);
 
-            if (!string.IsNullOrEmpty(searchValue))
+            if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                expression = q => q.Pos.Name.Contains(searchValue)
-                || q.User.Id.Contains(searchValue)
-                || q.CreationDate.ToString().Contains(searchValue)
-                || q.IssueTypes.Name.Contains(searchValue)
-                || q.Status.Status_Name.Contains(searchValue)
-                || q.Priority.Name.Contains(searchValue);
+                issueQuery = issueQuery.Where(x => x.Pos.Name.Contains(searchTerm)
+                || x.User.UserName.Contains(searchTerm)
+                || x.CreationDate.ToString("dd/mm/yyyy").Contains(searchTerm)
+                || x.IssueTypes.Name.Contains(searchTerm)
+                || x.Status.Status_Name.Contains(searchTerm)
+                || x.UsersAssigned.Name.Contains(searchTerm)
+                || x.Memo.Contains(searchTerm)
+                || x.Priority.Name.Contains(searchTerm));
             }
 
-            var issues = _context.Issues
-               .Where(expression)
-               .OrderByExtension(param.Columns[param.Order[0].Column].Name, param.Order[0].Dir)
-               .Skip(param.Start)
-               .Take(param.Length)
-               .Select(x => new IssueDTO
-               {
-                   Id = x.Id,
-                   POSName = x.Pos.Name,
-                   CreatedBy = x.User.Name,
-                   CreationDate = x.CreationDate,
-                   IssueType = x.IssueTypes.Name,
-                   Status = x.Status.Status_Name,
-                   Memo = x.Memo,
-                   Priority = x.Priority.Name
-               }).ToList();
+            if (param.Order[0].Dir == "desc")
+            {
+                issueQuery = issueQuery.OrderByDescending(GetSortPropertyIssue(param));
+            }
+            else
+            {
+                issueQuery = issueQuery.OrderBy(GetSortPropertyIssue(param));
+            }
 
-            return Task.FromResult(issues);
+            var result = await issueQuery.Select(x => new IssueR_DTO
+               (
+                   x.Id,
+                   x.Pos.Name,
+                   x.User.Name,
+                   x.CreationDate,
+                   x.IssueTypes.Name,
+                   x.Status.Status_Name,
+                   x.UsersAssigned.Name,
+                   x.Memo,
+                   x.Priority.Name
+               )).ToListAsync();
+
+            return result;
         }
 
         public async Task<List<POSsForIssuesDTO>> GetPOSsForIssues(DataTablesParameters? param)
@@ -172,11 +184,11 @@ namespace Libro.Business.Managers
 
             if (param.Order[0].Dir == "desc")
             {
-                posQuery = posQuery.OrderByDescending(GetSortProperty(param));
+                posQuery = posQuery.OrderByDescending(GetSortPropertyPOS(param));
             }
             else
             {
-                posQuery = posQuery.OrderBy(GetSortProperty(param));
+                posQuery = posQuery.OrderBy(GetSortPropertyPOS(param));
             }
 
             var result = await posQuery.Select(x => new POSsForIssuesDTO (
@@ -188,17 +200,6 @@ namespace Libro.Business.Managers
 
             return result;
         }
-
-        private static Expression<Func<Pos, object>> GetSortProperty(DataTablesParameters request) =>
-            request.Columns[request.Order[0].Column].Data.ToLower() switch
-            {
-                "name" => pos => pos.Name,
-                "telephone" => pos => pos.Telephone,
-                "cellphone" => pos => pos.Cellphone,
-                "address" => pos => pos.Address,
-                _ => pos => pos.Id
-            };
-
         public List<UsersForIssue> GetUsersForIssue()
         {
             var roles = _roleManager.Roles
@@ -208,5 +209,28 @@ namespace Libro.Business.Managers
 
             return roles;
         }
+
+        private static Expression<Func<Pos, object>> GetSortPropertyPOS(DataTablesParameters request) =>
+            request.Columns[request.Order[0].Column].Data.ToLower() switch
+            {
+                "name" => pos => pos.Name,
+                "telephone" => pos => pos.Telephone,
+                "cellphone" => pos => pos.Cellphone,
+                "address" => pos => pos.Address,
+                _ => pos => pos.Id
+            };
+        private static Expression<Func<Issue, object>> GetSortPropertyIssue(DataTablesParameters request) =>
+            request.Columns[request.Order[0].Column].Data.ToLower() switch
+            {
+                "POSName" => issue => issue.Pos.Name,
+                "CreatedBy" => issue => issue.User.UserName,
+                "CreationDate" => issue => issue.CreationDate,
+                "IssueType" => issue => issue.IssueTypes.Name,
+                "Status" => issue => issue.Status.Status_Name,
+                "" => issue => issue.UsersAssigned.Name,
+                "Memo" => issue => issue.Memo,
+                "Priority" => issue => issue.Priority.Name,
+                _ => issue => issue.Id
+            };
     }
 }

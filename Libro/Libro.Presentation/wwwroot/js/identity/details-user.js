@@ -1,4 +1,4 @@
-$(document).ready(function () {
+function getUserDetails() {
     var pathArray = window.location.pathname.split('/');
     var userId = pathArray[pathArray.length - 1];
 
@@ -18,4 +18,4 @@ $(document).ready(function () {
             $('#issuesCreated').html(response.NumberOfIssuesAdded)
         }
     });
-})
+}

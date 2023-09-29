@@ -1,3 +1,4 @@
+using AjaxSpaMvcCore.Middlewares;
 using Autofac.Core;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -20,6 +21,7 @@ using Libro.Infrastructure.Persistence.SystemConfiguration;
 using Libro.Infrastructure.Persistence.SystemConfiguration.AppSettings;
 using Libro.Infrastructure.Services.ToastService;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -98,6 +100,11 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddRazorPages();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddSpaStaticFiles(configuration =>
+{
+    configuration.RootPath = "wwwroot";
+});
+
 builder.Services.AddTransient<IDBDesigner, DBDesigner>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IToastService, ToastService>();
@@ -166,5 +173,19 @@ app.UseEndpoints(endpoints =>
     endpoints.MapRazorPages();
     endpoints.MapControllers();
 });
+
+app.UseAjaxSpa();
+
+// Middleware to handle all request
+//app.Use(async (context, next) =>
+//{
+//    await next();
+//    if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+//    {
+//        context.Request.Path = "";
+//        context.Response.StatusCode = 200;
+//        await next();
+//    }
+//});
 
 app.Run();

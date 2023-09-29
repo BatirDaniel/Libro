@@ -1,6 +1,6 @@
 ﻿<ul class="space-y-2 font-medium">
     <li>
-        <a href="/pos" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+        <a asp-controller="Analytics" asp-action="Dashboard" onclick="return setHistory('/dashboard')" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
             <span class="w-5 h-5 transition duration-75 text-blue-600 mb-1">
                 <i class="bi bi-pie-chart-fill"></i>
             </span>
@@ -8,7 +8,7 @@
         </a>
     </li>
     <li>
-        <a asp-controller="Pos" asp-action="Pos" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+        <a asp-controller="Pos" asp-action="Pos" onclick="return setHistory('/pos')" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
             <span class="w-5 h-5 transition duration-75 text-blue-600 mb-1">
                 <i class="bi bi-currency-exchange"></i>
             </span>
@@ -16,7 +16,7 @@
         </a>
     </li>
     <li>
-        <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+        <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown" data-collapse-toggle="dropdown">
             <span class="w-5 h-5 transition duration-75 text-blue-600 mb-1">
                 <i class="bi bi-person-fill-exclamation"></i>
             </span>
@@ -25,9 +25,9 @@
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
             </svg>
         </button>
-        <ul id="dropdown-example" class="hidden py-2 space-y-2">
+        <ul id="dropdown" class="hidden py-2 space-y-2">
             <li>
-                <a asp-controller="Issue" asp-action="Issue" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                <a asp-controller="Issue" asp-action="AddIssue" onclick="return setHistory('/issues/add')"  class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                     <span class="w-5 h-5 transition duration-75 text-blue-600 mb-1">
                         <i class="bi bi-plus-square-fill"></i>
                     </span>
@@ -35,7 +35,7 @@
                  </a>
             </li>
             <li>
-                <a asp-controller="Issue" asp-action="Issue" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                <a asp-controller="Issue" asp-action="ViewIssues" onclick="return setHistory('/issues/view')" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                     <span class="w-5 h-5 transition duration-75 text-blue-600 mb-1">
                         <i class="bi bi-card-list"></i>
                     </span>

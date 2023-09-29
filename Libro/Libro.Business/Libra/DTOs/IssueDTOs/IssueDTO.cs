@@ -1,22 +1,25 @@
-﻿using Libro.DataAccess.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Libro.Business.Libra.DTOs.IssueDTOs
+﻿namespace Libro.Business.Libra.DTOs.IssueDTOs
 {
-    public class IssueDTO
-    {
-        public Guid Id { get; set; }
-        public string POSName { get; set; }
-        public string CreatedBy { get; set; }
-        public DateTime CreationDate { get; set; }
-        public string IssueType { get; set; }
-        public string Status { get; set; }
-        public string AssignedTo { get; set; }
-        public string? Memo { get; set; }
-        public string Priority { get; set; }
+    public record IssueR_DTO(
+        Guid Id,
+        string POSName,
+        string CreatedBy,
+        DateTime CreationDate,
+        string IssueType,
+        string Status,
+        string AssignedTo,
+        string? Memo,
+        string Priority);
+
+    public class IssueDTO {
+        public Guid Id;
+        public string POSName;
+        public string CreatedBy;
+        public DateTime CreationDate;
+        public string IssueType;
+        public string Status;
+        public string AssignedTo;
+        public string? Memo;
+        public string Priority;
     }
 }

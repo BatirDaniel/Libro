@@ -236,5 +236,29 @@ namespace Libro.Business.Managers
                 "memo" => issue => issue.Memo,
                 _ => issue => issue.Id 
             };
+
+        public async Task<DetailsPOSDTO> GetPOSByIssue(Guid id)
+        {
+            var issue = (await _unitOfWork.Issues.Find<Issue>(
+                where: x => x.Id == id,
+                include: x => x
+                    .Include(i => i.Pos))).FirstOrDefault();
+
+            var pos = (await _unitOfWork.POSs.Find<DetailsPOSDTO>(
+                where: x => x.Id == issue.IdPos,
+                include: x => x
+                    .Include(i => i.City)
+                    .Include(i => i.ConnectionType),
+                select: x => _mapperly.MapPosToPosDetails(x)))
+                .FirstOrDefault();
+
+            pos.City.Name = (await _unitOfWork.Cities.Find<City>(
+                 where: x => x.Id == pos.City.Id)).FirstOrDefault()?.CityName;
+
+            pos.ConnectionType.Type = (await _unitOfWork.ConnectionTypes.Find<ConnectionTypes>(
+                where: x => x.Id == pos.ConnectionType.Id)).FirstOrDefault()?.ConnectionType;
+
+            return pos;
+        }
     }
 }

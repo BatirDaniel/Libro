@@ -1,4 +1,4 @@
-$(document).ready(function () {
+function updatePOSDetails() {
     var pathArray = window.location.pathname.split('/');
     var posId = pathArray[pathArray.length - 1];
 
@@ -133,4 +133,4 @@ $(document).ready(function () {
             });
         }
     });
-});
+}

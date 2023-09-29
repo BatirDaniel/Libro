@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+﻿function getPosDetails() {
     var pathArray = window.location.pathname.split('/');
     var posId = pathArray[pathArray.length - 1];
 
@@ -23,6 +23,7 @@
         }
     });
 
+    // Load table with issues
     $('#issuesTable').DataTable({
         "processing": true,
         "serverSide": true,
@@ -30,9 +31,6 @@
         "ajax": {
             url: "/POS/GetIssuesOfThePOS/" + posId,
             type: "POST",
-            data: function (d) {
-                d.search.value = $('#searchBox').val();
-            }
         },
         "language": {
             "emptyTable": "No record found.",
@@ -53,41 +51,42 @@
                     return `<button id="drop" class="dropdown-button text-gray-900 bg-gray-100 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500" type="button"><i class="bi bi-three-dots"></i></button>`;
                 }
             }
-        ],
-        "order": [[3, 'desc']],
-        "searching": true
+        ]
     });
-})
 
-function convertTo12HourFormat(time) {
-    const [hour, minute] = time.split(':');
-    let period = 'AM';
-    let hour12 = parseInt(hour);
+    ///MUST TO DO: context menu for issues table
 
-    if (hour12 >= 12) {
-        period = 'PM';
-        if (hour12 > 12) {
-            hour12 -= 12;
+    function convertTo12HourFormat(time) {
+        const [hour, minute] = time.split(':');
+        let period = 'AM';
+        let hour12 = parseInt(hour);
+
+        if (hour12 >= 12) {
+            period = 'PM';
+            if (hour12 > 12) {
+                hour12 -= 12;
+            }
         }
+
+        return `${hour12}:${minute} ${period}`;
     }
 
-    return `${hour12}:${minute} ${period}`;
-}
+    //Convert DateTime with custom function
+    function formatDate(inputDate) {
+        const months = [
+            'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+        ];
 
-function formatDate(inputDate) {
-    const months = [
-        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-    ];
+        const dateParts = inputDate.split('T')[0].split('-');
+        const year = parseInt(dateParts[0]);
+        const month = parseInt(dateParts[1]);
+        const day = parseInt(dateParts[2]);
 
-    const dateParts = inputDate.split('T')[0].split('-');
-    const year = parseInt(dateParts[0]);
-    const month = parseInt(dateParts[1]);
-    const day = parseInt(dateParts[2]);
+        if (isNaN(year) || isNaN(month) || isNaN(day)) {
+            return 'Invalid Date';
+        }
 
-    if (isNaN(year) || isNaN(month) || isNaN(day)) {
-        return 'Invalid Date';
+        return `${day} ${months[month - 1]} ${year}`;
     }
-
-    return `${day} ${months[month - 1]} ${year}`;
 }

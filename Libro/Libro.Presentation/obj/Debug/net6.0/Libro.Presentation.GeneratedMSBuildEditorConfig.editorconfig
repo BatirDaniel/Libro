@@ -68,12 +68,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW1wb3J0c1xfVmFsaWRhdGlvblNjcmlwdHNQYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Issue/CreateIssue.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSXNzdWVcQ3JlYXRlSXNzdWUuY3NodG1s
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Issue/AddIssue.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSXNzdWVcQWRkSXNzdWUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Issue/Issue.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSXNzdWVcSXNzdWUuY3NodG1s
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Issue/DetailsIssue.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSXNzdWVcRGV0YWlsc0lzc3VlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Issue/EditIssue.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSXNzdWVcRWRpdElzc3VlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Issue/ViewIssues.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSXNzdWVcVmlld0lzc3Vlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/crme031/Desktop/Libro/Libro/Libro.Presentation/Views/Issue/_ViewDetailsPOS.cshtml]

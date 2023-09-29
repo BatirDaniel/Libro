@@ -98,6 +98,17 @@ namespace Libro.Presentation.Controllers.Pos
             return Ok(jsonData);
         }
 
+        //GET: /POS/GetPOSDetailsByIssue
+        [HttpGet("/POS/GetPOSDetailsByIssue/{id}")]
+        public async Task<IActionResult> GetPOSDetailsByIssue(Guid id)
+        {
+            if (!_unitOfWork.Issues.isExists(x => x.Id == id).Result)
+                return ResponseResult("Invalid issue", ToastStatus.Error, "/issues/view");
+
+            var result = await _mediator.Send(new GetPOSDetailsByIssueQuery(id));
+            return Ok(result);
+        }
+
         //GET: pos details
         [HttpGet("/POS/GetPOSDetails/{posId}")]
         public async Task<IActionResult> GetPOSDetails(Guid posId)

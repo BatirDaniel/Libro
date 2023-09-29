@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
 using Libro.Business.Libra.DTOs.IdentityDTOs;
+using Microsoft.AspNetCore.Identity;
 using System.Text.RegularExpressions;
+using System.Web.WebPages;
 
 namespace Libro.Business.Libra.DTOs.Validators.IdentityValidators
 {
@@ -27,14 +29,17 @@ namespace Libro.Business.Libra.DTOs.Validators.IdentityValidators
                 .NotEmpty().WithMessage("Email cannot be empty")
                 .Matches(new Regex(@"^[a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$")).WithMessage("Email is incorrect");
 
-            RuleFor(x => x.Password)
+            if(RuleFor(x => x.Password.IsEmpty()) == null)
+            {
+                RuleFor(x => x.Password)
                 .MinimumLength(8).WithMessage("Password must be at least 8 characters long.")
                 .Matches(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).*$")
                 .WithMessage("Password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character.");
 
-            RuleFor(x => x.ConfirmPassword)
-                .Equal(x => x.Password)
-                .WithMessage("Confirm password must match the password.");
+                RuleFor(x => x.ConfirmPassword)
+                    .Equal(x => x.Password)
+                    .WithMessage("Confirm password must match the password.");
+            }
 
             RuleFor(x => x.Telephone)
                .MinimumLength(10).WithMessage("PhoneNumber must not be less than 10 characters.")

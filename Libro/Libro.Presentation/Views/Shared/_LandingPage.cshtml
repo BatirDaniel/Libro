@@ -40,11 +40,12 @@
                     </div>
                 </aside>
             }
-            <div class="relative w-full h-full bg-gray-50 dark:bg-gray-900 mt-14 @(isAuth ? "p-4 sm:ml-64" : "")">
-                <main id="main-content" role="main" class="animate-fadeInDown">
-                    <!-- Main content here -->
-                    @RenderBody()
-                    @await Html.PartialAsync("~/Views/Toast/_PartialToast.cshtml")
+            <div class="relative w-full h-full bg-gray-50 dark:bg-gray-900 mt-14">
+                    <main id="main-content" role="main" class="animate-fadeInDown @(isAuth ? "p-4 sm:ml-64" : "")">
+                        <!-- Main content here -->
+                        <ajax-spa render-body="@RenderBody()">
+                            @await Html.PartialAsync("~/Views/Toast/_PartialToast.cshtml")
+                        </ajax-spa>
                 </main>
             </div>
         </div>
@@ -56,11 +57,35 @@
     </div>
 }
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
-    <script src="~/angularjs/angular-route.js" asp-append-version="true"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+        <script src="~/lib/jquery-datatable/DataTables-1.13.6/js/jquery.dataTables.min.js"></script>
+        <script src="~/lib/jquery-datatable/Responsive-2.5.0/js/dataTables.responsive.min.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+
+        @*Resources for SPA(single page application)*@
+        <script src="~/AjaxSpaResource/js/core.js"></script>
+        <script src="~/AjaxSpaResource/js/spa.js"></script>
+
+        <script src="~/js/identity/update-user.js"></script>
+        <script src="~/js/pos/update-pos.js"></script>
+        <script src="~/js/issue/viewissues.js"></script>
+        <script src="~/js/issue/issue.js"></script>
+        <script src="~/js/pos/pos.js"></script>
+        <script src="~/js/identity/identity.js"></script>
+        <script src="~/js/identity/details-user.js"></script>
+        <script src="~/js/pos/details-pos.js"></script>
+        <script src="~/js/issue/create-issue.js"></script>
+        <script src="~/js/issue/details-issue.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

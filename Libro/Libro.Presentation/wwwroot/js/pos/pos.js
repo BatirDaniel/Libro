@@ -1,4 +1,4 @@
-$(document).ready(function () {
+function getPOSs() {
     //TABLE: POSs
     var table = $('#possTable').DataTable({
         "processing": true,
@@ -27,7 +27,7 @@ $(document).ready(function () {
                 "render": function (data, type, row) {
                     if (data != 0) {
                         return `<span class="px-4 py-1 ml-auto text-sm font-medium tracking-wide text-red-500 bg-red-100 rounded-full">`
-                                    + data +` active issues
+                            + data + ` active issues
                                 </span>`;
                     } else {
                         return `<span class="px-4 py-1 ml-auto text-sm font-medium tracking-wide text-green-600 bg-green-200 rounded-full">
@@ -67,16 +67,17 @@ $(document).ready(function () {
                             className: 'text-sm',
                             icon: 'bi bi-pencil-square',
                             callback: function (key, options) {
-
                                 let row = table.row(options.$trigger.closest("tr"));
                                 let posId = row.data().Id;
+                                let url = '/pos/edit/' + posId;
 
                                 //GET: edit pos page
                                 $.ajax({
-                                    url: '/pos/edit/' + posId,
+                                    url: url,
                                     success: function (response) {
 
-                                        window.location.href = '/pos/edit/' + posId;
+                                        history.replaceState(null, null, url);
+                                        spaLoad(url, "GET", null, null);
 
                                         if (response.toast) {
                                             var svg = response.toast.svg;
@@ -148,7 +149,7 @@ $(document).ready(function () {
                                 })
                             }
                         },
-                        "datails": {
+                        "details": {
                             name: 'Details',
                             className: 'text-sm',
                             icon: 'bi bi-info-circle',
@@ -156,12 +157,13 @@ $(document).ready(function () {
 
                                 let row = table.row(options.$trigger.closest("tr"));
                                 let posId = row.data().Id;
+                                let url = '/pos/details/' + posId;
 
                                 $.ajax({
-                                    url: '/pos/edit/' + posId,
+                                    url: url,
                                     success: function (response) {
-
-                                        window.location.href = '/pos/details/' + posId;
+                                        history.replaceState(null, null, url);
+                                        spaLoad(url, "GET", null, null);
 
                                         if (response.toast) {
                                             var svg = response.toast.svg;
@@ -191,7 +193,9 @@ $(document).ready(function () {
             }
         }
     });
+}
 
+function createPOS() {
     $('#createPOS').on('click', function () {
         //GET: cities
         $.ajax({
@@ -269,4 +273,4 @@ $(document).ready(function () {
             }
         });
     });
-})
+}

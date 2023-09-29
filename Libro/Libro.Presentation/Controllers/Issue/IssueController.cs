@@ -13,6 +13,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Libro.Presentation.Controllers.Issue
 {
@@ -86,13 +87,11 @@ namespace Libro.Presentation.Controllers.Issue
         public async Task<IActionResult> GetIssues(DataTablesParameters param = null)
         {
             var result = await _mediator.Send(new GetIssuesQuery(param));
-            var totalRecords = _context.Issues.ToList().Count();
-
             var jsonData = new
             {
                 draw = param.Draw,
                 recordsFiltered = result.Count(),
-                recordsTotal = totalRecords,
+                recordsTotal = result.Count(),
                 data = result
             };
 
@@ -131,17 +130,32 @@ namespace Libro.Presentation.Controllers.Issue
             return Ok(result);
         }
 
-        [Route("issue/create/{posId}")]
-        public async Task<IActionResult> CreateIssue(Guid posId)
+        [Route("issue/update/{id}")]
+        public async Task<IActionResult> UpdateIssue(Guid id)
         {
-            if (!await _unitOfWork.POSs.isExists(x => x.Id == posId))
-                return ResponseResult("Invalid POS", ToastStatus.Error, "/pos");
+            if (!await _unitOfWork.POSs.isExists(x => x.Id == id))
+                return ResponseResult("Invalid issue", ToastStatus.Error, "/issues/view");
 
             return View();
         }
 
-        [Route("issue")]
-        public IActionResult Issue()
+        [Route("issue/details/{id}")]
+        public async Task<IActionResult> DetailsIssue(Guid id)
+        {
+            if (!await _unitOfWork.Issues.isExists(x => x.Id == id))
+                return ResponseResult("Invalid issue", ToastStatus.Error, "/issues/view");
+
+            return View();
+        }
+
+        [Route("issues/add")]
+        public ActionResult AddIssue(CreateIssueDTO model)
+        {
+            return View(model);
+        }
+
+        [Route("issues/view")]
+        public ActionResult ViewIssues()
         {
             return View();
         }

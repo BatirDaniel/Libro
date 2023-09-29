@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "nrThZQWhDk7SmUQWCnVJDx6sp3/XMb+Uzo/pI2+/4PA=",
+  "Hash": "4jvlb0BFuz4HCoW+ElDD/oPiwKdEWjMc1Jqu8Z54sHA=",
   "Source": "Libro.Presentation",
   "BasePath": "_content/Libro.Presentation",
   "Mode": "Default",
@@ -663,23 +663,6 @@
       "OriginalItemSpec": "wwwroot\\js\\analytics.js"
     },
     {
-      "Identity": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\angularjs\\angular-route.js",
-      "SourceId": "Libro.Presentation",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\",
-      "BasePath": "_content/Libro.Presentation",
-      "RelativePath": "js/angularjs/angular-route.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\angularjs\\angular-route.js"
-    },
-    {
       "Identity": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\bootstrap-js\\bootstrap.bundle.js",
       "SourceId": "Libro.Presentation",
       "SourceType": "Discovered",
@@ -969,6 +952,23 @@
       "OriginalItemSpec": "wwwroot\\js\\issue\\create-issue.js"
     },
     {
+      "Identity": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\issue\\details-issue.js",
+      "SourceId": "Libro.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\",
+      "BasePath": "_content/Libro.Presentation",
+      "RelativePath": "js/issue/details-issue.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\issue\\details-issue.js"
+    },
+    {
       "Identity": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\issue\\issue.js",
       "SourceId": "Libro.Presentation",
       "SourceType": "Discovered",
@@ -984,6 +984,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\issue\\issue.js"
+    },
+    {
+      "Identity": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\issue\\logs.js",
+      "SourceId": "Libro.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\",
+      "BasePath": "_content/Libro.Presentation",
+      "RelativePath": "js/issue/logs.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\issue\\logs.js"
+    },
+    {
+      "Identity": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\issue\\viewissues.js",
+      "SourceId": "Libro.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\",
+      "BasePath": "_content/Libro.Presentation",
+      "RelativePath": "js/issue/viewissues.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\issue\\viewissues.js"
     },
     {
       "Identity": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\pos\\details-pos.js",
@@ -1035,23 +1069,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\pos\\update-pos.js"
-    },
-    {
-      "Identity": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\sammy.js",
-      "SourceId": "Libro.Presentation",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\",
-      "BasePath": "_content/Libro.Presentation",
-      "RelativePath": "js/sammy.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\sammy.js"
     },
     {
       "Identity": "C:\\Users\\crme031\\Desktop\\Libro\\Libro\\Libro.Presentation\\wwwroot\\js\\site.js",

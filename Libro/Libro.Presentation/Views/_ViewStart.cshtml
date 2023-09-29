@@ -1,3 +1,5 @@
-﻿@{
-    Layout = "_LandingPage";
+﻿@using AjaxSpaMvcCore
+@{
+    Layout = await Context.Request.ApplyLayoutAsync("~/Views/Shared/_LandingPage.cshtml");
+
 }

@@ -116,24 +116,24 @@ namespace Libro.Presentation.Controllers.User
 
         //VIEW ROUTE: /administration/users
         [Route("administration/users")]
-        public IActionResult Users()
+        public ActionResult Users()
         {
             return View();
         }
 
-        [Route("user/edit/{userId}")]
-        public async Task<IActionResult> UpdateUser(Guid userId)
+        [Route("user/edit/{id}")]
+        public async Task<IActionResult> UpdateUser(Guid id)
         {
-            if (!await _unitOfWork.Users.isExists(x => x.Id == userId.ToString()))
+            if (!await _unitOfWork.Users.isExists(x => x.Id == id.ToString()))
                 return ResponseResult("Invalid user", ToastStatus.Error, "/administration/users");
 
             return View();
         }
 
-        [Route("user/details/{userId}")]
-        public async Task<IActionResult> DetailsUser(Guid userId)
+        [Route("user/details/{id}")]
+        public async Task<IActionResult> DetailsUser(Guid id)
         {
-            if (!await _unitOfWork.Users.isExists(x => x.Id == userId.ToString()))
+            if (!await _unitOfWork.Users.isExists(x => x.Id == id.ToString()))
                 return ResponseResult("Invalid user", ToastStatus.Error, "/administration/users");
 
             return View();

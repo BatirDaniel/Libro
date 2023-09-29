@@ -1,9 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Libro",
-    "\\Libro\\Libro.Business"
+    ""
   ],
-  "SelectedNode": "\\Libro\\Libro.Business\\Libro.Business.csproj",
+  "SelectedNode": "\\Libro.sln",
   "PreviewInSolutionExplorer": false
 }
